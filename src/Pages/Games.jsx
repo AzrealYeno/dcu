@@ -2,6 +2,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { collection, getDocs } from "firebase/firestore";
 import {db} from '../firebase';
 import { useState, useEffect } from 'react';
+import { appConfig } from '../config';
 
 const Games = () => {
     
@@ -11,13 +12,13 @@ const Games = () => {
  
     const fetchPost = async () => {
        
-        await getDocs(collection(db, "games"))
+        await getDocs(collection(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games"))
             .then((querySnapshot)=>{               
                 const newData = querySnapshot.docs
                     .map((doc) => ({...doc.data(), id:doc.id }));
                 setGames(newData);                
                 console.log(games, newData);
-            })
+            });
        
     }
    
@@ -35,16 +36,25 @@ const Games = () => {
             <li>
                 <NavLink to="/">Home</NavLink>
             </li>
+
+
           
           
         </header>
 
+        
+
         <div className="games-content">
             {
                 games?.map((game,i)=>(
-                    <p key={i}>
-                        {game.Name}
-                    </p>
+                    <div key={i}>
+                        
+                        <Link to={`/games/${game.id}`}>
+                            <div className="btn">{game.name}</div>
+                        </Link>
+                        <div>{game.info}</div>
+                    </div>
+                    
                 ))
             }
         </div>

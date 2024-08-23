@@ -1,0 +1,1 @@
+export const empireIds = ["chimera","pegasus","phoenix","shinobi"];

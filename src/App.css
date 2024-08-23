@@ -1,5 +1,10 @@
 .App {
   text-align: center;
+  /* background-image: url("buwan_ng_wika.jpg");
+  background-repeat: no-repeat;
+  background-size: 1370px 679px; */
+  background-color: wheat;
+  min-height: 100vh;
 }
 
 .App-logo {
@@ -14,17 +19,12 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-  background-image: url("buwan_ng_wika.jpg");
-  background-repeat: no-repeat;
-  background-size: 1370px 679px;
 }
 
 .App-link {
@@ -38,4 +38,20 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+/* Games */
+/* .games-content {
+  display: grid;
+  grid-template-columns: 20px 1fr 20px;
+  
+} */
+
+.games-content {
+  max-width: 100%;
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(4, calc(25% - 40px));
+  grid-template-rows: minmax(150px, 1fr);
+  padding: 0 20px;
 }
