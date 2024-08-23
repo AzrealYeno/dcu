@@ -1,28 +1,17 @@
-import logo from './logo.svg';
+import { Routes,Route } from 'react-router-dom';
 import './App.css';
-
+import Home from './Pages/Home';
+import Games from './Pages/Games';
 
 
 function App() {
   return (
-    <div className="App">
-      
-      <header className="App-header">
-        
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          DCU <code>HUB</code> TESTING RAAAWR.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          TEST LINK MUGANA SYA RAWR
-        </a>
-      </header>
-    </div>
+    <>
+    <Routes>
+      <Route path="/" element={<Home/>}/>
+      <Route path="/games" element={<Games/>}/>
+    </Routes>
+    </>
   );
 }
 
