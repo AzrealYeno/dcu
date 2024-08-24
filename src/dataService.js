@@ -1,7 +1,7 @@
 import { onSnapshot } from "firebase/firestore";
 import { db } from './firebase';
 import { appConfig } from './config';
-import { collection, doc, getDocs } from "firebase/firestore";
+import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { empireIds, empires, medals } from './constants';
 
 export const streamGame = (gameid, snapshot) => {
@@ -55,6 +55,14 @@ export const getEventsByYear = async (year) =>  {
             .map((doc) => ({...doc.data(), id:doc.id }))
     });
 };
+
+export const getAwards = async (event, year) =>
+{
+    return getDoc(doc(db, "events/" + event + "/years/" + year))
+    .then((snapshot)=>{                       
+        return snapshot.data();
+    });
+}
 
 export const getYearsByEvent = async (event) =>  {
     return getDocs(collection(db, "events/" + event + "/years"))

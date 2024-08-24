@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { empires } from "../constants";
 import './Empire.css';
 import { appConfig } from "../config";
-import { getEventsByYear, getYearsByEvent } from "../dataService";
+import { getEventsByYear, getYearsByEvent, getAwards } from "../dataService";
 import { useState, useEffect } from 'react';
 
 
@@ -16,6 +16,8 @@ const Empire = () => {
 
     const [events, setEvents] = useState([]); 
     const [event, setEvent] = useState(appConfig.currentEvent); 
+
+    const [awards, setAwards] = useState(""); 
 
 
     useEffect(()=>{
@@ -34,6 +36,15 @@ const Empire = () => {
          }
          fetchEvents();
     }, [year, setEvents]);
+
+    useEffect(()=>{
+        const fetchAwards = async () => {
+            const awards = await getAwards(event, year);
+            console.log(awards);
+            setAwards(awards.awards);                
+         }
+         fetchAwards();
+    }, [year, event, setAwards]);
 
     const handleChangeYear = (e) => {
         setYear(e.target.value);
@@ -71,6 +82,9 @@ const Empire = () => {
                         ))}
                     </select>
                 </label>
+                <div>
+                    {awards}
+                </div>
             </div>
         </div>
     );
