@@ -6,12 +6,27 @@ import bgShinobi from './assets/background_shinobi.png';
 
 export const empireIds = ["chimera","pegasus","phoenix","shinobi"];
 
-
-export const empireBackgrounds = {
-    chimera : bgChimera,
-    pegasus : bgPegasus,
-    phoenix : bgPhoenix,
-    shinobi : bgShinobi
+export const empires = {
+    "chimera" : {
+        id: "chimera",
+        name: "Chimera",
+        backgroundImage: bgChimera,
+    },
+    "pegasus" :  {
+        id: "pegasus",
+        name: "Pegasus",
+        backgroundImage: bgPegasus,
+    },
+    "phoenix" : {
+        id: "phoenix",
+        name: "Phoenix",
+        backgroundImage: bgPhoenix,
+    },
+    "shinobi" : {
+        id: "shinobi",
+        name: "Shinobi",
+        backgroundImage: bgShinobi,
+    }
 }
 
-// const bgString = "/path/background_" + empireId + ".png";
+export const medals = ["gold", "silver", "bronze", "consolation"];

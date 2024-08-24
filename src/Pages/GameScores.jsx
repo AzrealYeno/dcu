@@ -1,7 +1,6 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { empireBackgrounds } from '../constants';
 import { streamGame, sortRanks } from '../gameService';
 
 import './GameScores.css';
@@ -9,7 +8,9 @@ import './GameScores.css';
 const GameScores = () => {
     const [game, setGame] = useState([]);
     const [ranks, setRanks] = useState([]);
-    const [winner, setWinner] = useState("");
+    const [winner, setWinner] = useState({id: "",
+        name: "",
+        backgroundImage: "",});
     const { gameid } = useParams();
 
 
@@ -20,10 +21,9 @@ const GameScores = () => {
                 (snapshot) => {
                     const data = snapshot.exists() ? snapshot.data() : null;
                     setGame(data);
-                    const rankings =sortRanks(data.ranking);
+                    const rankings = sortRanks(data.ranking);
                     setRanks(rankings);                    
-                    setWinner(rankings[0].empireId);
-                    
+                    setWinner(rankings[0].empire);
                 }
             );
             return unsubscribe;
@@ -33,7 +33,7 @@ const GameScores = () => {
     }, [gameid, setGame ,setRanks, setWinner])
 
     var divStyle = {
-        backgroundImage: 'url('+empireBackgrounds[winner]+')',
+        backgroundImage: 'url('+ winner.backgroundImage +')',
         backgroundSize: "cover"
     };
 
@@ -46,7 +46,7 @@ const GameScores = () => {
                     <div>{game.name}</div>
                     <div>{game.info}</div>
                     {
-                        ranks.map((empire) => <li key={empire.empireId}>{empire.empireId} {empire.score}</li>)
+                        ranks.map((rank) => <li key={rank.empireId}>{rank.empire.name} {rank.score} {rank.medal}</li>)
                     }
 
                 </div>
