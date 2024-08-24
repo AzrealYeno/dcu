@@ -40,7 +40,7 @@ const GameScores = () => {
     return (
         
         <div className="App">
-            <div className="gameScores"  style={divStyle} >
+            <div className="gameScores"  style={divStyle}>
                 <div className="game-content">
 
                     <div>{game.name}</div>

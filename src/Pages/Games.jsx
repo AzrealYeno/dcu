@@ -4,58 +4,45 @@ import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 
 const Games = () => {
-    
 
- 
-   const [games, setGames] = useState([]);
- 
-    useEffect(()=>{
+
+
+    const [games, setGames] = useState([]);
+
+    useEffect(() => {
         const fetchGames = async () => {
             const games = await getGames();
-             setGames(games);                
-         }
+            setGames(games);
+        }
 
         fetchGames();
     }, [setGames])
 
 
-	return (
-		<div className="App">
-      
-        <header className="App-header">
-          
-          
-            <li>
-                <NavLink to="/">Home</NavLink>
-            </li>
+    return (
+        <div className="App">
+            <div className="games_container">
+                <div className="App-header">
+                    <NavLink to="/">Home</NavLink>
+                </div>
 
+                <div className="games-content">
+                    {
+                        games?.map((game, i) => (
+                            <div key={i} className="gamelist">
 
-          
-          
-        </header>
+                                <Link to={`/games/${game.id}`}>
+                                    <div className="btn">{game.name}</div>
+                                </Link>
+                                <div>{game.info}</div>
+                            </div>
 
-        
-
-        <div className="games-content">
-            {
-                games?.map((game,i)=>(
-                    <div key={i}>
-                        
-                        <Link to={`/games/${game.id}`}>
-                            <div className="btn">{game.name}</div>
-                        </Link>
-                        <div>{game.info}</div>
-                    </div>
-                    
-                ))
-            }
+                        ))
+                    }
+                </div>
+            </div>
         </div>
-
-
-
-
-      </div>
-	);
+    );
 };
 
 export default Games;
