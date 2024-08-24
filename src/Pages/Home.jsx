@@ -1,6 +1,10 @@
 import './Home.css';
 import { NavLink, Link } from 'react-router-dom';
 import { empireIds, empires } from '../constants';
+import home_phoenix from "../assets/home_phoenix.png";
+import home_pegasus from "../assets/home_pegasus.png";
+import home_shinobi from "../assets/home_shinobi.png";
+import home_chimera from "../assets/home_chimera.png";
 
 const Home = () => {
 
@@ -13,16 +17,26 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="empire_list">
-          {
-            empireIds.map((empireId) => (
-              <div key={empireId}>
-                <Link to={`/empire/${empireId}`}>
-                  <div className="btn">{empires[empireId].name}</div>
-                </Link>
-              </div>
-            ))
-          }
+        <div className="listContainer">
+
+          <div className="empire_list">
+            <Link to={`/empire/phoenix`} className="link">
+              <img src={home_phoenix} className="empire"></img>
+            </Link>
+
+            <Link to={`/empire/pegasus`} className="link">
+              <img src={home_pegasus} className="empire"></img>
+            </Link>
+
+            <Link to={`/empire/shinobi`} className="link">
+              <img src={home_shinobi} className="empire"></img>
+            </Link>
+
+            <Link to={`/empire/chimera`} className="link">
+              <img src={home_chimera} className="empire"></img>
+            </Link>
+
+          </div>
         </div>
 
         {/* <NavLink to="/empire/chimera">Chimera</NavLink>

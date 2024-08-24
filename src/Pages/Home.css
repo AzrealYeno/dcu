@@ -41,8 +41,23 @@ import
   }
 
   .empire_list {
+    width: 20%;
     display: flex;
     justify-content: center;
-    padding-block: 10px;
-    gap: 30px;
+    flex-wrap: nowrap;
+  }
+
+  .link {
+    height: fit-content;
+    display: contents;
+  }
+
+  .listContainer {
+    display: flex;
+    justify-content: center;
+    padding-top: 35%;
+  }
+
+  .empire {
+    width: 50%;
   }
