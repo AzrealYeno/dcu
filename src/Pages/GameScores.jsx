@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { streamGame, sortRanks } from '../gameService';
+import { streamGame, sortRanks } from '../dataService';
 
 import './GameScores.css';
 
