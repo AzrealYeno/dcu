@@ -27,7 +27,7 @@ export const sortRanks = (ranks) => {
     for (let index = 0; index < sortedArr.length; index++) {
         if( sortedArr[index].score > currentScore){
             sortedArr[index].medal = currentMedal;
-        }else if( sortedArr[index].score == currentScore){
+        }else if( sortedArr[index].score === currentScore){
             sortedArr[index].medal = currentMedal;
             medalsToAssign.shift();
         }else{
