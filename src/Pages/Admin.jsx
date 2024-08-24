@@ -1,8 +1,11 @@
 import './Empire.css';
 import { appConfig } from "../config";
 import { getEventsByYear, getYearsByEvent , getAwardByEmpire, getGames} from "../dataService";
+import { saveAward } from "../adminDataService";
 import { useState, useEffect } from 'react';
 import { empireIds } from '../constants';
+import { EditTextarea } from 'react-edit-text';
+import 'react-edit-text/dist/index.css';
 
 const Admin = () => {
     const [years, setYears] = useState([]); 
@@ -13,6 +16,9 @@ const Admin = () => {
 
     const [awards, setAwards] = useState([]); 
     const [games, setGames] = useState([]);
+
+    // const [editing, setEdting] = useState("");
+    // var editingEpireId = "";
 
     useEffect(()=>{
         const fetchYears = async () => {
@@ -43,30 +49,25 @@ const Admin = () => {
             setAwards(awards);
             
          }
+        fetchAwards();
+    }, [year, event, setAwards]);
 
+    useEffect(()=>{
          const fetchGames = async () => {
             const games = await getGames(event, year);
-            console.log(games);
             for (let index = 0; index < games.length; index++) {
-                
                 const game = games[index];
-                console.log(game);
                 game.scores = [];
                 for (let j = 0; j < empireIds.length; j++) {
                     const empireId = empireIds[j];
-                    console.log(game.ranking[empireId]);
                     game.scores.push({empireId: empireId, score: game.ranking[empireId]});
                 }
             }
-
-            
-            console.log(games);
             setGames(games);                
          }
 
-        fetchAwards();
         fetchGames();
-    }, [year, event, setAwards]);
+    }, [year, event, setGames]);
 
     const handleChangeYear = (e) => {
         setYear(e.target.value);
@@ -75,6 +76,11 @@ const Admin = () => {
     const handleChangeEvent = (e) => {
         setEvent(e.target.value);
     };
+
+    const handleSaveAward = ( empreId, value, previousValue ) => {
+        console.log(empreId + ': ' + value );
+        saveAward(event, year, empreId, value);
+      };
 
     return (
         <div className="App">
@@ -101,7 +107,16 @@ const Admin = () => {
                     <h5>awards</h5>
                     {   awards.map((evnt) => 
                         (
-                            <div key={evnt.empireId}>{evnt.empireId} : {evnt.award}</div>
+                            
+                            <div key={evnt.empireId}>
+                                {evnt.empireId} 
+                                <EditTextarea 
+                                showEditButton
+                                 defaultValue={evnt.award}
+                                 onSave={({value}) => handleSaveAward(evnt.empireId,value)}
+                                 >{evnt.award}</EditTextarea>
+                                
+                            </div>
                         ))
                     }
                 </div>

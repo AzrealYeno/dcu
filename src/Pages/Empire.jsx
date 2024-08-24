@@ -44,7 +44,7 @@ const Empire = () => {
             setAwards(awards.award);                
          }
          fetchAwards();
-    }, [year, event, setAwards]);
+    }, [year, event, empireId, setAwards]);
 
     const handleChangeYear = (e) => {
         setYear(e.target.value);
