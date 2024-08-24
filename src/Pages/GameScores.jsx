@@ -1,7 +1,8 @@
 
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { streamGame, sortRanks } from '../dataService';
+import { streamScores, sortRanks , getGame} from '../dataService';
+import { empireIds } from '../constants';
 
 import './GameScores.css';
 
@@ -13,24 +14,46 @@ const GameScores = () => {
         backgroundImage: "",});
     const { gameid } = useParams();
 
-
     useEffect(() => {
         const fetchGame = async () => {
+            await getGame(gameid).then((data) => {
+                setGame(data);
+            });
+        }
+        fetchGame();
+    }, [gameid, setGame])
 
-            const unsubscribe = streamGame(gameid,
-                (snapshot) => {
-                    const data = snapshot.exists() ? snapshot.data() : null;
-                    setGame(data);
-                    const rankings = sortRanks(data.ranking);
-                    setRanks(rankings);                    
-                    setWinner(rankings[0].empire);
-                }
+    useEffect(() => {
+        const fetchScores = async () => {
+
+            const unsubscribe = streamScores(gameid,
+                (querySnapshot) => {
+                    const scores = [] =  querySnapshot.docs
+                        .map((docSnapshot) => 
+                            ({...docSnapshot.data(), id:docSnapshot.id })
+                        ) ;
+                        //console.log('scores',scores);
+                        
+                        //moagi lang diri.. kay ambot nganong dili pwede i-deretso array
+                        const newScores = [];
+                        for (let index = 0; index < scores.length; index++) {
+                            const score = scores[index];
+                            newScores[score.id] = score.score;
+                        }
+                        console.log('newScores',newScores);
+                        
+                        const rankedScores = sortRanks(newScores);
+                        console.log('rankedScores',rankedScores);
+                        setRanks(rankedScores);
+                        setWinner(rankedScores[0].empire);
+
+                    }
             );
             return unsubscribe;
         }
 
-        fetchGame();
-    }, [gameid, setGame ,setRanks, setWinner])
+        fetchScores();
+    }, [gameid, setRanks, setWinner])
 
     var divStyle = {
         backgroundImage: 'url('+ winner.backgroundImage +')',

@@ -4,16 +4,30 @@ import { appConfig } from './config';
 import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { empireIds, empires, medals } from './constants';
 
-export const streamGame = (gameid, snapshot) => {
-    const docRef = doc(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/", gameid);        
+export const streamScores = (gameid, snapshot) => {
+    const docRef = collection(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/" +  gameid  + "/scores");        
     return onSnapshot(docRef , snapshot);
 };
 
-export const sortRanks = (ranks) => {
+export const getGamesScores = async (event, year, gameid, empireId) =>  {
+    return getDoc(doc(db, "events/" + event + "/years/" + year + "/games/" +  gameid  + "/scores",empireId))
+    .then((snapshot) =>{    
+        return snapshot.exists() ?  snapshot.data() : {score: 0};
+    });
+};
+
+export const getGame = async (gameid) => {
+    return getDoc(doc(db,  "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/", gameid))
+    .then((snapshot) =>{    
+        return snapshot.data();
+    });
+};
+
+export const sortRanks = (scores) => {
     var tempArr = [];
     for (let index = 0; index < empireIds.length; index++) {
         tempArr.push({ 
-            score: ranks[empireIds[index]], 
+            score: scores[empireIds[index]] || 0 , 
             empireId: empireIds[index] , 
             empire : empires[empireIds[index]]
         });
@@ -47,6 +61,7 @@ export const getGames = async (event, year) =>  {
             .map((doc) => ({...doc.data(), id:doc.id }))
     });
 };
+
 
 export const getEventsByYear = async (year) =>  {
     return getDocs(collection(db, "year_event_index/" + year + "/events"))
