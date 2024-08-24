@@ -2,6 +2,7 @@ import './Games.css';
 import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
+import { appConfig } from '../config';
 
 const Games = () => {
     
@@ -11,7 +12,7 @@ const Games = () => {
  
     useEffect(()=>{
         const fetchGames = async () => {
-            const games = await getGames();
+            const games = await getGames(appConfig.currentEvent, appConfig.currentYear);
              setGames(games);                
          }
 

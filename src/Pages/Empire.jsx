@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { empires } from "../constants";
 import './Empire.css';
 import { appConfig } from "../config";
-import { getEventsByYear, getYearsByEvent, getAwards } from "../dataService";
+import { getEventsByYear, getYearsByEvent, getAwardByEmpire } from "../dataService";
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown'
 
@@ -40,7 +40,7 @@ const Empire = () => {
 
     useEffect(()=>{
         const fetchAwards = async () => {
-            const awards = await getAwards(event, year, empireId);
+            const awards = await getAwardByEmpire(event, year, empireId);
             setAwards(awards.award);                
          }
          fetchAwards();

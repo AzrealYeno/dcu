@@ -40,8 +40,8 @@ export const sortRanks = (ranks) => {
 };
 
 
-export const getGames = async () =>  {
-    return getDocs(collection(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games"))
+export const getGames = async (event, year) =>  {
+    return getDocs(collection(db, "events/" + event + "/years/" + year + "/games"))
     .then((querySnapshot)=>{               
         return querySnapshot.docs
             .map((doc) => ({...doc.data(), id:doc.id }))
@@ -56,11 +56,11 @@ export const getEventsByYear = async (year) =>  {
     });
 };
 
-export const getAwards = async (event, year, empireId) =>
+export const getAwardByEmpire = async (event, year, empireId) =>
 {
     return getDoc(doc(db, "events/" + event + "/years/" + year + "/awards/" + empireId))
     .then((snapshot) =>{    
-        return snapshot.exists() ?  snapshot.data() : {award : ""};
+        return snapshot.exists() ?  {...snapshot.data(), empireId: empireId} : {award : "",empireId: empireId };
     });
 }
 
