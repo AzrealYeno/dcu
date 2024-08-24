@@ -56,11 +56,11 @@ export const getEventsByYear = async (year) =>  {
     });
 };
 
-export const getAwards = async (event, year) =>
+export const getAwards = async (event, year, empireId) =>
 {
-    return getDoc(doc(db, "events/" + event + "/years/" + year))
-    .then((snapshot)=>{                       
-        return snapshot.data();
+    return getDoc(doc(db, "events/" + event + "/years/" + year + "/awards/" + empireId))
+    .then((snapshot) =>{    
+        return snapshot.exists() ?  snapshot.data() : {award : ""};
     });
 }
 

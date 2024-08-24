@@ -5,6 +5,7 @@ import './Empire.css';
 import { appConfig } from "../config";
 import { getEventsByYear, getYearsByEvent, getAwards } from "../dataService";
 import { useState, useEffect } from 'react';
+import Markdown from 'react-markdown'
 
 
 const Empire = () => {
@@ -39,9 +40,8 @@ const Empire = () => {
 
     useEffect(()=>{
         const fetchAwards = async () => {
-            const awards = await getAwards(event, year);
-            console.log(awards);
-            setAwards(awards.awards);                
+            const awards = await getAwards(event, year, empireId);
+            setAwards(awards.award);                
          }
          fetchAwards();
     }, [year, event, setAwards]);
@@ -83,7 +83,7 @@ const Empire = () => {
                     </select>
                 </label>
                 <div>
-                    {awards}
+                   <Markdown>{awards}</Markdown>
                 </div>
             </div>
         </div>
