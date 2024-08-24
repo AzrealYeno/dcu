@@ -35,12 +35,12 @@ const Empire = () => {
          fetchEvents();
     }, [year, setEvents]);
 
-    const handleChangeYear = (newYear) => {
-        setYear(newYear);
+    const handleChangeYear = (e) => {
+        setYear(e.target.value);
     };
 
-    const handleChangeEvent = (newEvent) => {
-        setEvent(newEvent);
+    const handleChangeEvent = (e) => {
+        setEvent(e.target.value);
     };
 
     var divStyle = {
