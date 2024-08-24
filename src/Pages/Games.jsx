@@ -1,9 +1,7 @@
 import './Games.css';
 import { Link, NavLink } from 'react-router-dom';
-import { collection, getDocs } from "firebase/firestore";
-import {db} from '../firebase';
 import { useState, useEffect } from 'react';
-import { appConfig } from '../config';
+import { getGames } from '../gameService';
 
 const Games = () => {
     
@@ -11,21 +9,14 @@ const Games = () => {
  
    const [games, setGames] = useState([]);
  
-    const fetchPost = async () => {
-       
-        await getDocs(collection(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games"))
-            .then((querySnapshot)=>{               
-                const newData = querySnapshot.docs
-                    .map((doc) => ({...doc.data(), id:doc.id }));
-                setGames(newData);                
-                console.log(games, newData);
-            });
-       
-    }
-   
     useEffect(()=>{
-        fetchPost();
-    }, [])
+        const fetchGames = async () => {
+            const games = await getGames();
+             setGames(games);                
+         }
+
+        fetchGames();
+    }, [setGames])
 
 
 	return (
