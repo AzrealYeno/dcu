@@ -5,6 +5,8 @@ import home_phoenix from "../assets/home_phoenix.png";
 import home_pegasus from "../assets/home_pegasus.png";
 import home_shinobi from "../assets/home_shinobi.png";
 import home_chimera from "../assets/home_chimera.png";
+import games_btn from "../assets/games_btn.png";
+import scores_btn from "../assets/scores_btn.png";
 
 const Home = () => {
 
@@ -12,8 +14,19 @@ const Home = () => {
     <div className="App">
       <div className="home_container">
         <div className="App-header">
-          <div>
-            <NavLink to="/games">Games</NavLink>
+        </div>
+
+        <div className="menuContainer">
+          <div className="menu">
+            <NavLink to="/games">
+              <img src={games_btn} className="manu_img"></img>
+            </NavLink>
+          </div>
+
+          <div className="menu">
+            <NavLink to="/games">
+              <img src={scores_btn} className="manu_img"></img>
+            </NavLink>
           </div>
         </div>
 
