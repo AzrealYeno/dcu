@@ -130,9 +130,13 @@ const AdminEvents = () => {
     }
 
     const handleClickDeleteEvent = async () => {
-        await deleteEvent(event,year);
-        setYear(appConfig.currentYear);
-        setEvent(appConfig.currentEvent);
+        if(appConfig.currentYear === year && appConfig.currentEvent === event){
+            alert("not me please");
+        }else{
+            await deleteEvent(event,year);
+            setYear(appConfig.currentYear);
+            setEvent(appConfig.currentEvent);    
+        }
     }
 
     return (
