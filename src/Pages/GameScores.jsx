@@ -22,6 +22,7 @@ const GameScores = () => {
             const element = rankedScores[index];
             if(element.score > 0 && element.score > winnerScore){
                 winner = element.empire;
+                winnerScore = element.score;
             }
         }
         return winner;
