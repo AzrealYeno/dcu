@@ -124,7 +124,7 @@ const AdminResults = () => {
                         (
                             
                             <div key={evnt.empireId}>
-                                {evnt.empireId} 
+                                <h3>{evnt.empireId}</h3>
                                 <EditTextarea 
                                 showEditButton
                                  defaultValue={evnt.award}
@@ -145,7 +145,7 @@ const AdminResults = () => {
                                 {   game.scores.map((score) => 
                                     (
                                         <div key={score.empireId}>
-                                            {score.empireId}: 
+                                            <h4>{score.empireId}</h4> 
                                             <EditText 
                                                 type="number" 
                                                 defaultValue={score.score.toString()}

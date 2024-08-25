@@ -36,3 +36,11 @@ export const deleteGame = async (eventId, year, gameId) =>
     await deleteDoc(docRef);   
 };
 
+export const deleteEvent = async (eventId, year) =>
+{
+    const docRef = doc(db, "events/" + eventId + "/years/" + year);
+    await deleteDoc(docRef);   
+    const indexDocRef = doc(db, "year_event_index/" + year + "/events/" + eventId);
+    await deleteDoc(indexDocRef);      
+};
+

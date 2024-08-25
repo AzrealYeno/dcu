@@ -4,7 +4,7 @@ import { getEvent, getEventsByYear, getYearsByEvent, getGames} from "../dataServ
 import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTextarea, EditText } from 'react-edit-text';
-import {saveEventDetail, saveGameDetail, deleteGame } from "../adminDataService";
+import {saveEventDetail, saveGameDetail, deleteGame, deleteEvent } from "../adminDataService";
 import 'react-edit-text/dist/index.css';
 
 const AdminEvents = () => {
@@ -18,23 +18,27 @@ const AdminEvents = () => {
     const [games, setGames] = useState([]);
 
     const [newGameName, setNewGameName] = useState("");    
+    const [newEventName, setNewEventName] = useState("");  
+    const [newEventYear, setNewEventYear] = useState("");  
+    
 
-    useEffect(()=>{
-        const fetchYears = async () => {
-            const years = await getYearsByEvent(event);
-            setYears(years);                
-         }
-
-        fetchYears();
+    const fetchYears = useCallback( async () =>  {
+        const years = await getYearsByEvent(event);
+            setYears(years);         
     }, [event, setYears]);
 
     useEffect(()=>{
-        const fetchEvents = async () => {
-            const events = await getEventsByYear(year);
-            setEvents(events);                
-         }
-         fetchEvents();
+        fetchYears();
+    }, [event, fetchYears]);
+
+    const fetchEvents = useCallback( async () =>  {
+        const events = await getEventsByYear(year);
+        setEvents(events);     
     }, [year, setEvents]);
+
+    useEffect(()=>{
+         fetchEvents();
+    }, [year, fetchEvents]);
 
     useEffect(()=>{
         const fetchEventDetail = async () => {
@@ -47,7 +51,7 @@ const AdminEvents = () => {
     const fetchGames = useCallback( async () =>  {
         const games = await getGames(event, year);
         setGames(games);      
-      }, [event, year, setGames]);
+    }, [event, year, setGames]);
 
 
     useEffect(()=>{
@@ -84,9 +88,17 @@ const AdminEvents = () => {
         fetchGames();
     }
 
-    const handleNewNameChange = (e) => {
+    const handleNewGameNameChange = (e) => {
         setNewGameName(e.target.value);
       };
+
+    const handleNewEventNameChange = (e) => {
+        setNewEventName(e.target.value);
+    };
+
+    const handleNewEventYearChange = (e) => {
+        setNewEventYear(e.target.value);
+    };
 
     const handleClickSaveNewGame = () => {
         const gameId = uuidv4();
@@ -94,6 +106,33 @@ const AdminEvents = () => {
             (event , year, gameId, {name:newGameName});
         setNewGameName("");
         fetchGames();
+    }
+
+    const handleClickSaveNewEvent = async () => {
+        if(newEventName.length > 0){
+            console.log("creating new event", newEventName);
+            const eventId = uuidv4();
+            const newEventDetail = {year: year, eventId:eventId, name: newEventName };
+            await saveEventDetail(eventId,year,newEventDetail);
+            setNewEventName("");
+            fetchEvents();
+        }
+    }
+
+    const handleClickSaveNewYear = async () => {
+        if(newEventYear.length > 0){
+            console.log("creating new event", newEventYear);
+            const newEventDetail = {year: newEventYear, eventId:event, name: eventDetail.name };
+            await saveEventDetail(event,newEventYear,newEventDetail);
+            setNewEventYear("");
+            fetchYears();
+        }
+    }
+
+    const handleClickDeleteEvent = async () => {
+        await deleteEvent(event,year);
+        setYear(appConfig.currentYear);
+        setEvent(appConfig.currentEvent);
     }
 
     return (
@@ -117,8 +156,41 @@ const AdminEvents = () => {
                         ))}
                     </select>
                 </label>
+                <div>
+                <button onClick={handleClickDeleteEvent}>
+                    Delete THIS Event
+                </button>
+                </div>
+                
                 <div className='event'>
-                    <h2>EVENT</h2>
+                <h2>NEW EVENT</h2>
+                <h5>Create a new event for {year}</h5>
+                <label>Name
+                     <EditText 
+                                type="text" 
+                                value={newEventName}
+                                onChange={(e) => handleNewEventNameChange(e)}
+                            ></EditText>
+                    </label>
+                    <button onClick={handleClickSaveNewEvent}>
+                        Save New Event
+                    </button>
+                
+                    <h5>Create a new year for {eventDetail.name}</h5>
+                    <label>Year
+                        <EditText 
+                                    type="number" 
+                                    value={newEventYear}
+                                    onChange={(e) => handleNewEventYearChange(e)}
+                                ></EditText>
+                        </label>
+                    <button onClick={handleClickSaveNewYear}>
+                        Save New Year
+                    </button>
+                </div>
+                <hr/>
+                <div className='event'>
+                    <h2>EDIT EVENT</h2>
                     <label>Name 
                         <EditText 
                             type="text" 
@@ -126,12 +198,16 @@ const AdminEvents = () => {
                             onSave={({value}) => handleSaveEventName(value)}
                         ></EditText>
                     </label>
+                    <div>Year : {eventDetail.year}</div>
                 </div>
+                <hr/>
                 <div className='games'>
-                    <h2>GAMES</h2>
+                    <h3>GAMES</h3>
                     {   games.map((game) => 
                         (
+                            
                             <div key={game.id}>
+                                <hr/>
                                 <label>Name 
                                     <EditText 
                                         type="text" 
@@ -149,17 +225,19 @@ const AdminEvents = () => {
                                 <button onClick={ () => handleDeleteGame(game.id)}>
                                     Delete this Game
                                 </button>
+                                
                             </div>
                         ))
                     }
-                    <h3>ADD NEW GAME</h3>
+                    <hr/>
+                    <h4>ADD NEW GAME TO EVENT</h4>
                     
                     <div key={"new_game"}>
                         <label>Name 
                             <EditText 
                                 type="text" 
                                 value={newGameName}
-                                onChange={(e) => handleNewNameChange(e)}
+                                onChange={(e) => handleNewGameNameChange(e)}
                             ></EditText>
                         </label>
                         <button onClick={handleClickSaveNewGame}>
