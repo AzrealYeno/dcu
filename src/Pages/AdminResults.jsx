@@ -6,6 +6,10 @@ import { useState, useEffect } from 'react';
 import { empireIds } from '../constants';
 import { EditTextarea, EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
+import {useNavigate} from 'react-router-dom';
+import {adminUids} from '../admin.js';
 
 const AdminResults = () => {
     const [years, setYears] = useState([]); 
@@ -16,6 +20,19 @@ const AdminResults = () => {
 
     const [awards, setAwards] = useState([]); 
     const [games, setGames] = useState([]);
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                if (adminUids.includes(uid)){
+                    return;
+                }
+            } 
+            navigate('/signin');
+            });
+    }, [navigate])
 
     useEffect(()=>{
         const fetchYears = async () => {

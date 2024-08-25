@@ -6,6 +6,10 @@ import { v4 as uuidv4 } from 'uuid';
 import { EditTextarea, EditText } from 'react-edit-text';
 import {saveEventDetail, saveGameDetail, deleteGame, deleteEvent } from "../adminDataService";
 import 'react-edit-text/dist/index.css';
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from '../firebase';
+import {useNavigate} from 'react-router-dom';
+import {adminUids} from '../admin.js';
 
 const AdminEvents = () => {
     const [years, setYears] = useState([]); 
@@ -21,6 +25,20 @@ const AdminEvents = () => {
     const [newEventName, setNewEventName] = useState("");  
     const [newEventYear, setNewEventYear] = useState("");  
     
+    const navigate = useNavigate();
+
+    useEffect(()=>{
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const uid = user.uid;
+                if (adminUids.includes(uid)){
+                    return;
+                }
+            } 
+            navigate('/signin');
+            });
+    }, [navigate])
+
 
     const fetchYears = useCallback( async () =>  {
         const years = await getYearsByEvent(event);
