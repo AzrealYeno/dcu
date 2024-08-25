@@ -3,6 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import { appConfig } from '../config';
+import Markdown from 'react-markdown'
 
 const Games = () => {
 
@@ -35,7 +36,7 @@ const Games = () => {
                                 <Link to={`/games/${game.id}`}>
                                     <div className="btn">{game.name}</div>
                                 </Link>
-                                <div>{game.info}</div>
+                                <div><Markdown>{game.info}</Markdown></div>
                             </div>
 
                         ))

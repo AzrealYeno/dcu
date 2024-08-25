@@ -7,7 +7,7 @@ import { empireIds } from '../constants';
 import { EditTextarea, EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 
-const Admin = () => {
+const AdminResults = () => {
     const [years, setYears] = useState([]); 
     const [year, setYear] = useState(appConfig.currentYear); 
 
@@ -99,7 +99,7 @@ const Admin = () => {
     return (
         <div className="App">
             <div className="admin-content">
-                <h3>Admin</h3>
+                <h1>Admin for Results</h1>
                 <label>
                     Years: 
                     <select value={year} onChange={handleChangeYear}>
@@ -118,7 +118,8 @@ const Admin = () => {
                     </select>
                 </label>
                 <div className='awards'>
-                    <h5>AWARDS</h5>
+                    <h2>AWARDS</h2>
+                    <p>you can use the Markdown formatting on the text boxes. see: <a href="https://www.markdownguide.org/basic-syntax/">https://www.markdownguide.org/basic-syntax/</a></p>
                     {   awards.map((evnt) => 
                         (
                             
@@ -129,18 +130,18 @@ const Admin = () => {
                                  defaultValue={evnt.award}
                                  
                                  onSave={({value}) => handleSaveAward(evnt.empireId,value)}
-                                 >{evnt.award}</EditTextarea>
+                                 ></EditTextarea>
                                 
                             </div>
                         ))
                     }
                 </div>
                 <div className='scores'>
-                    <h5>SCORES</h5>
+                    <h2>SCORES</h2>
                     {   games.map((game) => 
                         (
                             <div key={game.id}>
-                                <h6>{game.name}</h6>
+                                <h3>{game.name}</h3>
                                 {   game.scores.map((score) => 
                                     (
                                         <div key={score.empireId}>
@@ -162,4 +163,4 @@ const Admin = () => {
     );
 };
 
-export default Admin;
+export default AdminResults;

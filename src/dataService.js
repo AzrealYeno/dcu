@@ -9,8 +9,8 @@ export const streamScores = (gameid, snapshot) => {
     return onSnapshot(docRef , snapshot);
 };
 
-export const getGamesScores = async (event, year, gameid) =>  {
-    return getDocs(collection(db, "events/" + event + "/years/" + year + "/games/" +  gameid  + "/scores"))
+export const getGamesScores = async (eventid, year, gameid) =>  {
+    return getDocs(collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/scores"))
     .then((querySnapshot)=>{               
         return querySnapshot.docs
             .map((doc) => ({...doc.data(), id:doc.id }))
@@ -19,6 +19,13 @@ export const getGamesScores = async (event, year, gameid) =>  {
 
 export const getGame = async (gameid) => {
     return getDoc(doc(db,  "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/", gameid))
+    .then((snapshot) =>{    
+        return snapshot.data();
+    });
+};
+
+export const getEvent = async (eventid, year) => {
+    return getDoc(doc(db,  "events/" +eventid + "/years/", year))
     .then((snapshot) =>{    
         return snapshot.data();
     });
