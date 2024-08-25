@@ -54,12 +54,24 @@ const Admin = () => {
             const games = await getGames(event, year);
             for (let index = 0; index < games.length; index++) {
                 const game = games[index];
+                const scores = await getGamesScores(event, year, game.id);
+                
+                //reformat the array
+                const newScores = [];
+                for (let index = 0; index < scores.length; index++) {
+                    const score = scores[index];
+                    newScores[score.id] = score.score;
+                }
+                //console.log("newscores",newScores);
+
                 game.scores = [];
                 for (let j = 0; j < empireIds.length; j++) {
                     const empireId = empireIds[j];
-                    const score = await getGamesScores(event, year, game.id, empireId);
-                    game.scores.push({empireId: empireId, score: score?.score || 0});
+                    const score = newScores[empireId] || 0;
+                    //console.log("score", score);
+                    game.scores.push({empireId: empireId, score: score});
                 }
+                //console.log("game.scores",game.scores);
             }
             setGames(games);                
          }
@@ -106,7 +118,7 @@ const Admin = () => {
                     </select>
                 </label>
                 <div className='awards'>
-                    <h5>awards</h5>
+                    <h5>AWARDS</h5>
                     {   awards.map((evnt) => 
                         (
                             
@@ -124,7 +136,7 @@ const Admin = () => {
                     }
                 </div>
                 <div className='scores'>
-                    <h5>scores</h5>
+                    <h5>SCORES</h5>
                     {   games.map((game) => 
                         (
                             <div key={game.id}>

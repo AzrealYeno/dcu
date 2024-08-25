@@ -2,7 +2,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks , getGame} from '../dataService';
-import { empireIds } from '../constants';
 
 import './GameScores.css';
 
@@ -28,7 +27,7 @@ const GameScores = () => {
 
             const unsubscribe = streamScores(gameid,
                 (querySnapshot) => {
-                    const scores = [] =  querySnapshot.docs
+                    const scores = querySnapshot.docs
                         .map((docSnapshot) => 
                             ({...docSnapshot.data(), id:docSnapshot.id })
                         ) ;
@@ -40,10 +39,10 @@ const GameScores = () => {
                             const score = scores[index];
                             newScores[score.id] = score.score;
                         }
-                        console.log('newScores',newScores);
+                        //console.log('newScores',newScores);
                         
                         const rankedScores = sortRanks(newScores);
-                        console.log('rankedScores',rankedScores);
+                        //console.log('rankedScores',rankedScores);
                         setRanks(rankedScores);
                         setWinner(rankedScores[0].empire);
 

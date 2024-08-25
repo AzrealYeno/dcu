@@ -9,10 +9,11 @@ export const streamScores = (gameid, snapshot) => {
     return onSnapshot(docRef , snapshot);
 };
 
-export const getGamesScores = async (event, year, gameid, empireId) =>  {
-    return getDoc(doc(db, "events/" + event + "/years/" + year + "/games/" +  gameid  + "/scores",empireId))
-    .then((snapshot) =>{    
-        return snapshot.exists() ?  snapshot.data() : {score: 0};
+export const getGamesScores = async (event, year, gameid) =>  {
+    return getDocs(collection(db, "events/" + event + "/years/" + year + "/games/" +  gameid  + "/scores"))
+    .then((querySnapshot)=>{               
+        return querySnapshot.docs
+            .map((doc) => ({...doc.data(), id:doc.id }))
     });
 };
 
