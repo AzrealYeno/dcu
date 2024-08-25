@@ -1,8 +1,8 @@
 import './Admin.css';
 import { appConfig } from "../config";
 import { getEvent, getEventsByYear, getYearsByEvent, getGames} from "../dataService";
-import { useState, useEffect } from 'react';
-import { empireIds } from '../constants';
+import { useState, useEffect, useCallback } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import { EditTextarea, EditText } from 'react-edit-text';
 import {saveEventDetail, saveGameDetail } from "../adminDataService";
 import 'react-edit-text/dist/index.css';
@@ -16,6 +16,8 @@ const AdminEvents = () => {
 
     const [eventDetail, setEventDetail] = useState({name:"", year:appConfig.currentYear , eventId: appConfig.currentEvent}); 
     const [games, setGames] = useState([]);
+
+    const [newGameName, setNewGameName] = useState("");    
 
     useEffect(()=>{
         const fetchYears = async () => {
@@ -37,21 +39,20 @@ const AdminEvents = () => {
     useEffect(()=>{
         const fetchEventDetail = async () => {
             const eventDetail = await getEvent(event, year);
-            
-            console.log("eventDetail", eventDetail);
             setEventDetail(eventDetail);
          }
          fetchEventDetail();
     }, [year, event, setEventDetail]);
 
-    useEffect(()=>{
-        const fetchGames = async () => {
-           const games = await getGames(event, year);
-           setGames(games);                
-        }
+    const fetchGames = useCallback( async () =>  {
+        const games = await getGames(event, year);
+        setGames(games);      
+      }, [event, year, setGames]);
 
+
+    useEffect(()=>{
        fetchGames();
-   }, [year, event, setGames]);
+   }, [year, event, setGames, fetchGames]);
 
     
 
@@ -64,20 +65,30 @@ const AdminEvents = () => {
     };
 
     const handleSaveEventName = ( value ) => {
-        console.log("handleSaveEventName", value);
         eventDetail.name = value;        
         setEventDetail(eventDetail);
         saveEventDetail(event,year,eventDetail);
     };
 
     const handleSaveGameName = (gameId, value) => {
-        console.log("save game name", gameId, value);
         saveGameDetail(event , year, gameId, {name: value});
     }
 
     const handleSaveGameInfo = (gameId, value) => {
-        console.log("save game info", gameId, value);
-        saveGameDetail(event , year, gameId, {info: value});
+        saveGameDetail
+            (event , year, gameId, {info: value});
+    }
+
+    const handleNewNameChange = (e) => {
+        setNewGameName(e.target.value);
+      };
+
+    const handleClickSaveNewGame = () => {
+        const gameId = uuidv4();
+        saveGameDetail
+            (event , year, gameId, {name:newGameName});
+        setNewGameName("");
+        fetchGames();
     }
 
     return (
@@ -133,6 +144,21 @@ const AdminEvents = () => {
                             </div>
                         ))
                     }
+                    <h3>ADD NEW GAME</h3>
+                    
+                    <div key={"new_game"}>
+                        <label>Name 
+                            <EditText 
+                                type="text" 
+                                value={newGameName}
+                                onChange={(e) => handleNewNameChange(e)}
+                            ></EditText>
+                        </label>
+                        <button onClick={handleClickSaveNewGame}>
+                            Save New Game
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
         </div>
