@@ -92,7 +92,7 @@ const AdminResults = () => {
     };
 
     const handleSaveScore = ( empreId, gameId, value ) => {
-        console.log('save score',empreId, 'gameid: ', gameId , ': ' , value );
+        //console.log('save score',empreId, 'gameid: ', gameId , ': ' , value );
         saveScore(event, year, empreId, gameId, value);
     };
 

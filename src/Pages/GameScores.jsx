@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks , getGame} from '../dataService';
-
+import bgNeutral from '../assets/background.png';
 import './GameScores.css';
 
 const GameScores = () => {
@@ -10,8 +10,23 @@ const GameScores = () => {
     const [ranks, setRanks] = useState([]);
     const [winner, setWinner] = useState({id: "",
         name: "",
-        backgroundImage: "",});
+        backgroundImage: bgNeutral,});
     const { gameid } = useParams();
+
+    const getWinner = (rankedScores) =>  {
+        var winner = {id: "",
+            name: "",
+            backgroundImage: bgNeutral,};
+        var winnerScore = 0;
+        for (let index = 0; index < rankedScores.length; index++) {
+            const element = rankedScores[index];
+            if(element.score > 0 && element.score > winnerScore){
+                winner = element.empire;
+            }
+        }
+        return winner;
+    }
+
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -44,7 +59,8 @@ const GameScores = () => {
                         const rankedScores = sortRanks(newScores);
                         //console.log('rankedScores',rankedScores);
                         setRanks(rankedScores);
-                        setWinner(rankedScores[0].empire);
+                        const champion = getWinner(rankedScores);
+                        setWinner(champion);
 
                     }
             );
