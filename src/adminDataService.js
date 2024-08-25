@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import { doc, setDoc } from "firebase/firestore";
+import { deleteDoc, doc, setDoc } from "firebase/firestore";
 
 export const saveAward = async (eventId, year, empireId, award) =>
 {
@@ -28,5 +28,11 @@ export const saveGameDetail = async (eventId, year, gameId, gameDetail) =>
 {
     const docRef = doc(db, "events/" + eventId + "/years/" + year + "/games/" + gameId);
     await setDoc(docRef, gameDetail, { merge: true });   
+};
+
+export const deleteGame = async (eventId, year, gameId) =>
+{
+    const docRef = doc(db, "events/" + eventId + "/years/" + year + "/games/" + gameId);
+    await deleteDoc(docRef);   
 };
 

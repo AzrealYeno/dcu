@@ -4,7 +4,7 @@ import { getEvent, getEventsByYear, getYearsByEvent, getGames} from "../dataServ
 import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { EditTextarea, EditText } from 'react-edit-text';
-import {saveEventDetail, saveGameDetail } from "../adminDataService";
+import {saveEventDetail, saveGameDetail, deleteGame } from "../adminDataService";
 import 'react-edit-text/dist/index.css';
 
 const AdminEvents = () => {
@@ -79,6 +79,11 @@ const AdminEvents = () => {
             (event , year, gameId, {info: value});
     }
 
+    const handleDeleteGame = async (gameId) =>  {
+        await deleteGame(event , year, gameId);
+        fetchGames();
+    }
+
     const handleNewNameChange = (e) => {
         setNewGameName(e.target.value);
       };
@@ -141,6 +146,9 @@ const AdminEvents = () => {
                                         onSave={({value}) => handleSaveGameInfo(game.id,value)}
                                     ></EditTextarea>
                                 </label>
+                                <button onClick={ () => handleDeleteGame(game.id)}>
+                                    Delete this Game
+                                </button>
                             </div>
                         ))
                     }
