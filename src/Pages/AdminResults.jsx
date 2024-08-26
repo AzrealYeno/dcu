@@ -143,10 +143,17 @@ const AdminResults = () => {
                             <div key={evnt.empireId}>
                                 <h3>{evnt.empireId}</h3>
                                 <EditTextarea 
-                                showEditButton
-                                 defaultValue={evnt.award}
-                                 
+                                 defaultValue={evnt.award}                                 
                                  onSave={({value}) => handleSaveAward(evnt.empireId,value)}
+                                 style={{
+                                    width: '80%',
+                                    height: '150px',
+                                    padding: '10px',
+                                    border: '1px solid #2E8B57',
+                                    borderRadius: '5px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#f9f9f9',
+                                }}
                                  ></EditTextarea>
                                 
                             </div>
@@ -161,9 +168,17 @@ const AdminResults = () => {
                                 <h3>{game.name}</h3>
                                 {   game.scores.map((score) => 
                                     (
-                                        <div key={score.empireId}>
-                                            <h4>{score.empireId}</h4> 
+                                        <div key={score.empireId} className='scoreLabel'>
+                                            {score.empireId}
                                             <EditText 
+                                                style={{
+                                                    width: '50px',
+                                                    padding: '10px',
+                                                    border: '1px solid #2E8B57',
+                                                    borderRadius: '5px',
+                                                    fontSize: '20px',
+                                                    backgroundColor: '#f9f9f9',
+                                                }}
                                                 type="number" 
                                                 defaultValue={score.score.toString()}
                                                 onSave={({value}) => handleSaveScore(score.empireId, game.id ,value)}

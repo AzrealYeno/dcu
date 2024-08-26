@@ -192,6 +192,14 @@ const AdminEvents = () => {
                                 type="text" 
                                 value={newEventName}
                                 onChange={(e) => handleNewEventNameChange(e)}
+                                style={{
+                                    width: '80%',
+                                    padding: '10px',
+                                    border: '1px solid #2E8B57',
+                                    borderRadius: '5px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#f9f9f9',
+                                }}
                             ></EditText>
                     </label>
                     <button onClick={handleClickSaveNewEvent}>
@@ -199,16 +207,25 @@ const AdminEvents = () => {
                     </button>
                 
                     <h5>Create a new year for {eventDetail.name}</h5>
-                    <label>Year
+                    <div className='scoreLabel'>
+                    Year
                         <EditText 
                                     type="number" 
                                     value={newEventYear}
                                     onChange={(e) => handleNewEventYearChange(e)}
+                                    style={{
+                                        width: '100px',
+                                        padding: '10px',
+                                        border: '1px solid #2E8B57',
+                                        borderRadius: '5px',
+                                        fontSize: '20px',
+                                        backgroundColor: '#f9f9f9',
+                                    }}
                                 ></EditText>
-                        </label>
-                    <button onClick={handleClickSaveNewYear}>
-                        Save New Year
-                    </button>
+                                <button onClick={handleClickSaveNewYear}>
+                                    Save New Year
+                                </button>
+                        </div>
                 </div>
                 <hr/>
                 <div className='event'>
@@ -218,6 +235,14 @@ const AdminEvents = () => {
                             type="text" 
                             defaultValue={eventDetail.name}
                             onSave={({value}) => handleSaveEventName(value)}
+                            style={{
+                                width: '80%',
+                                padding: '10px',
+                                border: '1px solid #2E8B57',
+                                borderRadius: '5px',
+                                fontSize: '20px',
+                                backgroundColor: '#f9f9f9',
+                            }}
                         ></EditText>
                     </label>
                     <div>Year : {eventDetail.year}</div>
@@ -235,6 +260,14 @@ const AdminEvents = () => {
                                         type="text" 
                                         defaultValue={game.name}
                                         onSave={({value}) => handleSaveGameName(game.id,value)}
+                                        style={{
+                                            width: '80%',
+                                            padding: '10px',
+                                            border: '1px solid #2E8B57',
+                                            borderRadius: '5px',
+                                            fontSize: '20px',
+                                            backgroundColor: '#f9f9f9',
+                                        }}
                                     ></EditText>
                                 </label>
                                 <label>Info 
@@ -242,6 +275,15 @@ const AdminEvents = () => {
                                         type="text" 
                                         defaultValue={game.info}
                                         onSave={({value}) => handleSaveGameInfo(game.id,value)}
+                                        style={{
+                                            width: '80%',
+                                            height: '150px',
+                                            padding: '10px',
+                                            border: '1px solid #2E8B57',
+                                            borderRadius: '5px',
+                                            fontSize: '20px',
+                                            backgroundColor: '#f9f9f9',
+                                        }}
                                     ></EditTextarea>
                                 </label>
                                 <button onClick={ () => handleDeleteGame(game.id)}>
@@ -260,6 +302,14 @@ const AdminEvents = () => {
                                 type="text" 
                                 value={newGameName}
                                 onChange={(e) => handleNewGameNameChange(e)}
+                                style={{
+                                    width: '80%',
+                                    padding: '10px',
+                                    border: '1px solid #2E8B57',
+                                    borderRadius: '5px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#f9f9f9',
+                                }}
                             ></EditText>
                         </label>
                         <button onClick={handleClickSaveNewGame}>

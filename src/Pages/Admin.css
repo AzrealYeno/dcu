@@ -1,5 +1,8 @@
 .admin-content {
-    width: 80%;
-    
+    width: 100%;
 }
 
+.scoreLabel {
+    font-weight: bold;
+    display: inline-block;
+}
