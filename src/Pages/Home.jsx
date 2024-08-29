@@ -11,6 +11,9 @@ const Home = () => {
 
   return (
     <div className="App">
+      <div>
+
+      </div>
       <div className="home_container">
         <div className="App-header">
         </div>
