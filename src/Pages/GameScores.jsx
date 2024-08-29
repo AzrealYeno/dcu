@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks , getGame} from '../dataService';
+import {medal_img} from '../constants';
 import bgNeutral from '../assets/background.png';
 import './GameScores.css';
 
@@ -84,8 +85,9 @@ const GameScores = () => {
 
                     <div>{game.name}</div>
                     <div>{game.info}</div>
+                    
                     {
-                        ranks.map((rank) => <div key={rank.empireId}> <div className={rank.medal}>{rank.medal}</div> {rank.empire.name} {rank.score} </div>)
+                        ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div> {rank.empire.name} {rank.score} </div>)
                     }
 
                 </div>

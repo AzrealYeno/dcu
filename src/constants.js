@@ -4,6 +4,12 @@ import bgPegasus from './assets/background_pegasus.png';
 import bgPhoenix from './assets/background_phoenix.png';
 import bgShinobi from './assets/background_shinobi.png';
 
+import img_gold from './assets/gold.png';
+import img_silver from './assets/silver.png';
+import img_bronze from './assets/bronze.png';
+import img_consolation from './assets/consolation.png';
+
+
 export const empireIds = ["chimera","pegasus","phoenix","shinobi"];
 
 export const empires = {
@@ -30,3 +36,10 @@ export const empires = {
 }
 
 export const medals = ["gold", "silver", "bronze", "consolation"];
+
+export const medal_img = {
+    "gold": img_gold,
+    "silver": img_silver,
+    "bronze": img_bronze,
+    "consolation": img_consolation
+}
