@@ -85,7 +85,7 @@ const GameScores = () => {
                     <div>{game.name}</div>
                     <div>{game.info}</div>
                     {
-                        ranks.map((rank) => <li key={rank.empireId}>{rank.empire.name} {rank.score} {rank.medal}</li>)
+                        ranks.map((rank) => <div key={rank.empireId}> <div className={rank.medal}>{rank.medal}</div> {rank.empire.name} {rank.score} </div>)
                     }
 
                 </div>

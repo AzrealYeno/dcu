@@ -12,3 +12,19 @@
     display: flex;
     flex-direction: column;
 }
+
+.gold {
+    font-size: larger;
+}
+
+.silver {
+    font-size: large;
+}
+
+.bronze {
+    font-size: medium;
+}
+
+.consolation {
+    font-size: small;
+}
