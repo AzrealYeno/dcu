@@ -1,11 +1,14 @@
 import './Home.css';
 import { NavLink, Link } from 'react-router-dom';
+import home_title from "../assets/home_title.png";
+import home_empirenames from "../assets/home_empire_names.png";
 import home_phoenix from "../assets/home_phoenix.png";
 import home_pegasus from "../assets/home_pegasus.png";
 import home_shinobi from "../assets/home_shinobi.png";
 import home_chimera from "../assets/home_chimera.png";
 import games_btn from "../assets/games_btn.png";
 import scores_btn from "../assets/scores_btn.png";
+
 
 const Home = () => {
 
@@ -16,6 +19,11 @@ const Home = () => {
         </div>
 
         <div className="menuContainer">
+
+          <div className="menu_title">
+            <img src={home_title} className="title_img" alt="games"></img>
+          </div>
+
           <div className="menu">
             <NavLink to="/games">
               <img src={games_btn} className="manu_img" alt="games"></img>
@@ -49,6 +57,10 @@ const Home = () => {
             </Link>
 
           </div>
+
+        </div>
+        <div>
+          <img src={home_empirenames} className="empirenames" alt="empirenames"></img>
         </div>
 
         {/* <NavLink to="/empire/chimera">Chimera</NavLink>

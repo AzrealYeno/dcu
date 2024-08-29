@@ -34,7 +34,7 @@ import
   }
 
   .home_container {
-    background-image: url(../assets/homepage_bg.png);
+    background-image: url(../assets/background.png);
     background-size: contain;
     height: 100vh;
     width: 100%;   
@@ -68,9 +68,19 @@ import
   }
 
   .menuContainer {
-    padding-top: 23%;
+    /* padding-top: 10%; */
   }
 
   .manu_img {
+    width: 40%;
+  }
+
+  .title_img{
+    width:60%;
+  }
+
+  .empirenames{
+    padding-right: 4.5%;
+    padding-top: 0.5%;
     width: 40%;
   }
