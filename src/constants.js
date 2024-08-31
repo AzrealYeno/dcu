@@ -57,3 +57,5 @@ export const Ename_img = {
     "Chimera": img_Chimera,
     "Shinobi": img_Shinobi,
 }
+
+// asd
