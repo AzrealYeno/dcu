@@ -58,4 +58,4 @@ export const Ename_img = {
     "Shinobi": img_Shinobi,
 }
 
-// asd
+// asdl,
