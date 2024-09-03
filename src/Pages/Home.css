@@ -40,6 +40,8 @@ import
     width: 100%;   
     display: flex;
     flex-flow: column;
+    overflow-x: hidden;
+    overflow-y: hidden;
   }
 
   .empire_list {
@@ -60,13 +62,14 @@ import
   }
 
   .empire {
-    width: 50%;
+    width: 40%;
   }
 
   .menu {
+    padding-left: 5.5%;
     padding-bottom: 1%;
+    width: 90%;
   }
-
   .menuContainer {
     /* padding-top: 10%; */
   }
@@ -76,11 +79,11 @@ import
   }
 
   .title_img{
-    width:60%;
+    width:46%;
   }
 
   .empirenames{
     padding-right: 4.5%;
     padding-top: 0.5%;
-    width: 40%;
+    width: 32%;
   }

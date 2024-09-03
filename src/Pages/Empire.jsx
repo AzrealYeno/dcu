@@ -55,8 +55,11 @@ const Empire = () => {
     };
 
     var divStyle = {
-        backgroundImage: 'url('+ empire.backgroundImage +')',
-        backgroundSize: "cover"
+        backgroundImage: 'url('+ empire.backgroundHistoryImage +')',
+        backgroundSize: "contain",
+        display: "flex",
+        backgroundRepeat: "no-repeat"
+
     };
 
     return (

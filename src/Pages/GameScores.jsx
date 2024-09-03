@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { streamScores, sortRanks, getGame } from '../dataService';
 import { medal_img } from '../constants';
 import { Ename_img } from '../constants';
+import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
 import './GameScores.css';
 
@@ -87,12 +88,12 @@ const GameScores = () => {
         <div className="App">
             <div className="gameScores" style={divStyle}>
                 <div className="game-content">
-
+                    <img src={gameScores_leaderboard} className="Leaderboard_img" alt = "Leaderboard_img"></img>
                     <div className="game_Name">{game.name}</div>
                     <div className="game_Info">{game.info}</div>
 
                     {
-                        ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div><div className="Ename"><img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img"></img></div> {rank.score} </div>)
+                        ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div><div className="Ename"><img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img"></img></div> <div className = "Escore">{rank.score + " POINTS"}</div> </div>)
                     }
 
                 </div>
@@ -103,4 +104,3 @@ const GameScores = () => {
 
 export default GameScores;
 
-// asdasdss
