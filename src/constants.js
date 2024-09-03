@@ -4,6 +4,11 @@ import bgPegasus from './assets/background_pegasus.png';
 import bgPhoenix from './assets/background_phoenix.png';
 import bgShinobi from './assets/background_shinobi.png';
 
+import bgHistoryChimera from './assets/background_Chimera_EmpireHistory.png';
+import bgHistoryPegasus from './assets/background_Pegasus_EmpireHistory.png';
+import bgHistoryPhoenix from './assets/background_Phoenix_EmpireHistory.png';
+import bgHistoryShinobi from './assets/background_Shinobi_EmpireHistory.png';
+
 import img_gold from './assets/gold.png';
 import img_silver from './assets/silver.png';
 import img_bronze from './assets/bronze.png';
@@ -22,21 +27,25 @@ export const empires = {
         id: "chimera",
         name: "Chimera",
         backgroundImage: bgChimera,
+        backgroundHistoryImage: bgHistoryChimera,
     },
     "pegasus" :  {
         id: "pegasus",
         name: "Pegasus",
         backgroundImage: bgPegasus,
+        backgroundHistoryImage: bgHistoryPegasus,
     },
     "phoenix" : {
         id: "phoenix",
         name: "Phoenix",
         backgroundImage: bgPhoenix,
+        backgroundHistoryImage: bgHistoryPhoenix,
     },
     "shinobi" : {
         id: "shinobi",
         name: "Shinobi",
         backgroundImage: bgShinobi,
+        backgroundHistoryImage: bgHistoryShinobi,
     }
 }
 

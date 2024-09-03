@@ -11,10 +11,10 @@
     align-content: center;
     flex-wrap: wrap;
     flex-direction: column;
-    background-image: url(../assets/scores_Leaderboard.png);
+    /* background-image: url(../assets/scores_Leaderboard.png);
     background-size: 100%;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: center; */
 }
 
 .games_container {
@@ -26,33 +26,65 @@
     flex-direction: column;
 }
 
-.game_Name{
+.game_Name {
     color: white;
+    font-size: 30px;
 }
-.game_Info{
+
+.game_Info {
     color: white;
+    font-size: 20px;
+    padding-bottom: 6%;
+    position:fixed;
 }
+
 .rank_container {
-    padding-top: 4%;
+    padding-top: 30px;
+    padding-bottom: 2%;
     width: 37%;
-    height: 7%;
+    height: auto;
+    min-height: 90px;
+    max-height: 400px;
     display: flex;
+    z-index: 2;
 }
 
 .medal_img {
     width: 63px;
     scale: 130%;
 }
-.Ename_img{
+
+.Ename_img {
     width: 300px;
     scale: 100%;
 }
 
-.medal {
-    /* background-image: url(../assets/background.png); */
+.Escore{
+    align-content: center;
+    color:gold;
+    font-size: 250%;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    
 }
+
+.Leaderboard_img {
+    position: fixed;
+    z-index: 0;
+    padding-left: 0%;
+    padding-bottom: 7%;
+    min-height: 925px;
+    min-width: 660px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+
+}
+
+/* .medal {
+    background-image: url(../assets/background.png);
+} */
 
 .consolation {
     font-size: small;
-}   
-    /* sdasssd */
+}
