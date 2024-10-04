@@ -1,57 +1,58 @@
 import './Admin.css';
 import { appConfig } from "../config";
-import { getEventsByYear, getYearsByEvent , getAwardByEmpire, getGames, getGamesScores} from "../dataService";
-import { saveAward , saveScore} from "../adminDataService";
+import { getEventsByYear, getYearsByEvent, getAwardByEmpire, getGames, getGamesScores } from "../dataService";
+import { saveAward, saveScore } from "../adminDataService";
 import { useState, useEffect } from 'react';
 import { empireIds } from '../constants';
 import { EditTextarea, EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
-import {useNavigate} from 'react-router-dom';
-import {adminUids} from '../admin.js';
+import { useNavigate } from 'react-router-dom';
+import { adminUids } from '../admin.js';
+import MDEditor from "@uiw/react-md-editor";
 
 const AdminResults = () => {
-    const [years, setYears] = useState([]); 
-    const [year, setYear] = useState(appConfig.currentYear); 
+    const [years, setYears] = useState([]);
+    const [year, setYear] = useState(appConfig.currentYear);
 
-    const [events, setEvents] = useState([]); 
-    const [event, setEvent] = useState(appConfig.currentEvent); 
+    const [events, setEvents] = useState([]);
+    const [event, setEvent] = useState(appConfig.currentEvent);
 
-    const [awards, setAwards] = useState([]); 
+    const [awards, setAwards] = useState([]);
     const [games, setGames] = useState([]);
     const navigate = useNavigate();
 
-    useEffect(()=>{
+    useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
-                if (adminUids.includes(uid)){
+                if (adminUids.includes(uid)) {
                     return;
                 }
-            } 
+            }
             navigate('/signin');
-            });
+        });
     }, [navigate])
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchYears = async () => {
             const years = await getYearsByEvent(event);
-            setYears(years);                
-         }
+            setYears(years);
+        }
 
         fetchYears();
     }, [event, setYears]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchEvents = async () => {
             const events = await getEventsByYear(year);
-            setEvents(events);                
-         }
-         fetchEvents();
+            setEvents(events);
+        }
+        fetchEvents();
     }, [year, setEvents]);
 
-    useEffect(()=>{
+    useEffect(() => {
         const fetchAwards = async () => {
             const awards = [];
             for (let index = 0; index < empireIds.length; index++) {
@@ -59,20 +60,20 @@ const AdminResults = () => {
                 const empireAward = await getAwardByEmpire(event, year, empireId);
                 awards.push(empireAward);
             }
-           
+
             setAwards(awards);
-            
-         }
+
+        }
         fetchAwards();
     }, [year, event, setAwards]);
 
-    useEffect(()=>{
-         const fetchGames = async () => {
+    useEffect(() => {
+        const fetchGames = async () => {
             const games = await getGames(event, year);
             for (let index = 0; index < games.length; index++) {
                 const game = games[index];
                 const scores = await getGamesScores(event, year, game.id);
-                
+
                 //reformat the array
                 const newScores = [];
                 for (let index = 0; index < scores.length; index++) {
@@ -86,12 +87,12 @@ const AdminResults = () => {
                     const empireId = empireIds[j];
                     const score = newScores[empireId] || 0;
                     //console.log("score", score);
-                    game.scores.push({empireId: empireId, score: score});
+                    game.scores.push({ empireId: empireId, score: score });
                 }
                 //console.log("game.scores",game.scores);
             }
-            setGames(games);                
-         }
+            setGames(games);
+        }
 
         fetchGames();
     }, [year, event, setGames]);
@@ -104,12 +105,17 @@ const AdminResults = () => {
         setEvent(e.target.value);
     };
 
-    const handleSaveAward = ( empreId, value ) => {
+    const handleSaveAward = (empreId, index) => {
+        const value = awards[index].award;
         saveAward(event, year, empreId, value);
     };
 
-    const handleSaveScore = ( empreId, gameId, value ) => {
-        //console.log('save score',empreId, 'gameid: ', gameId , ': ' , value );
+    const handleChangeAward = (index, value) => {
+        awards[index].award = value;
+        setAwards([...awards]);
+    };
+
+    const handleSaveScore = (empreId, gameId, value) => {
         saveScore(event, year, empreId, gameId, value);
     };
 
@@ -118,76 +124,67 @@ const AdminResults = () => {
             <div className="admin-content">
                 <h1>Admin for Results</h1>
                 <label>
-                    Years: 
+                    Years:
                     <select value={year} onChange={handleChangeYear}>
                         {years.map((year) => (
-                        <option key={year.year} value={year.year}>{year.year}</option>
+                            <option key={year.year} value={year.year}>{year.year}</option>
                         ))}
                     </select>
                 </label>
 
                 <label>
-                    Events: 
+                    Events:
                     <select value={event} onChange={handleChangeEvent}>
                         {events.map((evnt) => (
-                        <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
+                            <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
                         ))}
                     </select>
                 </label>
                 <div className='awards'>
                     <h2>AWARDS</h2>
-                    <p>you can use the Markdown formatting on the text boxes. see: <a href="https://www.markdownguide.org/basic-syntax/">https://www.markdownguide.org/basic-syntax/</a></p>
-                    {   awards.map((evnt) => 
-                        (
-                            
-                            <div key={evnt.empireId}>
-                                <h3>{evnt.empireId}</h3>
-                                <EditTextarea 
-                                 defaultValue={evnt.award}                                 
-                                 onSave={({value}) => handleSaveAward(evnt.empireId,value)}
-                                 style={{
-                                    width: '80%',
-                                    height: '150px',
-                                    padding: '10px',
-                                    border: '1px solid #2E8B57',
-                                    borderRadius: '5px',
-                                    fontSize: '20px',
-                                    backgroundColor: '#f9f9f9',
-                                }}
-                                 ></EditTextarea>
-                                
+                    {awards.map((evnt, index) =>
+                    (
+                        <div key={evnt.empireId}>
+                            <h3>{evnt.empireId}</h3>
+                            <div className="container">
+                                <MDEditor value={evnt.award}
+                                    onChange={(value) => handleChangeAward(index, value)} />
+                                <button onClick={() => handleSaveAward(evnt.empireId, index)}>
+                                    Save
+                                </button>
                             </div>
-                        ))
+                        </div>
+                    ))
                     }
                 </div>
                 <div className='scores'>
                     <h2>SCORES</h2>
-                    {   games.map((game) => 
-                        (
-                            <div key={game.id}>
-                                <h3>{game.name}</h3>
-                                {   game.scores.map((score) => 
-                                    (
-                                        <div key={score.empireId} className='scoreLabel'>
-                                            {score.empireId}
-                                            <EditText 
-                                                style={{
-                                                    width: '50px',
-                                                    padding: '10px',
-                                                    border: '1px solid #2E8B57',
-                                                    borderRadius: '5px',
-                                                    fontSize: '20px',
-                                                    backgroundColor: '#f9f9f9',
-                                                }}
-                                                type="number" 
-                                                defaultValue={score.score.toString()}
-                                                onSave={({value}) => handleSaveScore(score.empireId, game.id ,value)}
-                                            ></EditText>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        ))
+                    {games.map((game) =>
+                    (
+                        <div key={game.id}>
+                            <h3>{game.name}</h3>
+                            {game.scores.map((score) =>
+                            (
+                                <div key={score.empireId} className='scoreLabel'>
+                                    {score.empireId}
+                                    <EditText
+                                        style={{
+                                            width: '50px',
+                                            padding: '10px',
+                                            border: '1px solid #2E8B57',
+                                            borderRadius: '5px',
+                                            fontSize: '20px',
+                                            backgroundColor: '#f9f9f9',
+                                        }}
+                                        type="number"
+                                        defaultValue={score.score.toString()}
+                                        onSave={({ value }) => handleSaveScore(score.empireId, game.id, value)}
+                                    ></EditText>
+                                </div>
+                            ))
+                            }
+                        </div>
+                    ))
                     }
                 </div>
             </div>
