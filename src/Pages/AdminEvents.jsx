@@ -1,5 +1,4 @@
 import './Admin.css';
-import { appConfig } from "../config";
 import { getEvent, getEventsByYear, getYearsByEvent } from "../dataService";
 import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,15 +10,33 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { getConfig } from '../dataService';
+import loader from '../assets/loader.svg';
 
 const AdminEvents = () => {
+    const [config, setConfig] = useState(null);
+    useEffect(() => {
+        const loadConfig = async () => {
+            try {
+                const data = await getConfig();
+                setConfig(data);
+                setEvent(data.currentEvent);
+                setYear(data.currentYear);
+                setEventDetail({ name: "", year: data.currentYear, eventId: data.currentEvent });
+            } catch (error) {
+                console.error("Failed to load config", error);
+            }
+        };
+        loadConfig();
+    }, []);
+
     const [years, setYears] = useState([]);
-    const [year, setYear] = useState(appConfig.currentYear);
+    const [year, setYear] = useState(null);
 
     const [events, setEvents] = useState([]);
-    const [event, setEvent] = useState(appConfig.currentEvent);
+    const [event, setEvent] = useState(null);
 
-    const [eventDetail, setEventDetail] = useState({ name: "", year: appConfig.currentYear, eventId: appConfig.currentEvent });
+    const [eventDetail, setEventDetail] = useState(null);
 
     const [newEventName, setNewEventName] = useState("");
     const [newEventYear, setNewEventYear] = useState("");
@@ -40,6 +57,7 @@ const AdminEvents = () => {
 
 
     const fetchYears = useCallback(async () => {
+        if (event === null) return;
         const years = await getYearsByEvent(event);
         setYears(years);
     }, [event, setYears]);
@@ -49,6 +67,7 @@ const AdminEvents = () => {
     }, [event, fetchYears]);
 
     const fetchEvents = useCallback(async () => {
+        if(year === null) return;
         const events = await getEventsByYear(year);
         setEvents(events);
     }, [year, setEvents]);
@@ -59,6 +78,7 @@ const AdminEvents = () => {
 
     useEffect(() => {
         const fetchEventDetail = async () => {
+            if (year === null || event === null) return;
             const eventDetail = await getEvent(event, year);
             setEventDetail(eventDetail);
         }
@@ -105,17 +125,19 @@ const AdminEvents = () => {
     }
 
     const handleClickDeleteEvent = async () => {
-        if (appConfig.currentYear === year && appConfig.currentEvent === event) {
+        if (config.currentYear === year && config.currentEvent === event) {
             alert("not me please");
         } else {
             await deleteEvent(event, year);
-            setYear(appConfig.currentYear);
-            setEvent(appConfig.currentEvent);
+            setYear(config.currentYear);
+            setEvent(config.currentEvent);
+            fetchEvents();
         }
     }
 
     return (
         <div className="App">
+            {(config && year && event) ?
             <div className="admin-content">
                 <h3>Manage Events</h3>
                 <label>
@@ -173,33 +195,33 @@ const AdminEvents = () => {
                         </button>
                     </TabPanel>
                     <TabPanel>
-                    <div className='scoreLabel'>
-                        
-                       
-                    Year
-                        <EditText
-                            type="number"
-                            value={newEventYear}
-                            onChange={(e) => handleNewEventYearChange(e)}
-                            style={{
-                                width: '100px',
-                                padding: '10px',
-                                border: '1px solid #2E8B57',
-                                borderRadius: '5px',
-                                fontSize: '20px',
-                                backgroundColor: '#f9f9f9',
-                            }}
-                        ></EditText>
-                        
-                        <button onClick={handleClickSaveNewYear}>
-                            Save New Year
-                        </button>
+                        <div className='scoreLabel'>
+
+
+                            Year
+                            <EditText
+                                type="number"
+                                value={newEventYear}
+                                onChange={(e) => handleNewEventYearChange(e)}
+                                style={{
+                                    width: '100px',
+                                    padding: '10px',
+                                    border: '1px solid #2E8B57',
+                                    borderRadius: '5px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#f9f9f9',
+                                }}
+                            ></EditText>
+
+                            <button onClick={handleClickSaveNewYear}>
+                                Save New Year
+                            </button>
                         </div>
                     </TabPanel>
                 </Tabs>
-
-
             </div>
+            : <div><img alt="Loading..." src={loader}></img></div>
+        }
         </div>
     );
 };

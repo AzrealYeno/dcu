@@ -1,5 +1,4 @@
 import './Admin.css';
-import { appConfig } from "../config.js";
 import { getEventsByYear, getYearsByEvent, getGames, getGamesScores } from "../dataService.js";
 import { saveScore } from "../adminDataService.js";
 import { useState, useEffect } from 'react';
@@ -11,13 +10,30 @@ import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { getConfig } from '../dataService';
+import loader from '../assets/loader.svg';
 
 const AdminScores = () => {
+    const [config, setConfig] = useState(null);
+    useEffect(() => {
+        const loadConfig = async () => {
+            try {
+                const data = await getConfig();
+                setConfig(data);
+                setEvent(data.currentEvent);
+                setYear(data.currentYear);
+            } catch (error) {
+                console.error("Failed to load config", error);
+            }
+        };
+        loadConfig();
+    }, []);
+
     const [years, setYears] = useState([]);
-    const [year, setYear] = useState(appConfig.currentYear);
+    const [year, setYear] = useState(null);
 
     const [events, setEvents] = useState([]);
-    const [event, setEvent] = useState(appConfig.currentEvent);
+    const [event, setEvent] = useState(null);
 
     const [games, setGames] = useState([]);
     const navigate = useNavigate();
@@ -36,6 +52,7 @@ const AdminScores = () => {
 
     useEffect(() => {
         const fetchYears = async () => {
+            if (event === null) return;
             const years = await getYearsByEvent(event);
             setYears(years);
         }
@@ -45,6 +62,7 @@ const AdminScores = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
+            if (year === null) return;
             const events = await getEventsByYear(year);
             setEvents(events);
         }
@@ -53,6 +71,7 @@ const AdminScores = () => {
 
     useEffect(() => {
         const fetchGames = async () => {
+            if (event === null || year === null) return;
             const games = await getGames(event, year);
             for (let index = 0; index < games.length; index++) {
                 const game = games[index];
@@ -95,70 +114,74 @@ const AdminScores = () => {
 
     return (
         <div className="App">
-            <div className="admin-content">
-                <h1>Manage Scores</h1>
-                <label>
-                    Years:
-                    <select value={year} onChange={handleChangeYear}>
-                        {years.map((year) => (
-                            <option key={year.year} value={year.year}>{year.year}</option>
-                        ))}
-                    </select>
-                </label>
+            {(config && year && event) ?
+                <div className="admin-content">
+                    <h1>Manage Scores</h1>
+                    <label>
+                        Years:
+                        <select value={year} onChange={handleChangeYear}>
+                            {years.map((year) => (
+                                <option key={year.year} value={year.year}>{year.year}</option>
+                            ))}
+                        </select>
+                    </label>
 
-                <label>
-                    Events:
-                    <select value={event} onChange={handleChangeEvent}>
-                        {events.map((evnt) => (
-                            <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
-                        ))}
-                    </select>
-                </label>
-                <div className='scores'>
-                    <h2>Scores</h2>
-                    <Tabs>
-                        <TabList>
+                    <label>
+                        Events:
+                        <select value={event} onChange={handleChangeEvent}>
+                            {events.map((evnt) => (
+                                <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
+                            ))}
+                        </select>
+                    </label>
+                    <div className='scores'>
+                        <h2>Scores</h2>
+                        <Tabs>
+                            <TabList>
+                                {games.map((game) =>
+                                (
+                                    <Tab key={game.id}>{game.name}</Tab>
+                                ))
+                                }
+                            </TabList>
+
+
                             {games.map((game) =>
                             (
-                                <Tab key={game.id}>{game.name}</Tab>
+                                <TabPanel key={game.id}>
+                                    <div key={game.id}>
+                                        <h3>{game.name}</h3>
+                                        {game.scores.map((score) =>
+                                        (
+                                            <div key={score.empireId} className='scoreLabel'>
+                                                {score.empireId}
+                                                <EditText
+                                                    style={{
+                                                        width: '50px',
+                                                        padding: '10px',
+                                                        border: '1px solid #2E8B57',
+                                                        borderRadius: '5px',
+                                                        fontSize: '20px',
+                                                        backgroundColor: '#f9f9f9',
+                                                    }}
+                                                    type="number"
+                                                    defaultValue={score.score.toString()}
+                                                    onSave={({ value }) => handleSaveScore(score.empireId, game.id, value)}
+                                                ></EditText>
+                                            </div>
+                                        ))
+                                        }
+                                    </div>
+                                </TabPanel>
                             ))
                             }
-                        </TabList>
-                    
-
-                    {games.map((game) =>
-                    (
-                        <TabPanel key={game.id}>
-                        <div key={game.id}>
-                            <h3>{game.name}</h3>
-                            {game.scores.map((score) =>
-                            (
-                                <div key={score.empireId} className='scoreLabel'>
-                                    {score.empireId}
-                                    <EditText
-                                        style={{
-                                            width: '50px',
-                                            padding: '10px',
-                                            border: '1px solid #2E8B57',
-                                            borderRadius: '5px',
-                                            fontSize: '20px',
-                                            backgroundColor: '#f9f9f9',
-                                        }}
-                                        type="number"
-                                        defaultValue={score.score.toString()}
-                                        onSave={({ value }) => handleSaveScore(score.empireId, game.id, value)}
-                                    ></EditText>
-                                </div>
-                            ))
-                            }
-                        </div>
-                        </TabPanel>
-                    ))
-                    }
-                    </Tabs>
+                        </Tabs>
+                    </div>
                 </div>
-            </div>
+                : <div><img alt="Loading..." src={loader}></img></div>
+            }
         </div>
+
     );
 };
 

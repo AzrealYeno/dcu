@@ -1,5 +1,4 @@
 import './Admin.css';
-import { appConfig } from "../config.js";
 import { getEventsByYear, getYearsByEvent, getAwardByEmpire } from "../dataService.js";
 import { saveAward } from "../adminDataService.js";
 import { useState, useEffect } from 'react';
@@ -11,13 +10,30 @@ import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import MDEditor from "@uiw/react-md-editor";
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import { getConfig } from '../dataService';
+import loader from '../assets/loader.svg';
 
 const AdminAwards = () => {
+    const [config, setConfig] = useState(null);
+    useEffect(() => {
+        const loadConfig = async () => {
+            try {
+                const data = await getConfig();
+                setConfig(data);
+                setEvent(data.currentEvent);
+                setYear(data.currentYear);
+            } catch (error) {
+                console.error("Failed to load config", error);
+            }
+        };
+        loadConfig();
+    }, []);
+
     const [years, setYears] = useState([]);
-    const [year, setYear] = useState(appConfig.currentYear);
+    const [year, setYear] = useState(null);
 
     const [events, setEvents] = useState([]);
-    const [event, setEvent] = useState(appConfig.currentEvent);
+    const [event, setEvent] = useState(null);
 
     const [awards, setAwards] = useState([]);
 
@@ -37,6 +53,7 @@ const AdminAwards = () => {
 
     useEffect(() => {
         const fetchYears = async () => {
+            if (event === null) return;
             const years = await getYearsByEvent(event);
             setYears(years);
         }
@@ -46,6 +63,7 @@ const AdminAwards = () => {
 
     useEffect(() => {
         const fetchEvents = async () => {
+            if (year === null) return;
             const events = await getEventsByYear(year);
             setEvents(events);
         }
@@ -54,15 +72,14 @@ const AdminAwards = () => {
 
     useEffect(() => {
         const fetchAwards = async () => {
+            if (event === null || year === null) return;
             const awards = [];
             for (let index = 0; index < empireIds.length; index++) {
                 const empireId = empireIds[index];
                 const empireAward = await getAwardByEmpire(event, year, empireId);
                 awards.push(empireAward);
             }
-
             setAwards(awards);
-
         }
         fetchAwards();
     }, [year, event, setAwards]);
@@ -88,6 +105,7 @@ const AdminAwards = () => {
 
     return (
         <div className="App">
+            {(config && year && event) ?
             <div className="admin-content">
                 <h1>Manage Awards</h1>
                 <label>
@@ -140,6 +158,8 @@ const AdminAwards = () => {
                     </Tabs>
                 </div>
             </div>
+            : <div><img alt="Loading..." src={loader}></img></div>
+        }
         </div>
     );
 };

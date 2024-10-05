@@ -2,14 +2,28 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks, getGame } from '../dataService';
-import { appConfig } from '../config';
 import { medal_img } from '../constants';
 import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
 import './GameScores.css';
+import { getConfig } from '../dataService';
+import loader from '../assets/loader.svg';
 
 const GameScores = () => {
+    const [config, setConfig] = useState(null);
+    useEffect(() => {
+        const loadConfig = async () => {
+            try {
+                const data = await getConfig();
+                setConfig(data);
+            } catch (error) {
+                console.error("Failed to load config", error);
+            }
+        };
+        loadConfig();
+    }, []);
+
     const [game, setGame] = useState([]);
     const [ranks, setRanks] = useState([]);
     const [winner, setWinner] = useState({
@@ -18,6 +32,8 @@ const GameScores = () => {
         backgroundImage: bgNeutral,
     });
     const { gameid } = useParams();
+
+    
 
     const getWinner = (rankedScores) => {
         var winner = {
@@ -39,17 +55,18 @@ const GameScores = () => {
 
     useEffect(() => {
         const fetchGame = async () => {
-            await getGame(appConfig.currentEvent, appConfig.currentYear, gameid).then((data) => {
+            if (config === null) return;
+            await getGame(config.currentEvent, config.currentYear, gameid).then((data) => {
                 setGame(data);
             });
         }
         fetchGame();
-    }, [gameid, setGame])
+    }, [config, gameid, setGame])
 
     useEffect(() => {
         const fetchScores = async () => {
-
-            const unsubscribe = streamScores(appConfig.currentEvent, appConfig.currentYear , gameid,
+            if (config === null) return;
+            const unsubscribe = streamScores(config.currentEvent, config.currentYear, gameid,
                 (querySnapshot) => {
                     const scores = querySnapshot.docs
                         .map((docSnapshot) =>
@@ -77,7 +94,7 @@ const GameScores = () => {
         }
 
         fetchScores();
-    }, [gameid, setRanks, setWinner])
+    }, [config, gameid, setRanks, setWinner])
 
     var divStyle = {
         backgroundImage: 'url(' + winner.backgroundImage + ')',
@@ -88,16 +105,19 @@ const GameScores = () => {
 
         <div className="App">
             <div className="gameScores" style={divStyle}>
-                <div className="game-content">
-                    <img src={gameScores_leaderboard} className="Leaderboard_img" alt = "Leaderboard_img"></img>
-                    <div className="game_Name">{game.name}</div>
-                    <div className="game_Info">{game.info}</div>
+                {config ?
+                    <div className="game-content">
+                        <img src={gameScores_leaderboard} className="Leaderboard_img" alt="Leaderboard_img"></img>
+                        <div className="game_Name">{game.name}</div>
+                        <div className="game_Info">{game.info}</div>
 
-                    {
-                        ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div><div className="Ename"><img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img"></img></div> <div className = "Escore">{rank.score + " POINTS"}</div> </div>)
-                    }
+                        {
+                            ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div><div className="Ename"><img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img"></img></div> <div className="Escore">{rank.score + " POINTS"}</div> </div>)
+                        }
 
-                </div>
+                    </div>
+                    : <div><img  alt="Loading..." src={loader}></img></div>
+                }
             </div>
         </div>
     );
