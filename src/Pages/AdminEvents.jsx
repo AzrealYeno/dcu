@@ -8,7 +8,6 @@ import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
-import { adminUids } from '../admin.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import { getConfig,setCurrentEvent } from '../configService';
 import loader from '../assets/loader.svg';
@@ -45,16 +44,17 @@ const AdminEvents = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        if(config === null) return;
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 const uid = user.uid;
-                if (adminUids.includes(uid)) {
+                if(config.adminsList && config.adminsList.includes(uid)) {
                     return;
                 }
             }
-            navigate('/signin');
+            navigate('/admin');
         });
-    }, [navigate])
+    }, [config, navigate])
 
 
     const fetchYears = useCallback(async () => {
