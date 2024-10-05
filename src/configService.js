@@ -12,3 +12,8 @@ export const setCurrentEvent = async  (eventid, year)=> {
     const docRef = doc(db,  "config/", "eventConfig");
     await setDoc(docRef, {currentEvent: eventid, currentYear: year}, { merge: true });
 };
+
+export const setAdminsList = async  (adminUids)=> {
+    const docRef = doc(db,  "config/", "eventConfig");
+    await setDoc(docRef, {adminsList: adminUids}, { merge: true });
+};

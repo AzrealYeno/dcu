@@ -82,8 +82,18 @@ const Admin = () => {
                                     <NavLink to="/admin/awards">
                                         Awards
                                     </NavLink>
-                                </li></>
-                            : <></>}
+                                </li>
+                                <li>
+                                    <NavLink to="/admin/users">
+                                        Admin Users
+                                    </NavLink>
+                                </li>
+                                </>
+                            : <div>
+                                <br />
+                                Your userId is {userid}
+                                
+                                </div>}
 
                     </ul>
                 </div> : <div><img alt="Loading..." src={loader}></img></div>

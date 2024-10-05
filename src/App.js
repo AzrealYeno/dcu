@@ -9,6 +9,7 @@ import AdminEvents from './Pages/AdminEvents';
 import AdminGames from './Pages/AdminGames';
 import Admin from './Pages/Admin';
 import AdminScores from './Pages/AdminScores';
+import AdminUsers from './Pages/AdminUsers';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
       <Route path="/admin/scores" element={<AdminScores/>}/>
       <Route path="/admin/events" element={<AdminEvents/>}/>
       <Route path="/admin/games" element={<AdminGames/>}/>
+      <Route path="/admin/users" element={<AdminUsers/>}/>
       <Route path="/admin" element={<Admin/>}/>
     </Routes>
     </>
