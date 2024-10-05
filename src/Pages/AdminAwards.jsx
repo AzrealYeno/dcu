@@ -1,18 +1,18 @@
 import './Admin.css';
-import { appConfig } from "../config";
-import { getEventsByYear, getYearsByEvent, getAwardByEmpire, getGames, getGamesScores } from "../dataService";
-import { saveAward, saveScore } from "../adminDataService";
+import { appConfig } from "../config.js";
+import { getEventsByYear, getYearsByEvent, getAwardByEmpire } from "../dataService.js";
+import { saveAward } from "../adminDataService.js";
 import { useState, useEffect } from 'react';
-import { empireIds } from '../constants';
-import { EditText } from 'react-edit-text';
+import { empireIds } from '../constants.js';
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from '../firebase';
+import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import MDEditor from "@uiw/react-md-editor";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-const AdminResults = () => {
+const AdminAwards = () => {
     const [years, setYears] = useState([]);
     const [year, setYear] = useState(appConfig.currentYear);
 
@@ -20,7 +20,7 @@ const AdminResults = () => {
     const [event, setEvent] = useState(appConfig.currentEvent);
 
     const [awards, setAwards] = useState([]);
-    const [games, setGames] = useState([]);
+
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,35 +67,6 @@ const AdminResults = () => {
         fetchAwards();
     }, [year, event, setAwards]);
 
-    useEffect(() => {
-        const fetchGames = async () => {
-            const games = await getGames(event, year);
-            for (let index = 0; index < games.length; index++) {
-                const game = games[index];
-                const scores = await getGamesScores(event, year, game.id);
-
-                //reformat the array
-                const newScores = [];
-                for (let index = 0; index < scores.length; index++) {
-                    const score = scores[index];
-                    newScores[score.id] = score.score;
-                }
-                //console.log("newscores",newScores);
-
-                game.scores = [];
-                for (let j = 0; j < empireIds.length; j++) {
-                    const empireId = empireIds[j];
-                    const score = newScores[empireId] || 0;
-                    //console.log("score", score);
-                    game.scores.push({ empireId: empireId, score: score });
-                }
-                //console.log("game.scores",game.scores);
-            }
-            setGames(games);
-        }
-
-        fetchGames();
-    }, [year, event, setGames]);
 
     const handleChangeYear = (e) => {
         setYear(e.target.value);
@@ -115,14 +86,10 @@ const AdminResults = () => {
         setAwards([...awards]);
     };
 
-    const handleSaveScore = (empreId, gameId, value) => {
-        saveScore(event, year, empreId, gameId, value);
-    };
-
     return (
         <div className="App">
             <div className="admin-content">
-                <h1>Admin for Results</h1>
+                <h1>Manage Awards</h1>
                 <label>
                     Years:
                     <select value={year} onChange={handleChangeYear}>
@@ -142,54 +109,39 @@ const AdminResults = () => {
                 </label>
                 <div className='awards'>
                     <h2>AWARDS</h2>
+                    <Tabs>
+                        <TabList>
+                            {awards.map((evnt, index) =>
+                            (
+                                <Tab  key={evnt.empireId}>{evnt.empireId}</Tab>
+                            ))}
+                        </TabList>
+                        
+                
+
                     {awards.map((evnt, index) =>
                     (
+                        <TabPanel key={evnt.empireId}>
                         <div key={evnt.empireId}>
-                            <h3>{evnt.empireId}</h3>
+                            <h3>Awards for {evnt.empireId}</h3>
                             <div className="container">
                                 <MDEditor value={evnt.award}
                                     onChange={(value) => handleChangeAward(index, value)} />
+                                    <br/>
                                 <button onClick={() => handleSaveAward(evnt.empireId, index)}>
                                     Save
                                 </button>
+
                             </div>
                         </div>
+                        </TabPanel>
                     ))
                     }
-                </div>
-                <div className='scores'>
-                    <h2>SCORES</h2>
-                    {games.map((game) =>
-                    (
-                        <div key={game.id}>
-                            <h3>{game.name}</h3>
-                            {game.scores.map((score) =>
-                            (
-                                <div key={score.empireId} className='scoreLabel'>
-                                    {score.empireId}
-                                    <EditText
-                                        style={{
-                                            width: '50px',
-                                            padding: '10px',
-                                            border: '1px solid #2E8B57',
-                                            borderRadius: '5px',
-                                            fontSize: '20px',
-                                            backgroundColor: '#f9f9f9',
-                                        }}
-                                        type="number"
-                                        defaultValue={score.score.toString()}
-                                        onSave={({ value }) => handleSaveScore(score.empireId, game.id, value)}
-                                    ></EditText>
-                                </div>
-                            ))
-                            }
-                        </div>
-                    ))
-                    }
+                    </Tabs>
                 </div>
             </div>
         </div>
     );
 };
 
-export default AdminResults;
+export default AdminAwards;

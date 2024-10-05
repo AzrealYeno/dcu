@@ -46,10 +46,16 @@ const SignIn = () => {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/admin/results">
-                        Results
+                    <NavLink to="/admin/scores">
+                        Scores
                     </NavLink>
                 </li>
+                <li>
+                    <NavLink to="/admin/awards">
+                        Awards
+                    </NavLink>
+                </li>
+                
             </ul>
         </div>
             : <button onClick={logGoogleUser}>Sign In With Google</button>

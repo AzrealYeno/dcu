@@ -117,7 +117,7 @@ const AdminEvents = () => {
     return (
         <div className="App">
             <div className="admin-content">
-                <h3>Admin for Events</h3>
+                <h3>Manage Events</h3>
                 <label>
                     Years:
                     <select value={year} onChange={handleChangeYear}>
