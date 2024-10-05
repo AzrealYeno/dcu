@@ -4,7 +4,7 @@ import { getEventsByYear, getYearsByEvent, getAwardByEmpire, getGames, getGamesS
 import { saveAward, saveScore } from "../adminDataService";
 import { useState, useEffect } from 'react';
 import { empireIds } from '../constants';
-import { EditTextarea, EditText } from 'react-edit-text';
+import { EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';

@@ -1,16 +1,16 @@
 import './Admin.css';
 import { appConfig } from "../config";
-import { getEvent, getEventsByYear, getYearsByEvent, getGames } from "../dataService";
+import { getEvent, getEventsByYear, getYearsByEvent } from "../dataService";
 import { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { EditTextarea, EditText } from 'react-edit-text';
-import { saveEventDetail, saveGameDetail, deleteGame, deleteEvent } from "../adminDataService";
+import { EditText } from 'react-edit-text';
+import { saveEventDetail, deleteEvent } from "../adminDataService";
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
-import MDEditor from "@uiw/react-md-editor";
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
 const AdminEvents = () => {
     const [years, setYears] = useState([]);
@@ -20,9 +20,7 @@ const AdminEvents = () => {
     const [event, setEvent] = useState(appConfig.currentEvent);
 
     const [eventDetail, setEventDetail] = useState({ name: "", year: appConfig.currentYear, eventId: appConfig.currentEvent });
-    const [games, setGames] = useState([]);
 
-    const [newGameName, setNewGameName] = useState("");
     const [newEventName, setNewEventName] = useState("");
     const [newEventYear, setNewEventYear] = useState("");
 
@@ -67,17 +65,6 @@ const AdminEvents = () => {
         fetchEventDetail();
     }, [year, event, setEventDetail]);
 
-    const fetchGames = useCallback(async () => {
-        const games = await getGames(event, year);
-        setGames(games);
-    }, [event, year, setGames]);
-
-
-    useEffect(() => {
-        fetchGames();
-    }, [year, event, setGames, fetchGames]);
-
-
 
     const handleChangeYear = (e) => {
         setYear(e.target.value);
@@ -87,35 +74,6 @@ const AdminEvents = () => {
         setEvent(e.target.value);
     };
 
-    const handleSaveEventName = (value) => {
-        eventDetail.name = value;
-        setEventDetail(eventDetail);
-        saveEventDetail(event, year, eventDetail);
-    };
-
-    const handleSaveGameName = (gameId, value) => {
-        saveGameDetail(event, year, gameId, { name: value });
-    }
-
-    const handleChangeGameInfo = (index, value) => {
-        games[index].info = value;
-        setGames([...games]);
-    }
-
-    const handleSaveGameInfo = (gameId, index) => {
-        const value = games[index].info;
-        saveGameDetail
-            (event, year, gameId, { info: value });
-    }
-
-    const handleDeleteGame = async (gameId) => {
-        await deleteGame(event, year, gameId);
-        fetchGames();
-    }
-
-    const handleNewGameNameChange = (e) => {
-        setNewGameName(e.target.value);
-    };
 
     const handleNewEventNameChange = (e) => {
         setNewEventName(e.target.value);
@@ -124,14 +82,6 @@ const AdminEvents = () => {
     const handleNewEventYearChange = (e) => {
         setNewEventYear(e.target.value);
     };
-
-    const handleClickSaveNewGame = () => {
-        const gameId = uuidv4();
-        saveGameDetail
-            (event, year, gameId, { name: newGameName });
-        setNewGameName("");
-        fetchGames();
-    }
 
     const handleClickSaveNewEvent = async () => {
         if (newEventName.length > 0) {
@@ -185,37 +135,48 @@ const AdminEvents = () => {
                         ))}
                     </select>
                 </label>
+
                 <div>
+                    <br />
                     <button onClick={handleClickDeleteEvent}>
-                        Delete THIS Event
+                        Delete {eventDetail.name} {eventDetail.year}
                     </button>
                 </div>
-
+                <hr />
                 <div className='event'>
                     <h2>NEW EVENT</h2>
-                    <h5>Create a new event for {year}</h5>
-                    <label>Name
-                        <EditText
-                            type="text"
-                            value={newEventName}
-                            onChange={(e) => handleNewEventNameChange(e)}
-                            style={{
-                                width: '80%',
-                                padding: '10px',
-                                border: '1px solid #2E8B57',
-                                borderRadius: '5px',
-                                fontSize: '20px',
-                                backgroundColor: '#f9f9f9',
-                            }}
-                        ></EditText>
-                    </label>
-                    <button onClick={handleClickSaveNewEvent}>
-                        Save New Event
-                    </button>
+                </div>
+                <Tabs>
+                    <TabList>
+                        <Tab>Create a new event for {year}</Tab>
+                        <Tab>Create a new year for {eventDetail.name}</Tab>
+                    </TabList>
 
-                    <h5>Create a new year for {eventDetail.name}</h5>
+                    <TabPanel>
+                        <label>Name
+                            <EditText
+                                type="text"
+                                value={newEventName}
+                                onChange={(e) => handleNewEventNameChange(e)}
+                                style={{
+                                    width: '80%',
+                                    padding: '10px',
+                                    border: '1px solid #2E8B57',
+                                    borderRadius: '5px',
+                                    fontSize: '20px',
+                                    backgroundColor: '#f9f9f9',
+                                }}
+                            ></EditText>
+                        </label>
+                        <button onClick={handleClickSaveNewEvent}>
+                            Save New Event
+                        </button>
+                    </TabPanel>
+                    <TabPanel>
                     <div className='scoreLabel'>
-                        Year
+                        
+                       
+                    Year
                         <EditText
                             type="number"
                             value={newEventYear}
@@ -229,92 +190,15 @@ const AdminEvents = () => {
                                 backgroundColor: '#f9f9f9',
                             }}
                         ></EditText>
+                        
                         <button onClick={handleClickSaveNewYear}>
                             Save New Year
                         </button>
-                    </div>
-                </div>
-                <hr />
-                <div className='event'>
-                    <h2>EDIT EVENT</h2>
-                    <label>Name
-                        <EditText
-                            type="text"
-                            defaultValue={eventDetail.name}
-                            onSave={({ value }) => handleSaveEventName(value)}
-                            style={{
-                                width: '80%',
-                                padding: '10px',
-                                border: '1px solid #2E8B57',
-                                borderRadius: '5px',
-                                fontSize: '20px',
-                                backgroundColor: '#f9f9f9',
-                            }}
-                        ></EditText>
-                    </label>
-                    <div>Year : {eventDetail.year}</div>
-                </div>
-                <hr />
-                <div className='games'>
-                    <h3>GAMES</h3>
-                    {games.map((game,index) =>
-                    (
-                        <div key={game.id}>
-                            <hr />
-                            <label>Name
-                                <EditText
-                                    type="text"
-                                    defaultValue={game.name}
-                                    onSave={({ value }) => handleSaveGameName(game.id, value)}
-                                    style={{
-                                        width: '80%',
-                                        padding: '10px',
-                                        border: '1px solid #2E8B57',
-                                        borderRadius: '5px',
-                                        fontSize: '20px',
-                                        backgroundColor: '#f9f9f9',
-                                    }}
-                                ></EditText>
-                            </label>
-                            <label>Info
-                                <MDEditor value={game.info}
-                                    onChange={(value) => handleChangeGameInfo(index, value)} />
-                            </label>
-                            <button onClick={() => handleSaveGameInfo(game.id, index)}>
-                                    Save Game Info
-                                </button>
-                            <button onClick={() => handleDeleteGame(game.id)}>
-                                Delete this Game
-                            </button>
-
                         </div>
-                    ))
-                    }
-                    <hr />
-                    <h4>ADD NEW GAME TO EVENT</h4>
+                    </TabPanel>
+                </Tabs>
 
-                    <div key={"new_game"}>
-                        <label>Name
-                            <EditText
-                                type="text"
-                                value={newGameName}
-                                onChange={(e) => handleNewGameNameChange(e)}
-                                style={{
-                                    width: '80%',
-                                    padding: '10px',
-                                    border: '1px solid #2E8B57',
-                                    borderRadius: '5px',
-                                    fontSize: '20px',
-                                    backgroundColor: '#f9f9f9',
-                                }}
-                            ></EditText>
-                        </label>
-                        <button onClick={handleClickSaveNewGame}>
-                            Save New Game
-                        </button>
-                    </div>
 
-                </div>
             </div>
         </div>
     );

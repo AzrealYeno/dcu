@@ -6,6 +6,7 @@ import GameScores from './Pages/GameScores';
 import Empire from './Pages/Empire';
 import AdminResults from './Pages/AdminResults';
 import AdminEvents from './Pages/AdminEvents';
+import AdminGames from './Pages/AdminGames';
 import SignIn from './Pages/SignIn';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
       <Route path="/empire/:empireId" element={<Empire/>}/>
       <Route path="/admin/results" element={<AdminResults/>}/>
       <Route path="/admin/events" element={<AdminEvents/>}/>
+      <Route path="/admin/games" element={<AdminGames/>}/>
       <Route path="/signin" element={<SignIn/>}/>
     </Routes>
     </>
