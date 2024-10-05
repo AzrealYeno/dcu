@@ -16,13 +16,6 @@ export const getGamesScores = async (eventid, year, gameid) =>  {
     });
 };
 
-export const getConfig = async () => {
-    return getDoc(doc(db,  "config/", "eventConfig"))
-    .then((snapshot) =>{    
-        return snapshot.data();
-    });
-};
-
 export const getGame = async (eventid, year, gameid) => {
     return getDoc(doc(db,  "events/" + eventid + "/years/" + year + "/games/", gameid))
     .then((snapshot) =>{    

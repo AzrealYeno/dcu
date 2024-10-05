@@ -10,25 +10,26 @@ import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { getConfig } from '../dataService';
+import { getConfig,setCurrentEvent } from '../configService';
 import loader from '../assets/loader.svg';
 
 const AdminEvents = () => {
     const [config, setConfig] = useState(null);
-    useEffect(() => {
-        const loadConfig = async () => {
-            try {
-                const data = await getConfig();
-                setConfig(data);
-                setEvent(data.currentEvent);
-                setYear(data.currentYear);
-                setEventDetail({ name: "", year: data.currentYear, eventId: data.currentEvent });
-            } catch (error) {
-                console.error("Failed to load config", error);
-            }
-        };
-        loadConfig();
+    const loadConfig = useCallback(async () => {
+        try {
+            const data = await getConfig();
+            setConfig(data);
+            setEvent(data.currentEvent);
+            setYear(data.currentYear);
+            setEventDetail({ name: "", year: data.currentYear, eventId: data.currentEvent });
+        } catch (error) {
+            console.error("Failed to load config", error);
+        }
     }, []);
+
+    useEffect(() => {
+        loadConfig();
+    }, [loadConfig]);
 
     const [years, setYears] = useState([]);
     const [year, setYear] = useState(null);
@@ -67,7 +68,7 @@ const AdminEvents = () => {
     }, [event, fetchYears]);
 
     const fetchEvents = useCallback(async () => {
-        if(year === null) return;
+        if (year === null) return;
         const events = await getEventsByYear(year);
         setEvents(events);
     }, [year, setEvents]);
@@ -135,93 +136,106 @@ const AdminEvents = () => {
         }
     }
 
+    const handleClickMakeCurrentEvent = async () => {
+        await setCurrentEvent(event, year);
+        loadConfig();
+    }
+
     return (
         <div className="App">
             {(config && year && event) ?
-            <div className="admin-content">
-                <h3>Manage Events</h3>
-                <label>
-                    Years:
-                    <select value={year} onChange={handleChangeYear}>
-                        {years.map((year) => (
-                            <option key={year.year} value={year.year}>{year.year}</option>
-                        ))}
-                    </select>
-                </label>
+                <div className="admin-content">
+                    <h3>Manage Events</h3>
+                    <label>
+                        Years:
+                        <select value={year} onChange={handleChangeYear}>
+                            {years.map((year) => (
+                                <option key={year.year} value={year.year}>{year.year}</option>
+                            ))}
+                        </select>
+                    </label>
 
-                <label>
-                    Events:
-                    <select value={event} onChange={handleChangeEvent}>
-                        {events.map((evnt) => (
-                            <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
-                        ))}
-                    </select>
-                </label>
-
-                <div>
+                    <label>
+                        Events:
+                        <select value={event} onChange={handleChangeEvent}>
+                            {events.map((evnt) => (
+                                <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
+                            ))}
+                        </select>
+                    </label>
                     <br />
-                    <button onClick={handleClickDeleteEvent}>
-                        Delete {eventDetail.name} {eventDetail.year}
-                    </button>
-                </div>
-                <hr />
-                <div className='event'>
-                    <h2>NEW EVENT</h2>
-                </div>
-                <Tabs>
-                    <TabList>
-                        <Tab>Create a new event for {year}</Tab>
-                        <Tab>Create a new year for {eventDetail.name}</Tab>
-                    </TabList>
-
-                    <TabPanel>
-                        <label>Name
-                            <EditText
-                                type="text"
-                                value={newEventName}
-                                onChange={(e) => handleNewEventNameChange(e)}
-                                style={{
-                                    width: '80%',
-                                    padding: '10px',
-                                    border: '1px solid #2E8B57',
-                                    borderRadius: '5px',
-                                    fontSize: '20px',
-                                    backgroundColor: '#f9f9f9',
-                                }}
-                            ></EditText>
-                        </label>
-                        <button onClick={handleClickSaveNewEvent}>
-                            Save New Event
-                        </button>
-                    </TabPanel>
-                    <TabPanel>
-                        <div className='scoreLabel'>
-
-
-                            Year
-                            <EditText
-                                type="number"
-                                value={newEventYear}
-                                onChange={(e) => handleNewEventYearChange(e)}
-                                style={{
-                                    width: '100px',
-                                    padding: '10px',
-                                    border: '1px solid #2E8B57',
-                                    borderRadius: '5px',
-                                    fontSize: '20px',
-                                    backgroundColor: '#f9f9f9',
-                                }}
-                            ></EditText>
-
-                            <button onClick={handleClickSaveNewYear}>
-                                Save New Year
-                            </button>
+                    {eventDetail.eventId === config.currentEvent && eventDetail.year === config.currentYear ?
+                        <div>
+                            <h5>{eventDetail.name} {eventDetail.year} is the Current Event</h5>
                         </div>
-                    </TabPanel>
-                </Tabs>
-            </div>
-            : <div><img alt="Loading..." src={loader}></img></div>
-        }
+                        : <div>
+                            <br/>
+                            <button onClick={handleClickMakeCurrentEvent}>
+                                Make {eventDetail.name} {eventDetail.year} as the Current Event
+                            </button>
+                            <br />
+                            <button onClick={handleClickDeleteEvent}>
+                                Delete {eventDetail.name} {eventDetail.year}
+                            </button>
+                        </div>}
+                    <hr />
+                    <div className='event'>
+                        <h2>NEW EVENT</h2>
+                    </div>
+                    <Tabs>
+                        <TabList>
+                            <Tab>Create a new event for {year}</Tab>
+                            <Tab>Create a new year for {eventDetail.name}</Tab>
+                        </TabList>
+
+                        <TabPanel>
+                            <label>Name
+                                <EditText
+                                    type="text"
+                                    value={newEventName}
+                                    onChange={(e) => handleNewEventNameChange(e)}
+                                    style={{
+                                        width: '80%',
+                                        padding: '10px',
+                                        border: '1px solid #2E8B57',
+                                        borderRadius: '5px',
+                                        fontSize: '20px',
+                                        backgroundColor: '#f9f9f9',
+                                    }}
+                                ></EditText>
+                            </label>
+                            <button onClick={handleClickSaveNewEvent}>
+                                Save New Event
+                            </button>
+                        </TabPanel>
+                        <TabPanel>
+                            <div className='scoreLabel'>
+
+
+                                Year
+                                <EditText
+                                    type="number"
+                                    value={newEventYear}
+                                    onChange={(e) => handleNewEventYearChange(e)}
+                                    style={{
+                                        width: '100px',
+                                        padding: '10px',
+                                        border: '1px solid #2E8B57',
+                                        borderRadius: '5px',
+                                        fontSize: '20px',
+                                        backgroundColor: '#f9f9f9',
+                                    }}
+                                ></EditText>
+
+                                <button onClick={handleClickSaveNewYear}>
+                                    Save New Year
+                                </button>
+                            </div>
+                        </TabPanel>
+                    </Tabs>
+                </div>
+                : <div><img alt="Loading..." src={loader}></img></div>
+            }
         </div>
     );
 };

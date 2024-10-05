@@ -7,7 +7,7 @@ import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
 import './GameScores.css';
-import { getConfig } from '../dataService';
+import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 
 const GameScores = () => {

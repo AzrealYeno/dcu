@@ -3,7 +3,7 @@ import { Link, NavLink } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import Markdown from 'react-markdown'
-import { getConfig } from '../dataService';
+import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 
 const Games = () => {

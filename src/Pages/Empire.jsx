@@ -5,7 +5,7 @@ import './Empire.css';
 import { getEventsByYear, getYearsByEvent, getAwardByEmpire } from "../dataService";
 import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown'
-import { getConfig } from '../dataService';
+import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 
 const Empire = () => {

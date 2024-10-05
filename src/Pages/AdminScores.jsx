@@ -10,7 +10,7 @@ import { auth } from '../firebase.js';
 import { useNavigate } from 'react-router-dom';
 import { adminUids } from '../admin.js';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import { getConfig } from '../dataService';
+import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 
 const AdminScores = () => {
