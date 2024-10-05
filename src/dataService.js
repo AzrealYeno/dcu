@@ -1,11 +1,10 @@
 import { onSnapshot } from "firebase/firestore";
 import { db } from './firebase';
-import { appConfig } from './config';
 import { collection, doc, getDocs, getDoc } from "firebase/firestore";
 import { empireIds, empires, medals } from './constants';
 
-export const streamScores = (gameid, snapshot) => {
-    const docRef = collection(db, "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/" +  gameid  + "/scores");        
+export const streamScores = (eventid, year, gameid, snapshot) => {
+    const docRef = collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/scores");        
     return onSnapshot(docRef , snapshot);
 };
 
@@ -17,8 +16,8 @@ export const getGamesScores = async (eventid, year, gameid) =>  {
     });
 };
 
-export const getGame = async (gameid) => {
-    return getDoc(doc(db,  "events/" + appConfig.currentEvent + "/years/" + appConfig.currentYear + "/games/", gameid))
+export const getGame = async (eventid, year, gameid) => {
+    return getDoc(doc(db,  "events/" + eventid + "/years/" + year + "/games/", gameid))
     .then((snapshot) =>{    
         return snapshot.data();
     });

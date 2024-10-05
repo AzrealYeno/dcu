@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks, getGame } from '../dataService';
+import { appConfig } from '../config';
 import { medal_img } from '../constants';
 import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
@@ -38,7 +39,7 @@ const GameScores = () => {
 
     useEffect(() => {
         const fetchGame = async () => {
-            await getGame(gameid).then((data) => {
+            await getGame(appConfig.currentEvent, appConfig.currentYear, gameid).then((data) => {
                 setGame(data);
             });
         }
@@ -48,7 +49,7 @@ const GameScores = () => {
     useEffect(() => {
         const fetchScores = async () => {
 
-            const unsubscribe = streamScores(gameid,
+            const unsubscribe = streamScores(appConfig.currentEvent, appConfig.currentYear , gameid,
                 (querySnapshot) => {
                     const scores = querySnapshot.docs
                         .map((docSnapshot) =>
