@@ -29,36 +29,41 @@ const SignIn = () => {
 
     }, [setUserId])
     return (
-
-        userid ? <div>
-            {
+        <div>
+            {userid ?
                 <h1>Welcome {userName || "User"}</h1>
+                : <button onClick={logGoogleUser}>Sign In With Google</button>
             }
+
             <ul>
                 <li>
-                    <NavLink to="/admin/events">
-                        Events
+                    <NavLink to="/">
+                        Home
                     </NavLink>
                 </li>
-                <li>
-                    <NavLink to="/admin/games">
-                        Games
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/admin/scores">
-                        Scores
-                    </NavLink>
-                </li>
-                <li>
-                    <NavLink to="/admin/awards">
-                        Awards
-                    </NavLink>
-                </li>
-                
+                {userid ?
+                    <><li>
+                        <NavLink to="/admin/events">
+                            Events
+                        </NavLink>
+                    </li><li>
+                            <NavLink to="/admin/games">
+                                Games
+                            </NavLink>
+                        </li><li>
+                            <NavLink to="/admin/scores">
+                                Scores
+                            </NavLink>
+                        </li><li>
+                            <NavLink to="/admin/awards">
+                                Awards
+                            </NavLink>
+                        </li></>
+                    : <></>}
+
             </ul>
         </div>
-            : <button onClick={logGoogleUser}>Sign In With Google</button>
+
 
     )
 }
