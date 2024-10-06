@@ -90,9 +90,8 @@ const Admin = () => {
                                 </li>
                                 </>
                             : <div>
-                                <br />
-                                Your userId is {userid}
-                                
+                                <br/>
+                                {userid && <div>Your userId is {userid}</div>}
                                 </div>}
 
                     </ul>
