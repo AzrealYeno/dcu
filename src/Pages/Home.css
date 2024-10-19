@@ -4,10 +4,7 @@ import
     background-image: url(../assets/homepage_bg.png);
 }
 
-.App-header {
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
+
 
   .App-logo {
     height: 40vmin;

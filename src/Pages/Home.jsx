@@ -8,6 +8,7 @@ import home_shinobi from "../assets/home_shinobi.png";
 import home_chimera from "../assets/home_chimera.png";
 import games_btn from "../assets/games_btn.png";
 import scores_btn from "../assets/scores_btn.png";
+import Navbar from '../Navbar';
 
 
 const Home = () => {
@@ -15,11 +16,7 @@ const Home = () => {
   return (
     <div className="App">
       <div className="home_container">
-        <div className="App-header">
-        </div>
-
-        <div>testttt</div>
-
+          <Navbar />
         <div className="menuContainer">
 
           <div className="menu_title">

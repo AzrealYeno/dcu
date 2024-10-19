@@ -17,14 +17,6 @@
     background-position: center; */
 }
 
-.games_container {
-    background-image: url(../assets/background.png);
-    background-size: contain;
-    height: 100vh;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-}
 
 .game_Name {
     color: white;

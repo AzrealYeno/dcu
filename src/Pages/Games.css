@@ -1,17 +1,55 @@
 .games-content {
-    max-width: 100%;
-    display: grid;
-    grid-gap: 4%;
-    grid-template-columns: repeat(4, calc(21%));
-    grid-template-rows: minmax(150px, 1fr);
-    padding: 0 20px;
-  }
-
-.App-header {
-    padding-bottom: 20px;
-    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    
 }
 
-.gamelist {
-    background-color: wheat;
+body {
+    position: absolute;
+    width: 100%;
+    background-image: url(../assets/background.png);
+}
+
+.games_container{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+.gamecard {
+    max-width: 300px;
+    min-height: 500px;
+    max-height: fit-content;
+    margin: 2rem auto;
+    border: 1px solid #ffffff22;
+    background-color: #282c34;
+    background: linear-gradient(0deg, rgba(40,44,52,1) 0%, rgba(17,0,32,.5) 100%);
+    box-shadow: 0 7px 20px 5px #00000088;
+    border-radius: .7rem;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    overflow: hidden;
+    transition: .5s all;
+    padding: 20px;
+    color: white;
+}
+
+.gamecard h2 {
+    color: white;
+    text-decoration: none;
+    
+}
+
+.gamecard:hover {
+    border: 1px solid #ffffff44;
+    box-shadow: 0 7px 50px 10px #000000aa;
+    transform: scale(1.015);
+    filter: brightness(1.3);
+    ::before{
+      filter: brightness(.5);
+      top: -100%;
+      left: 200%;
+    } 
 }

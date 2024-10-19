@@ -9,6 +9,7 @@ import bgNeutral from '../assets/background.png';
 import './GameScores.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
+import Navbar from "../Navbar";
 
 const GameScores = () => {
     const [config, setConfig] = useState(null);
@@ -104,6 +105,7 @@ const GameScores = () => {
     return (
 
         <div className="App">
+            <Navbar />
             <div className="gameScores" style={divStyle}>
                 {config ?
                     <div className="game-content">

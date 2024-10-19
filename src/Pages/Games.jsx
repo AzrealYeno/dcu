@@ -1,10 +1,11 @@
 import './Games.css';
-import { Link, NavLink } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import Markdown from 'react-markdown'
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
+import Navbar from "../Navbar";
 
 const Games = () => {
 
@@ -37,18 +38,18 @@ const Games = () => {
 
     return (
         <div className="App">
+            
+            <div className="background_image"></div>
             <div className="games_container">
-                <div className="App-header">
-                    <NavLink to="/">Home</NavLink>
-                </div>
+            <Navbar />
                 {config ?
                 <div className="games-content">
                     {
                         games?.map((game, i) => (
-                            <div key={i} className="gamelist">
+                            <div key={i} className="gamecard">
 
                                 <Link to={`/games/${game.id}`}>
-                                    <div className="btn">{game.name}</div>
+                                    <h2>{game.name}</h2>
                                 </Link>
                                 <div><Markdown>{game.info}</Markdown></div>
                             </div>

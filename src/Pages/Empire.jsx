@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import Markdown from 'react-markdown'
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
+import Navbar from "../Navbar";
 
 const Empire = () => {
     const { empireId } = useParams();
@@ -85,6 +86,7 @@ const Empire = () => {
         <div className="App">
             {(config && year && event) ?
                 <div className="empire-content" style={divStyle}>
+                    <Navbar />
                     <div>{empire.name}</div>
                     <div>{empire.id}</div>
 
