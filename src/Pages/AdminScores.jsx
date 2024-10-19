@@ -159,10 +159,9 @@ const AdminScores = () => {
                                                     style={{
                                                         width: '50px',
                                                         padding: '10px',
-                                                        border: '1px solid #2E8B57',
-                                                        borderRadius: '5px',
-                                                        fontSize: '20px',
-                                                        backgroundColor: '#f9f9f9',
+                                                        border: '1px solid white',
+                                        borderRadius: '5px',
+                                        fontSize: '20px',
                                                     }}
                                                     type="number"
                                                     defaultValue={score.score.toString()}

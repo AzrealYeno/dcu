@@ -73,10 +73,9 @@ const AdminUsers = () => {
                                             style={{
                                                 width: '80%',
                                                 padding: '10px',
-                                                border: '1px solid #2E8B57',
-                                                borderRadius: '5px',
-                                                fontSize: '20px',
-                                                backgroundColor: '#f9f9f9',
+                                                border: '1px solid white',
+                                        borderRadius: '5px',
+                                        fontSize: '20px',
                                             }}
                                         ></EditText>
                                     </label>
