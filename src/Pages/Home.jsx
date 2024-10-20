@@ -16,7 +16,7 @@ const Home = () => {
   return (
     <div className="App">
       <div className="home_container">
-          <Navbar />
+        <Navbar />
         <div className="menuContainer">
 
           <div className="menu_title">
@@ -25,47 +25,42 @@ const Home = () => {
 
           <div className="menu">
             <NavLink to="/games">
-              <img src={games_btn} className="manu_img" alt="games"></img>
+              <img src={games_btn} className="menu_img" alt="games"></img>
             </NavLink>
           </div>
 
           <div className="menu">
             <NavLink to="/games">
-              <img src={scores_btn} className="manu_img" alt="scores"></img>
+              <img src={scores_btn} className="menu_img" alt="scores"></img>
             </NavLink>
           </div>
+          
         </div>
 
-        <div className="listContainer">
 
           <div className="empire_list">
-            <Link to={`/empire/phoenix`} className="link">
-              <img src={home_phoenix} className="empire" alt="phoenix"></img>
+            <Link to={`/empire/phoenix`} className="empire_link">
+              <img src={home_phoenix} className="empire_img" alt="phoenix"></img>
+              <div className="empire_name">Phoenix</div>
             </Link>
 
-            <Link to={`/empire/pegasus`} className="link">
-              <img src={home_pegasus} className="empire" alt="pegasus"></img>
+            <Link to={`/empire/pegasus`} className="empire_link">
+              <img src={home_pegasus} className="empire_img" alt="pegasus"></img>
+              <div className="empire_name">Pegasus</div>
             </Link>
 
-            <Link to={`/empire/shinobi`} className="link">
-              <img src={home_shinobi} className="empire" alt="shinobi"></img>
+            <Link to={`/empire/shinobi`} className="empire_link">
+              <img src={home_shinobi} className="empire_img" alt="shinobi"></img>
+              <div className="empire_name">Shinobi</div>
             </Link>
 
-            <Link to={`/empire/chimera`} className="link">
-              <img src={home_chimera} className="empire" alt="chimera"></img>
+            <Link to={`/empire/chimera`} className="empire_link">
+              <img src={home_chimera} className="empire_img" alt="chimera"></img>
+              <div className="empire_name">Chimera</div>
             </Link>
-
           </div>
 
-        </div>
-        <div>
-          <img src={home_empirenames} className="empirenames" alt="empirenames"></img>
-        </div>
 
-        {/* <NavLink to="/empire/chimera">Chimera</NavLink>
-        <NavLink to="/empire/shinobi">Shinobi</NavLink>
-        <NavLink to="/empire/pegasus">Pegasus</NavLink>
-        <NavLink to="/empire/phoenix">Phoenix</NavLink> */}
       </div>
     </div>
   );

@@ -34,6 +34,7 @@ body {
     transition: .5s all;
     padding: 20px;
     color: white;
+    text-align: left;
 }
 
 .gamecard h2 {

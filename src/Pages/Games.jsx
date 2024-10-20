@@ -38,8 +38,6 @@ const Games = () => {
 
     return (
         <div className="App">
-            
-            <div className="background_image"></div>
             <div className="games_container">
             <Navbar />
                 {config ?

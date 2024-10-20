@@ -8,4 +8,12 @@ npm run start
 
 npm run build
 
+
+
+
+-----
+
+npm install -g firebase-tools
+firebase login:ci
+
 firebase deploy --only hosting
