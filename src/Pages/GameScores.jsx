@@ -109,8 +109,8 @@ const GameScores = () => {
                 {config ?
                     <div className="gamescores_content" style={divStyle}>
                         <div className='topSpacer' />
-                        <div className='box_preheader' ></div>
-                        <div className='box_header' >
+                        <div className='gamescores_box_preheader' ></div>
+                        <div className='gamescores_box_header' >
                             <div className="game_name">{game.name}</div>
                         </div>
                         {
@@ -129,7 +129,7 @@ const GameScores = () => {
                                 </div>
                             )
                         }
-                        <div className='box_footer' ></div>
+                        <div className='gamescores_box_footer' ></div>
 
                     </div>
 

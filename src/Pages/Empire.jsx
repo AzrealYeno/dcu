@@ -75,46 +75,45 @@ const Empire = () => {
     };
 
     var divStyle = {
-        backgroundImage: 'url(' + empire.backgroundHistoryImage + ')',
-        backgroundSize: "contain",
-        display: "flex",
-        backgroundRepeat: "no-repeat"
-
+        backgroundImage: 'url(' + empire.backgroundHistoryImage + ')'
     };
 
     return (
         <div className="App">
+            <Navbar />
+            <div className="games_container" >
             {(config && year && event) ?
-                <div className="empire-content" style={divStyle}>
-                    <Navbar />
-                    <div>{empire.name}</div>
-                    <div>{empire.id}</div>
+                <div className="empire_content" style={divStyle}>
+                    <div className='topSpacer' />
+                    <div className="empire_name_box">
+                        <img className="empire_name_img" src={empire.nameImage} alt={empire.name}/>
+                    </div>
+                    <div className="event_select_box">
+                        <label>
+                            Years:
+                            <select value={year} onChange={handleChangeYear}>
+                                {years.map((year) => (
+                                    <option key={year.year} value={year.year}>{year.year}</option>
+                                ))}
+                            </select>
+                        </label>
 
-                    <label>
-                        Years:
-                        <select value={year} onChange={handleChangeYear}>
-                            {years.map((year) => (
-                                <option key={year.year} value={year.year}>{year.year}</option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <label>
-                        Events:
-                        <select value={event} onChange={handleChangeEvent}>
-                            {events.map((evnt) => (
-                                <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
-                            ))}
-                        </select>
-                    </label>
-
-                    <div>
+                        <label>
+                            Events:
+                            <select value={event} onChange={handleChangeEvent}>
+                                {events.map((evnt) => (
+                                    <option key={evnt.id} value={evnt.id}>{evnt.name}</option>
+                                ))}
+                            </select>
+                        </label>
+                    </div>
+                    <div className="empire_awards_box">
                         <Markdown>{awards}</Markdown>
                     </div>
-
                 </div>
                 : <div><img alt="Loading..." src={loader}></img></div>
             }
+            </div>
         </div>
     );
 };

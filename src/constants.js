@@ -28,24 +28,28 @@ export const empires = {
         name: "Chimera",
         backgroundImage: bgChimera,
         backgroundHistoryImage: bgHistoryChimera,
+        nameImage: img_Chimera
     },
     "pegasus" :  {
         id: "pegasus",
         name: "Pegasus",
         backgroundImage: bgPegasus,
         backgroundHistoryImage: bgHistoryPegasus,
+        nameImage: img_Pegasus
     },
     "phoenix" : {
         id: "phoenix",
         name: "Phoenix",
         backgroundImage: bgPhoenix,
         backgroundHistoryImage: bgHistoryPhoenix,
+        nameImage: img_Pheonix
     },
     "shinobi" : {
         id: "shinobi",
         name: "Shinobi",
         backgroundImage: bgShinobi,
         backgroundHistoryImage: bgHistoryShinobi,
+        nameImage: img_Shinobi
     }
 }
 

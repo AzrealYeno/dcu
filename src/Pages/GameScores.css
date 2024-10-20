@@ -13,14 +13,14 @@
     
 }
 
-.box_preheader{
+.gamescores_box_preheader{
     width: 80%;
     min-width: 100px;
     max-width: 400px;
     border-top: 4px solid white;
 }
 
-.box_header {
+.gamescores_box_header {
     width: 80%;
     min-width: 100px;
     max-width: 400px;
@@ -33,7 +33,7 @@
     padding-bottom: 20px;
 }
 
-.box_footer{
+.gamescores_box_footer{
     width: 80%;
     min-width: 100px;
     max-width: 400px;
