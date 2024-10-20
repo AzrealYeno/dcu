@@ -34,7 +34,7 @@ const GameScores = () => {
     });
     const { gameid } = useParams();
 
-    
+
 
     const getWinner = (rankedScores) => {
         var winner = {
@@ -99,27 +99,43 @@ const GameScores = () => {
 
     var divStyle = {
         backgroundImage: 'url(' + winner.backgroundImage + ')',
-        backgroundSize: "cover"
     };
 
     return (
 
         <div className="App">
             <Navbar />
-            <div className="gameScores" style={divStyle}>
+            <div className="games_container" >
                 {config ?
-                    <div className="game-content">
-                        <img src={gameScores_leaderboard} className="Leaderboard_img" alt="Leaderboard_img"></img>
-                        <div className="game_Name">{game.name}</div>
-                        <div className="game_Info">{game.info}</div>
-
+                    <div className="gamescores_content" style={divStyle}>
+                        <div className='topSpacer' />
+                        <div className='box_preheader' ></div>
+                        <div className='box_header' >
+                            <div className="game_name">{game.name}</div>
+                        </div>
                         {
-                            ranks.map((rank) => <div key={rank.empireId} className="rank_container"> <div className="medal"><img src={medal_img[rank.medal]} className="medal_img" alt="medal_img"></img></div><div className="Ename"><img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img"></img></div> <div className="Escore">{rank.score + " POINTS"}</div> </div>)
+                            ranks.map(
+                                (rank) =>
+                                <div key={rank.empireId} className="rank_container">
+                                    <div className="medal">
+                                        <img src={medal_img[rank.medal]} className="medal_img" alt="medal_img">
+                                        </img>
+                                    </div>
+                                    <div className="Ename">
+                                        <img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img">
+                                        </img>
+                                    </div>
+                                    <div className="Escore">{rank.score + " POINTS"}</div> 
+                                </div>
+                            )
                         }
+                        <div className='box_footer' ></div>
 
                     </div>
-                    : <div><img  alt="Loading..." src={loader}></img></div>
+
+                    : <div><img alt="Loading..." src={loader}></img></div>
                 }
+
             </div>
         </div>
     );

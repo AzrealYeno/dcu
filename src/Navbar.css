@@ -1,4 +1,8 @@
-  
+  nav {
+	z-index: 999;
+	position: absolute;
+  }
+
   nav a {
 	display: table-cell;
 	text-align: center;
@@ -9,7 +13,6 @@
 	transition: 0.2s ease color;
 	font-family: 'Press Start 2P';
   	text-transform: uppercase;
-	z-index: 999;
 	background-image: linear-gradient(orange,yellow,rgb(240, 240, 221) ,orange,yellow,orange);
 	color: transparent;
     -webkit-background-clip: text;

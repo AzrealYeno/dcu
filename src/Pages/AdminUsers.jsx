@@ -52,6 +52,7 @@ const AdminUsers = () => {
 
     return (
         <div className="App">
+            <div className="admin-content">
             {config ?
                 <div>
                     <h1>Admin UserIds</h1>
@@ -86,9 +87,7 @@ const AdminUsers = () => {
                 </div> : <div><img alt="Loading..." src={loader}></img></div>
             }
         </div>
-
-
-
+        </div>
     )
 }
 export default AdminUsers;

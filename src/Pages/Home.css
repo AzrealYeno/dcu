@@ -7,6 +7,7 @@
     display: flex;
     flex-flow: column;
     overflow-x: hidden;
+    align-items: center;
   }
 
   .title_img {
@@ -17,7 +18,9 @@
 
   .menu {
     padding-bottom: 1%;
-    
+  }
+  .menu_title {
+    padding-top: 5%;
   }
   .menu_img{
     width: 70%;

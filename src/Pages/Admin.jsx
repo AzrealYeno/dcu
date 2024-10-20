@@ -52,6 +52,7 @@ const Admin = () => {
     }, [setUserId])
     return (
         <div className="App">
+            <div className="admin-content">
             {config ?
                 <div>
                     {userid ? 
@@ -97,6 +98,7 @@ const Admin = () => {
                     </ul>
                 </div> : <div><img alt="Loading..." src={loader}></img></div>
             }</div>
+            </div>
 
 
 

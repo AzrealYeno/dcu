@@ -15,10 +15,10 @@ const Home = () => {
 
   return (
     <div className="App">
+      <Navbar />
       <div className="home_container">
-        <Navbar />
         <div className="menuContainer">
-
+        
           <div className="menu_title">
             <img src={home_title} className="title_img" alt="games"></img>
           </div>
