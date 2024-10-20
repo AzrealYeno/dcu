@@ -21,6 +21,6 @@
   }
   
   nav a:hover {
-	color: #fff;
+	transform: scale(1.03);
   }
   
