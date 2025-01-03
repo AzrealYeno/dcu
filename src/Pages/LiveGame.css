@@ -25,20 +25,60 @@
     background-clip: text;
 }
 
+.boxwinner{
+    border: red;
+    border-style: solid;
+}
+
 .games_score_container {
-    
+    width: 650px;
+    /* border: red;
+    border-style: solid; */
+    display: flex;  
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.livegamescore_chimera{
+    background-image: url(../assets/background_chimera.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+}
+
+.livegamescore_phoenix{
+    background-image: url(../assets/background_phoenix.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+}
+
+.livegamescore_pegasus{
+    background-image: url(../assets/background_pegasus.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+}
+.livegamescore_shinobi{
+    background-image: url(../assets/background_shinobi.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
 }
 
 .empirename_img {
-    height: 50px;
+    height: 70px;
     padding: 2px;
-    
 }
 
 .livescore {
     font-family: 'Press Start 2P';
     font-weight: bold;
-    font-size: small;
+    font-size: xx-large;
     transition: 0.2s ease color;
     text-transform: none;
     background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);

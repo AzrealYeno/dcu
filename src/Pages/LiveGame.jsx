@@ -27,7 +27,16 @@ const LiveGame = () => {
     const { gameid } = useParams();
 
     const [scores, setScores] = useState([]);
+    const [winner, setWinner] = useState("");
 
+
+    const getWinner = (_scores) => {
+        var win;
+        var sortedList = [..._scores];
+        sortedList.sort((a, b) => b.score - a.score);
+        sortedList.length > 0 ? win = sortedList[0].id : win = "";
+        return win;
+    }
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -47,10 +56,9 @@ const LiveGame = () => {
                     .map((docSnapshot) =>
                         ({ ...docSnapshot.data(), id: docSnapshot.id })
                     );
-                console.log('scores',scores);
                 setScores(scores);
-
-
+                setWinner(getWinner(scores));
+                
             }
         );
         return unsubscribe;
@@ -72,11 +80,11 @@ const LiveGame = () => {
                         <div key="games_scores" className='games_score_container'>
                         {scores.map((score) =>
                         (
-                            <div key={score.id}> 
-                                
-                                <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
-                                 
-                                 <div className="livescore">{score.score}</div> 
+                            <div  key={score.id} className={`${score.id == winner ? "boxwinner" : ""}`}>
+                                <div key={score.id} className={`livegamescore_${score.id}`}> 
+                                    <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
+                                    <div className="livescore">{score.score}</div> 
+                                </div>
                             </div>
                         ))}
                     </div>
