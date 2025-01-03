@@ -85,6 +85,11 @@ const Admin = () => {
                                     </NavLink>
                                 </li>
                                 <li>
+                                    <NavLink to="/admin/livegames">
+                                        Live Games
+                                    </NavLink>
+                                </li>
+                                <li>
                                     <NavLink to="/admin/users">
                                         Admin Users
                                     </NavLink>

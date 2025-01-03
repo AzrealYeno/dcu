@@ -69,6 +69,14 @@ export const getGames = async (event, year) =>  {
     });
 };
 
+export const getLiveGames = async () =>  {
+    return getDocs(collection(db, "livegames"))
+    .then((querySnapshot)=>{               
+        return querySnapshot.docs
+            .map((doc) => ({...doc.data(), id:doc.id }))
+    });
+};
+
 
 export const getEventsByYear = async (year) =>  {
     return getDocs(collection(db, "year_event_index/" + year + "/events"))

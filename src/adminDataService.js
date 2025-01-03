@@ -44,3 +44,9 @@ export const deleteEvent = async (eventId, year) =>
     await deleteDoc(indexDocRef);      
 };
 
+
+export const saveLiveGameDetail = async (gameId, gameDetail) =>
+    {
+        const docRef = doc(db, "livegames/"+ gameId);
+        await setDoc(docRef, gameDetail, { merge: true });   
+    };
