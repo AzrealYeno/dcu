@@ -46,7 +46,28 @@ export const deleteEvent = async (eventId, year) =>
 
 
 export const saveLiveGameDetail = async (gameId, gameDetail) =>
-    {
-        const docRef = doc(db, "livegames/"+ gameId);
-        await setDoc(docRef, gameDetail, { merge: true });   
-    };
+{
+    const docRef = doc(db, "livegames/"+ gameId);
+    await setDoc(docRef, gameDetail, { merge: true });   
+};
+
+
+export const deleteLiveGame = async (gameId) =>
+{
+    const docRef = doc(db, "livegames/" + gameId);
+    await deleteDoc(docRef);   
+};
+
+export const deleteLiveGameScore = async (gameId, scoreId) =>
+{
+    const docRef = doc(db, "livegames/" + gameId + "/scores/" + scoreId);
+    await deleteDoc(docRef);   
+};
+
+export const saveLiveGameScore = async (gameId, empireId, score) =>
+{
+    const docRef = doc(db, "livegames/"+ gameId + "/scores/" + empireId);
+    console.log("saving score: " + score);
+    const intScore = parseInt(score);
+    await setDoc(docRef, {score: intScore}, { merge: true });
+};

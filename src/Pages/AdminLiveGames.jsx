@@ -8,7 +8,8 @@ import { useNavigate } from 'react-router-dom';
 import { getLiveGames } from "../dataService.js";
 import { EditText } from 'react-edit-text';
 import { v4 as uuidv4 } from 'uuid';    
-import { saveLiveGameDetail } from '../adminDataService.js';
+import { saveLiveGameDetail, deleteLiveGame } from '../adminDataService.js';
+import { NavLink } from 'react-router-dom';
 
 const AdminLiveGames = () => {
     const navigate = useNavigate();
@@ -31,7 +32,7 @@ const AdminLiveGames = () => {
 
     const fetchLiveGames = useCallback(async () => {
         const games = await getLiveGames();
-        console.log(games);
+        //console.log(games);
         setLiveGames(games);
     }, [setLiveGames]);
 
@@ -41,7 +42,6 @@ const AdminLiveGames = () => {
             if (user) {
                 const uid = user.uid;
                 if (config.adminsList && config.adminsList.includes(uid)) {
-                    console.log('fetch live games here');
                     fetchLiveGames();
                     return;
                 }
@@ -64,6 +64,11 @@ const AdminLiveGames = () => {
         fetchLiveGames();
     }
 
+    const handleDeleteLiveGame = async (gameId) => {
+        await deleteLiveGame(gameId);
+        fetchLiveGames();
+    }
+
     return (
         <div className="App">
             <div className="admin-content">
@@ -73,7 +78,16 @@ const AdminLiveGames = () => {
                     <ul>
                         {livegames.map((livegame) =>
                         (
-                            <li key={livegame.id}>{livegame.name}</li>
+                            <li key={livegame.id}>{livegame.name} ------ 
+                             <NavLink to={`/admin/livegame/${livegame.id}`} >
+                                        Edit
+                                    </NavLink>
+                                    -------
+
+                                <button onClick={() => handleDeleteLiveGame(livegame.id)}>
+                                    Delete this Game
+                                </button>
+                            </li>
                         ))}
                     </ul>
                     <hr/>

@@ -101,3 +101,18 @@ export const getYearsByEvent = async (event) =>  {
             .map((doc) => ({...doc.data(), id:doc.id }))
     });
 };
+
+export const getLiveGame = async (gameid) => {
+    return getDoc(doc(db,  "livegames/", gameid))
+    .then((snapshot) =>{    
+        return snapshot.data();
+    });
+};
+
+export const getLiveGamesScores = async (gameid) =>  {
+    return getDocs(collection(db, "livegames/" + gameid + "/scores"))
+    .then((querySnapshot)=>{               
+        return querySnapshot.docs
+            .map((doc) => ({...doc.data(), id:doc.id }))
+    });
+};
