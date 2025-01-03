@@ -1,0 +1,53 @@
+.livegamescores_content {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    background-size: cover;
+    padding-top: 10px;
+    position: absolute;
+    overflow-x: hidden;
+    align-items: center;
+    top: 0;
+    
+}
+
+.game_name {
+    font-family: 'Press Start 2P';
+    font-weight: bold;
+    font-size: large;
+    transition: 0.2s ease color;
+    text-transform: none;
+    background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.games_score_container {
+    
+}
+
+.empirename_img {
+    height: 50px;
+    padding: 2px;
+    
+}
+
+.livescore {
+    font-family: 'Press Start 2P';
+    font-weight: bold;
+    font-size: small;
+    transition: 0.2s ease color;
+    text-transform: none;
+    background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    width: min-content;
+    line-height: 150%;
+    padding: 2px;
+    display: inline;
+    
+}

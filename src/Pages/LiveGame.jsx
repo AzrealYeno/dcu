@@ -3,7 +3,7 @@ import { useState, useEffect , useCallback } from 'react';
 import { useParams } from "react-router-dom";
 import { getLiveGame, streamLiveGameScores } from '../dataService';
 import { empires } from '../constants';
-import './GameScores.css';
+import './LiveGame.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 import Navbar from "../Navbar";
@@ -66,15 +66,17 @@ const LiveGame = () => {
             <Navbar />
             <div className="games_container" >
                 {config ?
-                    <div  >
-                        <div>{game.name}</div>
-                        <div key="games_scores">
+                    <div  className='livegamescores_content'>
+                        <div className='topSpacer' />
+                        <div className='game_name' >{game.name}</div>
+                        <div key="games_scores" className='games_score_container'>
                         {scores.map((score) =>
                         (
                             <div key={score.id}> 
                                 
-                                <img height="100px" src={empires[score.id].nameImage} alt={score.id} />
-                                {score.score}
+                                <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
+                                 
+                                 <div className="livescore">{score.score}</div> 
                             </div>
                         ))}
                     </div>
