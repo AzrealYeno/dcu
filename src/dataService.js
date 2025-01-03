@@ -116,3 +116,8 @@ export const getLiveGamesScores = async (gameid) =>  {
             .map((doc) => ({...doc.data(), id:doc.id }))
     });
 };
+
+export const streamLiveGameScores = (gameid, snapshot) => {
+    const docRef = collection(db, "livegames/" + gameid + "/scores");        
+    return onSnapshot(docRef , snapshot);
+};

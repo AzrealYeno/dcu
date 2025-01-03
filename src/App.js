@@ -12,6 +12,7 @@ import AdminScores from './Pages/AdminScores';
 import AdminUsers from './Pages/AdminUsers';
 import AdminLiveGames from './Pages/AdminLiveGames';
 import AdminEditLiveGame from './Pages/AdminEditLiveGame';
+import LiveGame from './Pages/LiveGame';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
       <Route path="/admin/users" element={<AdminUsers/>}/>
       <Route path="/admin/livegames" element={<AdminLiveGames/>}/>
       <Route path="/admin/livegame/:gameid" element={<AdminEditLiveGame/>}/>
+      <Route path="/livegame/:gameid" element={<LiveGame/>}/>
       <Route path="/admin" element={<Admin/>}/>
     </Routes>
     </>

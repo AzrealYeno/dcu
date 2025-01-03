@@ -10,6 +10,7 @@ import {getLiveGame, getLiveGamesScores } from '../dataService';
 import { useParams } from "react-router-dom";
 import {empireIds } from '../constants';
 import { EditText } from 'react-edit-text';
+import { NavLink } from 'react-router-dom';
 
 const AdminEditLiveGame = () => {
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ const AdminEditLiveGame = () => {
 
     const fetchLiveGame = useCallback(async () => {
         await getLiveGame(gameid).then((data) => {
+            console.log('livegame',data);
             setLiveGame(data);
             fetchLiveGameScores();
         });
@@ -89,7 +91,11 @@ const AdminEditLiveGame = () => {
             {config ?
                 <div>
                     <h1>{livegame.name}</h1>
-                    
+                    <h2>
+                    <NavLink to={`/livegame/${gameid}`} >
+                    /livegame/{gameid}
+                    </NavLink>
+                    </h2>
                     <h1>Live Games</h1>
                     <ul>
                         {scores.map((score) =>
