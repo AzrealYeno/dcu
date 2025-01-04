@@ -12,12 +12,32 @@
     display: flex;
     flex-wrap: wrap;
     padding-top: 10px;
+    
 }
 
 
 .gamecard {
     max-width: 300px;
     min-height: 500px;
+    max-height: fit-content;
+    margin: 2rem auto;
+    border: 1px solid #ffffff22;
+    background-color: #282c34;
+    background: linear-gradient(0deg, rgba(40,44,52,1) 0%, rgba(17,0,32,.5) 100%);
+    box-shadow: 0 7px 20px 5px #00000088;
+    border-radius: .7rem;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    overflow: hidden;
+    transition: .5s all;
+    padding: 20px;
+    color: white;
+    text-align: left;
+}
+
+.livegamecard {
+    max-width: 300px;
+    min-height: 200px;
     max-height: fit-content;
     margin: 2rem auto;
     border: 1px solid #ffffff22;

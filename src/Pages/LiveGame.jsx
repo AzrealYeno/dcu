@@ -76,7 +76,7 @@ const LiveGame = () => {
     return (
 
         <div className="App">
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="games_container" >
                 {config ?
                     <div  className='livegamescores_content'>
