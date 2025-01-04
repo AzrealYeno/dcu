@@ -40,10 +40,11 @@ const Games = () => {
     return (
         <div className="App">
             <Navbar />
+            <div className='topSpacer'></div>
             <div className="games_container">
                 {config ?
                 <div className="games-content">
-                    <div className='topSpacer'></div>
+                    
                     {
                         livegames?.map((game, i) => (
                             <div key={i} className="livegamecard">
