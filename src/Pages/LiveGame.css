@@ -55,6 +55,11 @@
     align-content: space-evenly;
 }
 
+.updatedscore{
+    border: red;
+    border-style: solid;
+}
+
 .livegamescore_pegasus{
     background-image: url(../assets/background_pegasus.png);
     background-size: cover;

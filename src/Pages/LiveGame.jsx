@@ -28,6 +28,7 @@ const LiveGame = () => {
 
     const [scores, setScores] = useState([]);
     const [winner, setWinner] = useState("");
+    const [updatedscores, setUpdatedScores] = useState([]);
 
 
     const getWinner = (_scores) => {
@@ -38,6 +39,27 @@ const LiveGame = () => {
         return win;
     }
 
+    const fetchLiveGameScores = useCallback(async () => {
+        const unsubscribe = streamLiveGameScores(gameid,
+            (querySnapshot) => {
+                const scores = querySnapshot.docs
+                    .map((docSnapshot) =>
+                        ({ ...docSnapshot.data(), id: docSnapshot.id })
+                    );
+
+                    const updated = querySnapshot.docChanges().map((change) => {
+                        return change.doc.id;
+                    });
+                
+                setScores(scores);
+                setUpdatedScores(updated);
+                setWinner(getWinner(scores));
+                
+            }
+        );
+        return unsubscribe;
+    }, [gameid,setScores]);
+    
     useEffect(() => {
         const fetchGame = async () => {
             if (config === null) return;
@@ -47,25 +69,20 @@ const LiveGame = () => {
             await fetchLiveGameScores();
         }
         fetchGame();
-    }, [config, gameid, setGame])
+    }, [config, gameid, setGame, fetchLiveGameScores])
 
-    const fetchLiveGameScores = useCallback(async () => {
-        const unsubscribe = streamLiveGameScores(gameid,
-            (querySnapshot) => {
-                const scores = querySnapshot.docs
-                    .map((docSnapshot) =>
-                        ({ ...docSnapshot.data(), id: docSnapshot.id })
-                    );
-                setScores(scores);
-                setWinner(getWinner(scores));
-                
+    
+
+
+   const isUpdated = (id) => {
+        if (updatedscores.length > 0) {
+            if (updatedscores.includes(id)) {
+                return "updatedscore";
+            } else {
+                return "";
             }
-        );
-        return unsubscribe;
-    }, [setScores]);
-
-
-   
+        }
+    }
 
 
     return (
@@ -80,10 +97,11 @@ const LiveGame = () => {
                         <div key="games_scores" className='games_score_container'>
                         {scores.map((score) =>
                         (
-                            <div  key={score.id} className={`${score.id == winner ? "boxwinner" : ""}`}>
+                            <div  key={score.id} className={`${score.id === winner ? "boxwinner" : ""}`}>
                                 <div key={score.id} className={`livegamescore_${score.id}`}> 
                                     <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
-                                    <div className="livescore">{score.score}</div> 
+                                    <div className={"livescore " + isUpdated(score.id) }>{score.score}</div> 
+                                    
                                 </div>
                             </div>
                         ))}
