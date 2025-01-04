@@ -33,16 +33,16 @@ const LiveGame = () => {
 
     const getWinner = (_scores) => {
         var win;
-        var sortedList = [..._scores];
-        sortedList.sort((a, b) => b.score - a.score);
-        sortedList.length > 0 ? win = sortedList[0].id : win = "";
+        //var sortedList = [..._scores];
+        //sortedList.sort((a, b) => b.score - a.score);
+        _scores.length > 0 ? win = _scores[0].id : win = "";
         return win;
     }
 
     const fetchLiveGameScores = useCallback(async () => {
         const unsubscribe = streamLiveGameScores(gameid,
             (querySnapshot) => {
-                const scores = querySnapshot.docs
+                var scores = querySnapshot.docs
                     .map((docSnapshot) =>
                         ({ ...docSnapshot.data(), id: docSnapshot.id })
                     );
@@ -51,7 +51,7 @@ const LiveGame = () => {
                         return change.doc.id;
                     });
                 
-                
+                scores.sort((a, b) => b.score - a.score);
                 setScores(scores);
                 setUpdatedScores(updated);
                 setWinner(getWinner(scores));
