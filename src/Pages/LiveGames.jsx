@@ -1,11 +1,11 @@
-import './Games.css';
+import './LiveGame.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { getLiveGames } from '../dataService';
-import Markdown from 'react-markdown'
+import { getLiveGamesWithScores } from '../dataService';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 import Navbar from "../Navbar";
+import { empires } from '../constants';
 
 const Games = () => {
 
@@ -28,7 +28,8 @@ const Games = () => {
     useEffect(() => {
         const fetchGames = async () => {
             if (config === null) return;
-            const games = await getLiveGames();
+            const games = await getLiveGamesWithScores();
+            console.log(games);
              setLiveGames(games);                
          }
 
@@ -48,9 +49,16 @@ const Games = () => {
                             <div key={i} className="livegamecard">
 
                                 <Link to={`/livegame/${game.id}`}>
-                                    <h2>{game.name}</h2>
+                                    <h2 className='game_name'>{game.name}</h2>
                                 </Link>
-                                <div><Markdown>{game.info}</Markdown></div>
+                                {game.scores.map((score, index) =>
+                        (
+                            <div  key={score.id} className='livegamecardscore'>
+                                    <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
+                                    <div className={`livescore`}>{score.score}</div> 
+                                
+                            </div>
+                        ))}
                             </div>
 
                         ))

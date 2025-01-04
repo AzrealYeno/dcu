@@ -6,7 +6,6 @@ import { empires } from '../constants';
 import './LiveGame.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
-import Navbar from "../Navbar";
 
 const LiveGame = () => {
     const [config, setConfig] = useState(null);

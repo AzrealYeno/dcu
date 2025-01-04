@@ -121,3 +121,12 @@ export const streamLiveGameScores = (gameid, snapshot) => {
     const docRef = collection(db, "livegames/" + gameid + "/scores");        
     return onSnapshot(docRef , snapshot);
 };
+
+export const getLiveGamesWithScores = async () =>  {
+    const games = await getLiveGames();
+    return Promise.all(games.map(async (game) => {
+        const scores = await getLiveGamesScores(game.id);
+        scores.sort((a, b) => b.score - a.score);
+        return {...game, scores: scores};
+    }));
+};

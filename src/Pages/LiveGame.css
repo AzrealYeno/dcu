@@ -118,6 +118,7 @@
     padding: 2px;
     position: relative;
     z-index: 4;
+    width: 230px;
 }
 
 .livescore {
@@ -137,4 +138,10 @@
     position: relative;
     z-index: 4;
     
+    
+}
+
+.livegamecardscore{
+    width: 500px;
+    justify-content: space-between;
 }
