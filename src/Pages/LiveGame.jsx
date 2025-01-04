@@ -51,6 +51,7 @@ const LiveGame = () => {
                         return change.doc.id;
                     });
                 
+                
                 setScores(scores);
                 setUpdatedScores(updated);
                 setWinner(getWinner(scores));
@@ -59,7 +60,7 @@ const LiveGame = () => {
         );
         return unsubscribe;
     }, [gameid,setScores]);
-    
+
     useEffect(() => {
         const fetchGame = async () => {
             if (config === null) return;
@@ -70,19 +71,6 @@ const LiveGame = () => {
         }
         fetchGame();
     }, [config, gameid, setGame, fetchLiveGameScores])
-
-    
-
-
-   const isUpdated = (id) => {
-        if (updatedscores.length > 0) {
-            if (updatedscores.includes(id)) {
-                return "updatedscore";
-            } else {
-                return "";
-            }
-        }
-    }
 
 
     return (
@@ -95,13 +83,13 @@ const LiveGame = () => {
                         <div className='topSpacer' />
                         <div className='game_name' >{game.name}</div>
                         <div key="games_scores" className='games_score_container'>
-                        {scores.map((score) =>
+                        {scores.map((score, index) =>
                         (
                             <div  key={score.id} className={`${score.id === winner ? "boxwinner" : ""}`}>
                                 <div key={score.id} className={`livegamescore_${score.id}`}> 
                                     <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
-                                    <div className={"livescore " + isUpdated(score.id) }>{score.score}</div> 
-                                    
+                                    <div className={`livescore ${updatedscores.includes(score.id)? "updatedscore": ""}`}>{score.score}</div> 
+                                    {/* <div className={`background_${score.id}${index % 2 == 0 ? "": "_odd"}`}></div> */}
                                 </div>
                             </div>
                         ))}

@@ -23,17 +23,16 @@
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
+    padding-bottom: 40px;
 }
 
 .boxwinner{
-    border: red;
+    border: gold;
     border-style: solid;
 }
 
 .games_score_container {
     width: 650px;
-    /* border: red;
-    border-style: solid; */
     display: flex;  
     flex-wrap: wrap;
     justify-content: space-between;
@@ -55,10 +54,19 @@
     align-content: space-evenly;
 }
 
-.updatedscore{
-    border: red;
-    border-style: solid;
-}
+
+.updatedscore {
+    animation: bounce 1s ease 3;
+  }
+  @keyframes bounce {
+    0% { transform: translateY(0); }
+    25% { transform: translateY(-10px); }
+    
+    100% {
+      transform: translateY(-15px);
+    } 
+  }
+  
 
 .livegamescore_pegasus{
     background-image: url(../assets/background_pegasus.png);
@@ -93,6 +101,6 @@
     width: min-content;
     line-height: 150%;
     padding: 2px;
-    display: inline;
+    display: inline-flex;
     
 }
