@@ -38,22 +38,65 @@
     justify-content: space-between;
 }
 
-.livegamescore_chimera{
-    background-image: url(../assets/background_chimera.png);
-    background-size: cover;
+.livegamescore{
+    /* background-image: url(../assets/background_chimera.png);
+    background-size: cover; */
     height: 300px;
     width: 320px;
     align-content: space-evenly;
+    position: relative;
 }
 
-.livegamescore_phoenix{
+
+.livegamescore_phoenix_background{
     background-image: url(../assets/background_phoenix.png);
     background-size: cover;
     height: 300px;
     width: 320px;
     align-content: space-evenly;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
+.livegamescore_chimera_background{
+    background-image: url(../assets/background_chimera.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.livegamescore_pegasus_background{
+    background-image: url(../assets/background_pegasus.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.livegamescore_shinobi_background{
+    background-image: url(../assets/background_shinobi.png);
+    background-size: cover;
+    height: 300px;
+    width: 320px;
+    align-content: space-evenly;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+.background_odd{
+    transform: scaleX(-1);
+}
 
 .updatedscore {
     animation: bounce 1s ease 3;
@@ -68,24 +111,13 @@
   }
   
 
-.livegamescore_pegasus{
-    background-image: url(../assets/background_pegasus.png);
-    background-size: cover;
-    height: 300px;
-    width: 320px;
-    align-content: space-evenly;
-}
-.livegamescore_shinobi{
-    background-image: url(../assets/background_shinobi.png);
-    background-size: cover;
-    height: 300px;
-    width: 320px;
-    align-content: space-evenly;
-}
+
 
 .empirename_img {
     height: 70px;
     padding: 2px;
+    position: relative;
+    z-index: 4;
 }
 
 .livescore {
@@ -102,5 +134,7 @@
     line-height: 150%;
     padding: 2px;
     display: inline-flex;
+    position: relative;
+    z-index: 4;
     
 }

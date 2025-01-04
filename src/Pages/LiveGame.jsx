@@ -86,11 +86,13 @@ const LiveGame = () => {
                         {scores.map((score, index) =>
                         (
                             <div  key={score.id} className={`${score.id === winner ? "boxwinner" : ""}`}>
-                                <div key={score.id} className={`livegamescore_${score.id}`}> 
+                                <div key={score.id} className={`livegamescore`}> 
+                                    
                                     <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
                                     <div className={`livescore ${updatedscores.includes(score.id)? "updatedscore": ""}`}>{score.score}</div> 
-                                    {/* <div className={`background_${score.id}${index % 2 == 0 ? "": "_odd"}`}></div> */}
+                                    <div className={`livegamescore_${score.id}_background ${index % 2 == 0 ? "": "background_odd"}`}></div>
                                 </div>
+                                
                             </div>
                         ))}
                     </div>
