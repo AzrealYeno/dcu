@@ -1,6 +1,10 @@
   nav {
-	z-index: 999;
-	position: absolute;
+	flex-direction: row;
+    z-index: 999;
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
   }
 
   nav a {
