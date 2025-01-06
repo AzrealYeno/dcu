@@ -1,6 +1,6 @@
   nav {
     min-width: 409px;
-	flex-direction: row;
+	  flex-direction: row;
     z-index: 999;
     position: absolute;
     display: flex;
@@ -9,12 +9,11 @@
   }
 
   nav a {
-	display: table-cell;
 	text-align: center;
 	text-decoration: none;
 	font-family: 'Press Start 2P';
 	font-weight: bold;
-	padding: 10px 20px;
+  padding: 10px 20px;
 	transition: 0.2s ease color;
 	font-family: 'Press Start 2P';
   	text-transform: uppercase;
@@ -29,3 +28,18 @@
 	transform: scale(1.03);
   }
   
+/* The max-width is like the threshold for when this function runs to make the nav bar smaller */
+@media (max-width: 450px) {
+
+  nav {
+    padding-left: 7%;
+      align-self: center;
+      flex-direction: row; 
+      align-items: center;
+  }
+
+  nav a {
+      padding: 10px 20px; 
+      font-size: 0.5rem; 
+  }
+}
