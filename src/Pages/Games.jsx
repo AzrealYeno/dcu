@@ -47,13 +47,11 @@ const Games = () => {
                     {
                         games?.map((game, i) => (
                             <div className="gamecard_container">
-                                <div key={i} className="gamecard">
-
-                                    <Link to={`/games/${game.id}`}>
-                                        <h2>{game.name}</h2>
-                                    </Link>
-                                    <div><Markdown>{game.info}</Markdown></div>
-                                </div>
+                                <Link to={`/games/${game.id}`}>
+                                    <div key={i} className="gamecard">                                    
+                                        <h2>{game.name}</h2>            
+                                    </div>
+                                </Link>
                             </div>
                         ))
                     }
