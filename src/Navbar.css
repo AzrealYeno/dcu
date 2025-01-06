@@ -19,7 +19,7 @@
   	text-transform: uppercase;
 	background-image: linear-gradient(orange,yellow,rgb(240, 240, 221) ,orange,yellow,orange);
 	color: transparent;
-    -webkit-background-clip: text;
+    -webkit-background-clip: text;  
     background-clip: text;
 
   }
