@@ -24,7 +24,7 @@ const Home = () => {
           </div>
 
           <div className="menu">
-            <NavLink to="/games">
+            <NavLink to="/gamedesc">
               <img src={games_btn} className="menu_img" alt="games"></img>
             </NavLink>
           </div>

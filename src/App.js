@@ -1,6 +1,7 @@
 import { Routes,Route } from 'react-router-dom';
 import './App.css';
 import Home from './Pages/Home';
+import GameDescriptions from './Pages/Games';
 import Games from './Pages/Games';
 import GameScores from './Pages/GameScores';
 import Empire from './Pages/Empire';
@@ -20,6 +21,7 @@ function App() {
     <>
     <Routes>
       <Route path="/" element={<Home/>}/>
+      <Route path="/gamedesc" element={<GameDescriptions/>}/>
       <Route path="/games" element={<Games/>}/>
       <Route path="/games/:gameid" element={<GameScores/>}/>
       <Route path="/empire/:empireId" element={<Empire/>}/>
