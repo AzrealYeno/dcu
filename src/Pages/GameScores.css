@@ -33,6 +33,10 @@
     padding-bottom: 20px;
 }
 
+.gamescores_box_header div {
+    position: relative;
+}
+
 .gamescores_box_footer{
     width: 80%;
     min-width: 100px;
