@@ -11,15 +11,15 @@
   }
 
   .title_img {
-    padding-top: 15%;
+    padding-top: 3%;
     max-width:720px;
     min-width: 300px;
     width: 90%;
   }
 
   .menu {
-    padding-bottom: 2%;
-    padding-top: 2%;
+    padding-bottom: 1%;
+    padding-top: 1%;
   }
 
   .menu :hover{
@@ -40,7 +40,7 @@
     flex-wrap: wrap;
     max-width: 720px;
     width: 100%;
-    padding-top: 3.5%;
+    padding-top: 1.5%;
   }
 
   .empire_link {
