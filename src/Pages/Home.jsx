@@ -25,13 +25,13 @@ const Home = () => {
 
           <div className="menu">
             <NavLink to="/gamedesc">
-              <img src={games_btn} className="menu_img" alt="games"></img>
+              <img src={games_btn} className="menu_img" alt="gamedesc"></img>
             </NavLink>
           </div>
 
           <div className="menu">
             <NavLink to="/games">
-              <img src={scores_btn} className="menu_img" alt="scores"></img>
+              <img src={scores_btn} className="menu_img" alt="games"></img>
             </NavLink>
           </div>
           

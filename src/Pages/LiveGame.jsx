@@ -63,7 +63,7 @@ const LiveGame = () => {
     useEffect(() => {
         const fetchGame = async () => {
             if (config === null) return;
-            await getLiveGame( gameid).then((data) => {
+            await getLiveGame(gameid).then((data) => {
                 setGame(data);
             });
             await fetchLiveGameScores();

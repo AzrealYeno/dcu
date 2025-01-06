@@ -1,5 +1,4 @@
 import './Games.css';
-import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import Markdown from 'react-markdown'
@@ -29,12 +28,17 @@ const GameDescriptions = () => {
         const fetchGames = async () => {
             if (config === null) return;
             const games = await getGames(config.currentEvent, config.currentYear);
-             setGames(games);                
-         }
+            setGames(games);
+        }
 
         fetchGames();
     }, [config, setGames])
 
+    const [expandedIndex, setExpandedIndex] = useState(null);
+
+    const expand = (index) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
 
     return (
         <div className="App">
@@ -42,24 +46,22 @@ const GameDescriptions = () => {
             <div className='topSpacer'></div>
             <div className="games_container">
                 {config ?
-                <section className="x games-content" dir="ltr">
-                    
-                    {
-                        games?.map((game, i) => (
-                            <div className="gamecard_container">
-                                <div key={i} className="gamecard">
+                    <section className="x games-content" dir="ltr">
+                        {
+                            games?.map((game, i) => (
+                                <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : ''}`} key={i} onClick={() => expand(i)}>
 
-                                    <Link to={`/games/${game.id}`}>
+
+                                    <div className="gamecard">
                                         <h2>{game.name}</h2>
-                                    </Link>
-                                    <div><Markdown>{game.info}</Markdown></div>
+                                        <div><Markdown>{game.info}</Markdown></div>
+                                    </div>
                                 </div>
-                            </div>
-                        ))
-                    }
-                </section>
-                : <div><img  alt="Loading..." src={loader}></img></div>
-            }
+                            ))
+                        }
+                    </section>
+                    : <div><img alt="Loading..." src={loader}></img></div>
+                }
             </div>
         </div>
     );
