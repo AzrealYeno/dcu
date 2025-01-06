@@ -42,8 +42,7 @@ const Games = () => {
             <div className='topSpacer'></div>
             <div className="games_container">
                 {config ?
-                <section className="x games-content" dir="ltr">
-                    
+                <section className="x games-content" dir="ltr">                    
                     {
                         games?.map((game, i) => (
                             <div className="gamecard_container">

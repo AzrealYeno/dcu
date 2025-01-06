@@ -34,6 +34,11 @@ const GameDescriptions = () => {
         fetchGames();
     }, [config, setGames])
 
+    const [expandedIndex, setExpandedIndex] = useState(null);
+
+    const expand = (index) => {
+        setExpandedIndex(expandedIndex === index ? null : index);
+    };
 
     return (
         <div className="App">
@@ -42,11 +47,12 @@ const GameDescriptions = () => {
             <div className="games_container">
                 {config ?
                     <section className="x games-content" dir="ltr">
-
                         {
                             games?.map((game, i) => (
-                                <div className="gamecard_container">
-                                    <div key={i} className="gamecard">
+                                <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : ''}`} key={i} onClick={() => expand(i)}>
+
+
+                                    <div className="gamecard">
                                         <h2>{game.name}</h2>
                                         <div><Markdown>{game.info}</Markdown></div>
                                     </div>

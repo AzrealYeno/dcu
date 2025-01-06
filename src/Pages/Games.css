@@ -35,7 +35,7 @@
 .gamecard_container {
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 65px;
+    padding-top: 10%;
     padding-bottom: 5%;
 }
 
@@ -87,4 +87,15 @@
 ::-webkit-scrollbar {
     width: 0px;
     background: transparent; /* make scrollbar transparent */
+}
+
+.expanded {
+    padding-left: 25%;
+    padding-right: 25%;
+    padding-top: 5%;
+}
+
+.expanded div {
+    height: 100%;
+    width: 350px;
 }
