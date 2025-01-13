@@ -99,4 +99,6 @@
     height: 100%;
     width: 350px;
     background-repeat: no-repeat;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
