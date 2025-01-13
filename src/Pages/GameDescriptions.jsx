@@ -1,4 +1,5 @@
 import './Games.css';
+import './GameDescriptions.css';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import Markdown from 'react-markdown'
@@ -50,9 +51,8 @@ const GameDescriptions = () => {
                         {
                             games?.map((game, i) => (
                                 <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : ''}`} key={i} onClick={() => expand(i)}>
+                                    <div className={"gamecard " + game.name}>
 
-
-                                    <div className="gamecard">
                                         <h2>{game.name}</h2>
                                         <div><Markdown>{game.info}</Markdown></div>
                                     </div>
