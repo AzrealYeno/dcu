@@ -12,6 +12,16 @@
 
 .Badminton {
     background-image: url(../assets/desc_badminton_bg.png);
-    background-size: contain;
-    background-repeat: no-repeat;
+}
+
+.botb {
+    background-image: url(../assets/desc_botb_bg.png);
+}
+
+.mrandmisspisay {
+    background-image: url(../assets/desc_mrandmisspisay_bg.png);
+}
+
+.trackandfield {
+    background-image: url(../assets/desc_trackandfield_bg.png);
 }
