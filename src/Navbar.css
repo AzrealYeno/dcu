@@ -1,5 +1,4 @@
   nav {
-    min-width: 409px;
 	  flex-direction: row;
     z-index: 999;
     position: absolute;
@@ -16,7 +15,7 @@
   padding: 10px 20px;
 	transition: 0.2s ease color;
 	font-family: 'Press Start 2P';
-  	text-transform: uppercase;
+  text-transform: uppercase;
 	background-image: linear-gradient(orange,yellow,rgb(240, 240, 221) ,orange,yellow,orange);
 	color: transparent;
     -webkit-background-clip: text;  
@@ -32,7 +31,6 @@
 @media (max-width: 450px) {
 
   nav {
-    padding-left: 7%;
       align-self: center;
       flex-direction: row; 
       align-items: center;
