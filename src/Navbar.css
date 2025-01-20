@@ -1,6 +1,6 @@
   nav {
 	  flex-direction: row;
-    z-index: 999;
+    z-index: 5;
     position: absolute;
     display: flex;
     flex-wrap: wrap;
@@ -18,26 +18,78 @@
   text-transform: uppercase;
 	background-image: linear-gradient(orange,yellow,rgb(240, 240, 221) ,orange,yellow,orange);
 	color: transparent;
-    -webkit-background-clip: text;  
-    background-clip: text;
+  -webkit-background-clip: text;  
+  background-clip: text;
 
   }
   
   nav a:hover {
 	transform: scale(1.03);
   }
-  
-/* The max-width is like the threshold for when this function runs to make the nav bar smaller */
-@media (max-width: 450px) {
 
+.burger-icon {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  width: 30px;
+  height: 21px;
+  justify-content: space-between;
+}
+
+.burger-icon span {
+  width: 100%;
+  height: 4px;
+  background-color: white;
+}
+
+.nav-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.nav-links.show {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+}
+
+/*This is like the threshold for activating burger bar*/
+@media (max-width: 720px) {
   nav {
-      align-self: center;
-      flex-direction: row; 
-      align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(51, 51, 51, 0.9); 
+    padding: 10px;
+    justify-content: space-between;
+  }
+
+  .burger-icon {
+    display: flex; 
+  }
+
+  .nav-links {
+    display: none; 
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(51, 51, 51, 0.9); 
+    position: absolute;
+    top: 30px; 
+    left: 0;
+    right: 0;
+  }
+
+  .nav-links.show {
+    display: flex; 
   }
 
   nav a {
-      padding: 10px 20px; 
-      font-size: 0.5rem; 
+    padding: 15px 20px; 
+    font-size: 1rem; 
+    width: 100%; 
+    text-align: center;
   }
 }
