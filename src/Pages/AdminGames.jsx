@@ -121,6 +121,14 @@ const AdminGames = () => {
         setGames([...games]);
     }
 
+    
+    const handleChangeGameType = (gameId, index, e) => {
+        games[index].gametype = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { gametype:  e.target.value });
+    }
+
     const handleSaveGameInfo = (gameId, index) => {
         const value = games[index].info;
         saveGameDetail
@@ -139,7 +147,7 @@ const AdminGames = () => {
     const handleClickSaveNewGame = () => {
         const gameId = uuidv4();
         saveGameDetail
-            (event, year, gameId, { name: newGameName });
+            (event, year, gameId, { name: newGameName , gametype: ""});
         setNewGameName("");
         fetchGames();
     }
@@ -222,6 +230,14 @@ const AdminGames = () => {
                                                 }}
                                             ></EditText>
                                         </label>
+                                        <label>Game Type
+                                        
+                                        <select  value={game.gametype} onChange={(e) => handleChangeGameType(game.id,index, e)}>
+                                                <option key="straight" value="straight">straight</option>
+                                                <option key="leaderboard" value="leaderboard">leaderboard</option>
+                                        </select>
+                                        </label>
+                                        <br />
                                         <label>Game Info
                                             <MDEditor value={game.info}
                                                 onChange={(value) => handleChangeGameInfo(index, value)} />
