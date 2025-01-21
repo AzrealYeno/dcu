@@ -8,7 +8,7 @@ import bgNeutral from '../assets/background.png';
 import './TournamentScores.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
-import Navbar from "../Navbar";
+// import Navbar from "../Navbar";
 
 const TournamentScores = () => {
     const [config, setConfig] = useState(null);
@@ -100,47 +100,148 @@ const TournamentScores = () => {
     return (
 
         <div className="App">
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="games_container" >
                 {config ?
                     <div className="gamescores_content" style={divStyle}>
                         <div className='topSpacer' />
-                        {/* <div className='gamescores_box_preheader' ></div> */}
-                        {/* <div className='gamescores_box_header' >
-                            <div className="game_name">{game.name}</div>
-                        </div> */}
 
-                        <div class="tournament">
-                            <div class="column">
-                                <div class="team">
-                                    <h1>Team 1</h1>
-                                    <h1>20</h1>
+
+                        <div class="theme theme-dark">
+                            <div class="bracket disable-image">
+                                <div class="column one">
+                                    <div class="match winner-top">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">1</span>
+                                            <span class="name">Orlando Jetsetters</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">8</span>
+                                            <span class="name">D.C. Senators</span>
+                                            <span class="score">1</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
+                                    <div class="match winner-bottom" id="col1">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">4</span>
+                                            <span class="name">New Orleans Rockstars</span>
+                                            <span class="score">1</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">5</span>
+                                            <span class="name">West Virginia Runners</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="team">
-                                    <h1>Team 2</h1>
-                                    <h1>20</h1>
+                                <div class="column two">
+                                    <div class="match winner-bottom" id="col2">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">1</span>
+                                            <span class="name">Orlando Jetsetters</span>
+                                            <span class="score">1</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">5</span>
+                                            <span class="name">West Virginia Runners</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
+                                    <div class="match winner-bottom">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">2</span>
+                                            <span class="name">Denver Demon Horses</span>
+                                            <span class="score">1</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">3</span>
+                                            <span class="name">San Francisco Porters</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="team">
-                                    <h1>Team 3</h1>
-                                    <h1>20</h1>
+                                <div class="column three" id="col3">
+                                    <div class="match winner-top">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">5</span>
+                                            <span class="name">West Virginia Runners</span>
+                                            <span class="score">3</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">3</span>
+                                            <span class="name">San Francisco Porters</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="match winner-top">
+                                        <div class="match-top team">
+                                            <span class="image"></span>
+                                            <span class="seed">5</span>
+                                            <span class="name">West Virginia Runners</span>
+                                            <span class="score">3</span>
+                                        </div>
+                                        <div class="match-bottom team">
+                                            <span class="image"></span>
+                                            <span class="seed">3</span>
+                                            <span class="name">San Francisco Porters</span>
+                                            <span class="score">2</span>
+                                        </div>
+                                        <div class="match-lines">
+                                            <div class="line one"></div>
+                                            <div class="line two"></div>
+                                        </div>
+                                        <div class="match-lines alt">
+                                            <div class="line one"></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="team">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="match">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                                <div class="match">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="match final">Final Match</div>
                             </div>
                         </div>
 
@@ -172,7 +273,7 @@ const TournamentScores = () => {
     );
 
 
-    
+
 };
 
 export default TournamentScores;
