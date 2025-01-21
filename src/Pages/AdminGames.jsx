@@ -147,7 +147,7 @@ const AdminGames = () => {
     const handleClickSaveNewGame = () => {
         const gameId = uuidv4();
         saveGameDetail
-            (event, year, gameId, { name: newGameName , gametype: ""});
+            (event, year, gameId, { name: newGameName , gametype: "leaderboard"});
         setNewGameName("");
         fetchGames();
     }
@@ -233,8 +233,9 @@ const AdminGames = () => {
                                         <label>Game Type
                                         
                                         <select  value={game.gametype} onChange={(e) => handleChangeGameType(game.id,index, e)}>
-                                                <option key="straight" value="straight">straight</option>
-                                                <option key="leaderboard" value="leaderboard">leaderboard</option>
+                                            <option key="leaderboard" value="leaderboard">leaderboard</option>
+                                            <option key="straight" value="tournament">tournament</option>
+                                                
                                         </select>
                                         </label>
                                         <br />
