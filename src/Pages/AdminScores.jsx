@@ -2,7 +2,7 @@ import './Admin.css';
 import { getEventsByYear, getYearsByEvent, getGames, getGamesScores, getGamesMatches } from "../dataService.js";
 import { saveScore, saveMatchScore , saveMatchTeam} from "../adminDataService.js";
 import { useState, useEffect } from 'react';
-import { empireIds } from '../constants.js';
+import { empireIds , matchIds } from '../constants.js';
 import { EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
@@ -78,16 +78,18 @@ const AdminScores = () => {
                 const game = games[index];
                 if (game.gametype === "tournament") {
                     const matches = await getGamesMatches(event, year, game.id);
-                    //console.log(game.name, "matches", matches);
-                    //convert map to array with id as key
-
-                    // const newMatches = [];
-                    // for (let index = 0; index < matches.length; index++) {
-                    //     const match = matches[index];
-                    //     newMatches[match.id] = match;
-                    // }
+                    //initialize matches kung wala pa or kulang
+                    for (let index = 0; index < matchIds.length; index++) {
+                        const matchId = matchIds[index];
+                        const match = matches.find(match => match.id === matchId);
+                        if (!match) {
+                            matches.push({ id: matchId, team1: "", team2: "", scoreteam1: 0, scoreteam2: 0 });
+                        }
+                    }
                     matches.sort((a, b) => a.id - b.id);
                     //console.log(game.name, "matches", matches);
+                    if(matches)
+
                     game.matches = matches;
                 } else {
                     const scores = await getGamesScores(event, year, game.id);

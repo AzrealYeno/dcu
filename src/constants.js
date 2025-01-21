@@ -71,4 +71,4 @@ export const Ename_img = {
     "Shinobi": img_Shinobi,
 }
 
-// asdl,
+export const matchIds = ["round1game1", "round1game2", "round2game1", "round2game2"];
