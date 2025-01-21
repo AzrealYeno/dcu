@@ -3,7 +3,8 @@ import './App.css';
 import Home from './Pages/Home';
 import GameDescriptions from './Pages/GameDescriptions';
 import Games from './Pages/Games';
-import GameScores from './Pages/GameScores';
+import TournamentScores from './Pages/TournamentScores';
+import LeaderboardScores from './Pages/LeaderboardScores';
 import Empire from './Pages/Empire';
 import AdminAwards from './Pages/AdminAwards';
 import AdminEvents from './Pages/AdminEvents';
@@ -23,7 +24,8 @@ function App() {
       <Route path="/" element={<Home/>}/>
       <Route path="/gamedesc" element={<GameDescriptions/>}/>
       <Route path="/games" element={<Games/>}/>
-      <Route path="/games/:gameid" element={<GameScores/>}/>
+      <Route path="/games/:gameid" element={<TournamentScores/>}/>
+      <Route path="/games/:gameid" element={<LeaderboardScores/>}/>
       <Route path="/empire/:empireId" element={<Empire/>}/> 
       <Route path="/admin/awards" element={<AdminAwards/>}/>
       <Route path="/admin/scores" element={<AdminScores/>}/>

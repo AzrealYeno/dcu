@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import { streamScores, sortRanks, getGame } from '../dataService';
@@ -6,12 +5,12 @@ import { medal_img } from '../constants';
 import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
-import './GameScores.css';
+import './TournamentScores.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 import Navbar from "../Navbar";
 
-const GameScores = () => {
+const TournamentScores = () => {
     const [config, setConfig] = useState(null);
     useEffect(() => {
         const loadConfig = async () => {
@@ -34,8 +33,6 @@ const GameScores = () => {
     });
     const { gameid } = useParams();
 
-
-
     const getWinner = (rankedScores) => {
         var winner = {
             id: "",
@@ -52,7 +49,6 @@ const GameScores = () => {
         }
         return winner;
     }
-
 
     useEffect(() => {
         const fetchGame = async () => {
@@ -174,7 +170,9 @@ const GameScores = () => {
             </div>
         </div>
     );
+
+
+    
 };
 
-export default GameScores;
-
+export default TournamentScores;
