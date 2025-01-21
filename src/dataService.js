@@ -16,6 +16,14 @@ export const getGamesScores = async (eventid, year, gameid) =>  {
     });
 };
 
+export const getGamesMatches = async (eventid, year, gameid) =>  {
+    return getDocs(collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/matches"))
+    .then((querySnapshot)=>{               
+        return querySnapshot.docs
+            .map((doc) => ({...doc.data(), id:doc.id }))
+    });
+};
+
 export const getGame = async (eventid, year, gameid) => {
     return getDoc(doc(db,  "events/" + eventid + "/years/" + year + "/games/", gameid))
     .then((snapshot) =>{    
