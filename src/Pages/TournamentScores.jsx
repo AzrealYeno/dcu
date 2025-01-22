@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
-import { streamScores, sortRanks, getGame } from '../dataService';
-import { medal_img } from '../constants';
+import { streamGameMatches, getGame } from '../dataService';
+import { empires, matchIds } from '../constants';
 import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
@@ -25,12 +25,12 @@ const TournamentScores = () => {
     }, []);
 
     const [game, setGame] = useState([]);
-    const [ranks, setRanks] = useState([]);
-    const [winner, setWinner] = useState({
-        id: "",
-        name: "",
-        backgroundImage: bgNeutral,
-    });
+    const [matches, setMatches] = useState([]);
+    // const [winner, setWinner] = useState({
+    //     id: "",
+    //     name: "",
+    //     backgroundImage: bgNeutral,
+    // });
     const { gameid } = useParams();
 
     const getWinner = (rankedScores) => {
@@ -61,40 +61,48 @@ const TournamentScores = () => {
     }, [config, gameid, setGame])
 
     useEffect(() => {
-        const fetchScores = async () => {
-            if (config === null) return;
-            const unsubscribe = streamScores(config.currentEvent, config.currentYear, gameid,
-                (querySnapshot) => {
-                    const scores = querySnapshot.docs
-                        .map((docSnapshot) =>
-                            ({ ...docSnapshot.data(), id: docSnapshot.id })
-                        );
-                    //console.log('scores',scores);
-
-                    //moagi lang diri.. kay ambot nganong dili pwede i-deretso array
-                    const newScores = [];
-                    for (let index = 0; index < scores.length; index++) {
-                        const score = scores[index];
-                        newScores[score.id] = score.score;
+            const fetchMatches = async () => {
+                if (config === null) return;
+                const unsubscribe = streamGameMatches(config.currentEvent, config.currentYear, gameid,
+                    (querySnapshot) => {
+                        const matches = querySnapshot.docs
+                            .map((docSnapshot) =>
+                                ({ ...docSnapshot.data(), id: docSnapshot.id })
+                            );
+                        for (let index = 0; index < matchIds.length; index++) {
+                            const matchId = matchIds[index];
+                            const match = matches.find(match => match.id === matchId);
+                            if (!match) {
+                                matches.push({ id: matchId, team1: "", team2: "", scoreteam1: 0, scoreteam2: 0 });
+                            }
+                        }
+                        console.log('matches',matches);
+                        matches.sort((a, b) => a.id - b.id);
+    
+                        const newMatches = [];
+                        for (let index = 0; index < matches.length; index++) {
+                            const match = matches[index];
+                            newMatches[match.id] = match;
+                        }
+                        console.log('matches',newMatches);
+                        setMatches(newMatches);
+    
+                        //const rankedScores = sortRanks(newScores);
+                        //console.log('rankedScores',rankedScores);
+                        //setRanks(rankedScores);
+                        //const champion = getWinner(rankedScores);
+                        //setWinner(champion);
+    
                     }
-                    //console.log('newScores',newScores);
-
-                    const rankedScores = sortRanks(newScores);
-                    //console.log('rankedScores',rankedScores);
-                    setRanks(rankedScores);
-                    const champion = getWinner(rankedScores);
-                    setWinner(champion);
-
-                }
-            );
-            return unsubscribe;
-        }
-
-        fetchScores();
-    }, [config, gameid, setRanks, setWinner])
+                );
+                return unsubscribe;
+            }
+    
+            fetchMatches();
+        }, [config, gameid, setMatches])
 
     var divStyle = {
-        backgroundImage: 'url(' + winner.backgroundImage + ')',
+        //backgroundImage: 'url(' + winner.backgroundImage + ')',
     };
 
     return (
@@ -102,7 +110,7 @@ const TournamentScores = () => {
         <div className="App">
             {/* <Navbar /> */}
             <div className="games_container" >
-                {config ?
+                {config  ?
                     <div className="gamescores_content" style={divStyle}>
                         <div className='topSpacer' />
 
@@ -112,16 +120,16 @@ const TournamentScores = () => {
                                 <div class="column one">
                                     <div class="match winner-top">
                                         <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="seed">1</span>
-                                            <span class="name">Orlando Jetsetters</span>
-                                            <span class="score">2</span>
+                                            <span class="image">
+                                                <img className='empirename_img' src={empires[matches["round1game1"].team1].nameImage} alt={empires[matches["round1game1"].team1].name} />
+                                            </span>
+                                            <span class="name">{empires[matches["round1game1"].team1].name}</span>
+                                            <span class="score">{matches["round1game1"].scoreteam1}</span>
                                         </div>
                                         <div class="match-bottom team">
                                             <span class="image"></span>
-                                            <span class="seed">8</span>
-                                            <span class="name">D.C. Senators</span>
-                                            <span class="score">1</span>
+                                            <span class="name">{empires[matches["round1game1"].team2].name}</span>
+                                            <span class="score">{matches["round1game1"].scoreteam2}</span>
                                         </div>
                                         <div class="match-lines">
                                             <div class="line one"></div>
@@ -134,15 +142,13 @@ const TournamentScores = () => {
                                     <div class="match winner-bottom" id="col1">
                                         <div class="match-top team">
                                             <span class="image"></span>
-                                            <span class="seed">4</span>
-                                            <span class="name">New Orleans Rockstars</span>
-                                            <span class="score">1</span>
+                                            <span class="name">{empires[matches["round1game2"].team1].name}</span>
+                                            <span class="score">{matches["round1game2"].scoreteam1}</span>
                                         </div>
                                         <div class="match-bottom team">
                                             <span class="image"></span>
-                                            <span class="seed">5</span>
-                                            <span class="name">West Virginia Runners</span>
-                                            <span class="score">2</span>
+                                            <span class="name">{empires[matches["round1game2"].team2].name}</span>
+                                            <span class="score">{matches["round1game2"].scoreteam2}</span>
                                         </div>
                                         <div class="match-lines">
                                             <div class="line one"></div>
@@ -245,22 +251,7 @@ const TournamentScores = () => {
                             </div>
                         </div>
 
-                        {/* {
-                            ranks.map(
-                                (rank) =>
-                                <div key={rank.empireId} className="rank_container">
-                                    <div className="medal">
-                                        <img src={medal_img[rank.medal]} className="medal_img" alt="medal_img">
-                                        </img>
-                                    </div>
-                                    <div className="Ename">
-                                        <img src={Ename_img[rank.empire.name]} className="Ename_img" alt="Ename_img">
-                                        </img>
-                                    </div>
-                                    <div className="Escore">{rank.score + " POINTS"}</div> 
-                                </div>
-                            )
-                        } */}
+                        
                         <div className='gamescores_box_footer' ></div>
 
                     </div>
