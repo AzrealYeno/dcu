@@ -26,6 +26,7 @@ const TournamentScores = () => {
 
     const [game, setGame] = useState([]);
     const [matches, setMatches] = useState([]);
+    const [loading, setLoading] = useState(true);
     // const [winner, setWinner] = useState({
     //     id: "",
     //     name: "",
@@ -86,6 +87,7 @@ const TournamentScores = () => {
                         }
                         console.log('matches',newMatches);
                         setMatches(newMatches);
+                        setLoading(false);
     
                         //const rankedScores = sortRanks(newScores);
                         //console.log('rankedScores',rankedScores);
@@ -110,7 +112,7 @@ const TournamentScores = () => {
         <div className="App">
             {/* <Navbar /> */}
             <div className="games_container" >
-                {config  ?
+                {config && !loading ?
                     <div className="gamescores_content" style={divStyle}>
                         <div className='topSpacer' />
 
