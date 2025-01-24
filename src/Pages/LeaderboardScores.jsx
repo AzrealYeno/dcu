@@ -109,46 +109,14 @@ const LeaderboardScores = () => {
                 {config ?
                     <div className="gamescores_content" style={divStyle}>
                         <div className='topSpacer' />
-                        {/* <div className='gamescores_box_preheader' ></div> */}
-                        {/* <div className='gamescores_box_header' >
+                        <div className='gamescores_box_preheader' ></div>
+                        <div className='gamescores_box_header' >
                             <div className="game_name">{game.name}</div>
-                        </div> */}
-
-                        <div class="tournament">
-                            <div class="column">
-                                <div class="team">
-                                    <h1>Team 1</h1>
-                                    <h1>20</h1>
-                                </div>
-                                <div class="team">
-                                    <h1>Team 2</h1>
-                                    <h1>20</h1>
-                                </div>
-                                <div class="team">
-                                    <h1>Team 3</h1>
-                                    <h1>20</h1>
-                                </div>
-                                <div class="team">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="match">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                                <div class="match">
-                                    <h1>Team 4</h1>
-                                    <h1>20</h1>
-                                </div>
-                            </div>
-                            <div class="column">
-                                <div class="match final">Final Match</div>
-                            </div>
                         </div>
 
-                        {/* {
+                        
+
+                        {
                             ranks.map(
                                 (rank) =>
                                 <div key={rank.empireId} className="rank_container">
@@ -163,7 +131,7 @@ const LeaderboardScores = () => {
                                     <div className="Escore">{rank.score + " POINTS"}</div> 
                                 </div>
                             )
-                        } */}
+                        }
                         <div className='gamescores_box_footer' ></div>
 
                     </div>

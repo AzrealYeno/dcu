@@ -23,6 +23,13 @@ import img_Shinobi from './assets/Empirename_Shinobi_Beasts.png';
 export const empireIds = ["chimera","pegasus","phoenix","shinobi"];
 
 export const empires = {
+    "" : {
+        id: "",
+        name: "",
+        backgroundImage: "",
+        backgroundHistoryImage: "",
+        nameImage: ""
+    },
     "chimera" : {
         id: "chimera",
         name: "Chimera",
