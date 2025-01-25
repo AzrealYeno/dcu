@@ -302,8 +302,8 @@ const AdminGames = () => {
                                             <option key="saludo" value="saludo">saludo</option>
                                             <option key="ml" value="ml">ml</option>
                                             <option key="cod" value="cod">cod</option>
-                                            <option key="100m" value="100m">100m</option>
-                                            <option key="400m" value="400m">400m</option>
+                                            <option key="_100m" value="_100m">_100m</option>
+                                            <option key="_400m" value="_400m">_400m</option>
                                             <option key="relay" value="relay">relay</option>
                                         </select>
                                         </label>
