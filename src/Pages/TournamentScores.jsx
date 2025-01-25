@@ -128,14 +128,13 @@ const TournamentScores = () => {
     };
 
     const getMatchWinner = (match) => {
-        if (match.scoreteam1 > match.scoreteam2) {
+        if ((match.scoreteam1 ?? 0) > (match.scoreteam2 ?? 0)) {
             return "winner-top";
-        } else if (match.scoreteam1 < match.scoreteam2) {
+        } else if ((match.scoreteam1 ?? 0) < (match.scoreteam2 ?? 0)) {
             return "winner-bottom";
         } else {
             return "";
         }
-
     };
 
 

@@ -34,6 +34,16 @@
     flex: none;
 }
 
+.orig .name{
+    display: none;
+}
+.orig .info{
+    display: none;
+}
+.orig .link{
+    display: none;
+}
+
 .gamecard_container {
     padding-left: 5%;
     padding-right: 5%;
@@ -68,11 +78,20 @@
     text-align: left;
 }
 
-.gamecard h2 {
-    color: white;
-    text-decoration: none;
-    
+.gamecard .name {
+    margin-left: auto;
+    font-family: 'Press Start 2P';
+    font-weight: bold;
+    font-size: x-large;
+    transition: 0.2s ease color;
+    text-transform: none;
+    background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
 }
+
+
 
 .gamecard:hover {
     /* border: 1px solid #ffffff44;
@@ -91,15 +110,12 @@
     background: transparent; /* make scrollbar transparent */
 }
 
-.expanded {
-    padding-left: 25%;
-    padding-right: 25%;
-    padding-top: 5%;
-}
 
-.expanded div {
+
+.expanded .gamecard {
     height: 100%;
-    width: 350px;
+    width: 890px;
+    padding-left: 300px;
     background-repeat: no-repeat;
     overflow-x: hidden;
     overflow-y: hidden;

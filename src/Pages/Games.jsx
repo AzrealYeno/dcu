@@ -48,8 +48,8 @@ const Games = () => {
                             <div className="gamecard_container">
 
                                 <Link to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
-                                    <div key={i} className="gamecard">                                    
-                                        <h2>{game.name}</h2>            
+                                    <div key={i} className={"gamecard " + game.name}>                                    
+                                                 
                                     </div>
                                 </Link>
                             </div>
