@@ -216,6 +216,26 @@ const AdminScores = () => {
                                         }
                                         {game.gametype === "tournament" && (
                                             game.matches.map(match => {
+                                                if(match.id === "champion")
+                                                {
+                                                    return ( <div key={match.id}>
+                                                        <div>{match.id}</div>
+                                                        <div className='scoreLabel'>
+                                                            <div className='scoreLabel'>
+                                                            <select value={match.team1} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team1", e.target.value)}>
+                                                                <option key="empty" value={""}></option>
+                                                                {empireIds.map((empireId) => (
+                                                                    <option key={empireId} value={empireId}>{empireId}</option>
+                                                                ))}
+                                                            </select>
+                                                            
+                                                           </div>
+                                                          
+                                                           
+                                                            <br/><br/>
+                                                        </div>
+                                                    </div>);
+                                                }else{
                                                 return (
                                                     <div key={match.id}>
                                                         <div>{match.id}</div>
@@ -266,6 +286,7 @@ const AdminScores = () => {
                                                         
                                                     </div>
                                                 );
+                                            }
                                             })
                                         )}
                                     </div>

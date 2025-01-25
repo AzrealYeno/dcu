@@ -78,4 +78,4 @@ export const Ename_img = {
     "Shinobi": img_Shinobi,
 }
 
-export const matchIds = ["round1game1", "round1game2", "round2game1", "round2game2"];
+export const matchIds = ["champion","round1game1", "round1game2", "round2game1", "round2game2"];

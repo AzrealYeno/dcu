@@ -27,11 +27,11 @@ const TournamentScores = () => {
     const [game, setGame] = useState([]);
     const [matches, setMatches] = useState([]);
     const [loading, setLoading] = useState(true);
-    // const [winner, setWinner] = useState({
-    //     id: "",
-    //     name: "",
-    //     backgroundImage: bgNeutral,
-    // });
+    const [winner, setWinner] = useState({
+        id: "",
+        name: "",
+        backgroundImage: bgNeutral,
+    });
     const { gameid } = useParams();
 
     const getWinner = (rankedScores) => {
@@ -87,13 +87,23 @@ const TournamentScores = () => {
                         }
                         console.log('matches',newMatches);
                         setMatches(newMatches);
-                        setLoading(false);
+                       
     
                         //const rankedScores = sortRanks(newScores);
                         //console.log('rankedScores',rankedScores);
                         //setRanks(rankedScores);
                         //const champion = getWinner(rankedScores);
                         //setWinner(champion);
+                        if(newMatches["champion"].team1){
+                            var winner = {
+                                id: newMatches["champion"].team1,
+                                name: empires[newMatches["champion"].team1].name,
+                                backgroundImage: empires[newMatches["champion"].team1].backgroundImage,
+                            };
+                            setWinner(winner);
+                        }
+
+                        setLoading(false);
     
                     }
                 );
@@ -104,7 +114,7 @@ const TournamentScores = () => {
         }, [config, gameid, setMatches])
 
     var divStyle = {
-        //backgroundImage: 'url(' + winner.backgroundImage + ')',
+        backgroundImage: 'url(' + winner.backgroundImage + ')',
     };
 
     return (
@@ -165,15 +175,13 @@ const TournamentScores = () => {
                                     <div class="match winner-bottom" id="col2">
                                         <div class="match-top team">
                                             <span class="image"></span>
-                                            <span class="seed">1</span>
-                                            <span class="name">Orlando Jetsetters</span>
-                                            <span class="score">1</span>
+                                            <span class="name">{empires[matches["round2game1"].team1].name}</span>
+                                            <span class="score">{matches["round2game1"].scoreteam1}</span>
                                         </div>
                                         <div class="match-bottom team">
                                             <span class="image"></span>
-                                            <span class="seed">5</span>
-                                            <span class="name">West Virginia Runners</span>
-                                            <span class="score">2</span>
+                                            <span class="name">{empires[matches["round2game1"].team2].name}</span>
+                                            <span class="score">{matches["round2game1"].scoreteam2}</span>
                                         </div>
                                         <div class="match-lines">
                                             <div class="line one"></div>
@@ -186,15 +194,13 @@ const TournamentScores = () => {
                                     <div class="match winner-bottom">
                                         <div class="match-top team">
                                             <span class="image"></span>
-                                            <span class="seed">2</span>
-                                            <span class="name">Denver Demon Horses</span>
-                                            <span class="score">1</span>
+                                            <span class="name">{empires[matches["round2game2"].team1].name}</span>
+                                            <span class="score">{matches["round2game2"].scoreteam1}</span>
                                         </div>
                                         <div class="match-bottom team">
                                             <span class="image"></span>
-                                            <span class="seed">3</span>
-                                            <span class="name">San Francisco Porters</span>
-                                            <span class="score">2</span>
+                                            <span class="name">{empires[matches["round2game2"].team2].name}</span>
+                                            <span class="score">{matches["round2game2"].scoreteam2}</span>
                                         </div>
                                         <div class="match-lines">
                                             <div class="line one"></div>
@@ -209,46 +215,12 @@ const TournamentScores = () => {
                                     <div class="match winner-top">
                                         <div class="match-top team">
                                             <span class="image"></span>
-                                            <span class="seed">5</span>
-                                            <span class="name">West Virginia Runners</span>
-                                            <span class="score">3</span>
+                                            <span class="name">{empires[matches["champion"].team1].name}</span>
                                         </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="seed">3</span>
-                                            <span class="name">San Francisco Porters</span>
-                                            <span class="score">2</span>
-                                        </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
+                                        
                                     </div>
 
-                                    <div class="match winner-top">
-                                        <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="seed">5</span>
-                                            <span class="name">West Virginia Runners</span>
-                                            <span class="score">3</span>
-                                        </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="seed">3</span>
-                                            <span class="name">San Francisco Porters</span>
-                                            <span class="score">2</span>
-                                        </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
