@@ -32,6 +32,8 @@
     text-align: center;
     scroll-snap-align: center;
     flex: none;
+    display: flex;
+    justify-content: center;
 }
 
 .orig .name{

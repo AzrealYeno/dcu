@@ -104,3 +104,28 @@
 .body {
     color: black;
 }
+
+.men {
+    background-image: url(../assets/men.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 100%;
+    margin-top: 47%;
+    width: 50%;
+}
+
+.women {
+    background-image: url(../assets/women.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 47%;
+    width: 50%;
+}
+
+.mixed {
+    background-image: url(../assets/mixed.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-top: 47%;
+    width: 50%;
+}

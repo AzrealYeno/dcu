@@ -43,9 +43,6 @@ const GameDescriptions = () => {
         setExpandedIndex(expandedIndex === index ? null : index);
     };
 
-    const gameNameToClassName = (name) => {
-        return name.toLowerCase().replace(/\s/g, '');
-    }
 
     return (
         <div className="App">
@@ -57,7 +54,7 @@ const GameDescriptions = () => {
                         {
                             games?.map((game, i) => (
                                 <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : 'orig'}`} key={i} onClick={() => expand(i)}>
-                                    <div className={"gamecard " + gameNameToClassName(game.name)}>
+                                    <div className={"gamecard " + game.class}>
                                         <div className='name'>{game.name}</div>
                                         <div className='info'><Markdown>{game.info}</Markdown></div>
                                         <Link className='link' to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
