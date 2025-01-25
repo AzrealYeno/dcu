@@ -131,14 +131,21 @@ const AdminGames = () => {
     }
 
     const handleChangeGameTag = (gameId, index, e) => {
-        games[index].gametype = e.target.value;
+        games[index].tag = e.target.value;
         setGames([...games]);
         saveGameDetail
             (event, year, gameId, { tag:  e.target.value });
     }
 
+    const handleChangeGameTag2 = (gameId, index, e) => {
+        games[index].tag2 = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { tag2:  e.target.value });
+    }
+
     const handleChangeGameClass = (gameId, index, e) => {
-        games[index].gametype = e.target.value;
+        games[index].class = e.target.value;
         setGames([...games]);
         saveGameDetail
             (event, year, gameId, { class:  e.target.value });
@@ -279,6 +286,25 @@ const AdminGames = () => {
                                             <option key="women" value="women">women</option>
                                             <option key="mixed" value="mixed">mixed</option>
                                                 
+                                        </select>
+                                        </label>
+                                        <br />
+                                        <label>Game tag 2
+                                        
+                                        <select  value={game.tag2} onChange={(e) => handleChangeGameTag2(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="sabayang_pagbigkas" value="sabayang_pagbigkas">sabayang_pagbigkas</option>
+                                            <option key="speech" value="speech">speech</option>
+                                            <option key="hiphop" value="hiphop">hiphop</option>
+                                            <option key="band" value="band">band</option>
+                                            <option key="duet" value="duet">duet</option>
+                                            <option key="solo" value="solo">solo</option>
+                                            <option key="saludo" value="saludo">saludo</option>
+                                            <option key="ml" value="ml">ml</option>
+                                            <option key="cod" value="cod">cod</option>
+                                            <option key="100m" value="100m">100m</option>
+                                            <option key="400m" value="400m">400m</option>
+                                            <option key="relay" value="relay">relay</option>
                                         </select>
                                         </label>
                                         <br />
