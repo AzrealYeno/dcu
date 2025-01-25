@@ -93,6 +93,7 @@ const AdminGames = () => {
     const fetchGames = useCallback(async () => {
         if (event === null || year === null) return;
         const games = await getGames(event, year);
+        games.sort((a, b) => a.name.localeCompare(b.name));
         setGames(games);
     }, [event, year, setGames]);
 
@@ -129,6 +130,20 @@ const AdminGames = () => {
             (event, year, gameId, { gametype:  e.target.value });
     }
 
+    const handleChangeGameTag = (gameId, index, e) => {
+        games[index].gametype = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { tag:  e.target.value });
+    }
+
+    const handleChangeGameClass = (gameId, index, e) => {
+        games[index].gametype = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { class:  e.target.value });
+    }
+
     const handleSaveGameInfo = (gameId, index) => {
         const value = games[index].info;
         saveGameDetail
@@ -147,7 +162,7 @@ const AdminGames = () => {
     const handleClickSaveNewGame = () => {
         const gameId = uuidv4();
         saveGameDetail
-            (event, year, gameId, { name: newGameName , gametype: "leaderboard"});
+            (event, year, gameId, { name: newGameName , gametype: "leaderboard", tag:""});
         setNewGameName("");
         fetchGames();
     }
@@ -235,6 +250,34 @@ const AdminGames = () => {
                                         <select  value={game.gametype} onChange={(e) => handleChangeGameType(game.id,index, e)}>
                                             <option key="leaderboard" value="leaderboard">leaderboard</option>
                                             <option key="straight" value="tournament">tournament</option>
+                                                
+                                        </select>
+                                        </label>
+                                        <br/>
+                                        <label>Game class
+                                        
+                                        <select  value={game.class} onChange={(e) => handleChangeGameClass(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="volleyball" value="volleyball">volleyball</option>
+                                            <option key="basketball" value="basketball">basketball</option>
+                                            <option key="badminton" value="badminton">badminton</option>
+                                            <option key="botb" value="botb">botb</option>
+                                            <option key="mrandmisspisay" value="mrandmisspisay">mrandmisspisay</option>
+                                            <option key="trackandfield" value="trackandfield">trackandfield</option>
+                                            <option key="litmus" value="litmus">litmus</option>
+                                            <option key="tabletennis" value="tabletennis">tabletennis</option>
+                                            <option key="chess" value="chess">chess</option>
+                                                
+                                        </select>
+                                        </label>
+                                        <br />
+                                        <label>Game tag
+                                        
+                                        <select  value={game.tag} onChange={(e) => handleChangeGameTag(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="men" value="men">men</option>
+                                            <option key="women" value="women">women</option>
+                                            <option key="mixed" value="mixed">mixed</option>
                                                 
                                         </select>
                                         </label>
