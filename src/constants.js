@@ -18,6 +18,7 @@ import img_Pheonix from './assets/Empirename_Resilient_Phoenix.png';
 import img_Pegasus from './assets/Empirename_Prudent_Pegasus.png';
 import img_Chimera from './assets/Empirename_Revenant_Chimera.png';
 import img_Shinobi from './assets/Empirename_Shinobi_Beasts.png';
+import img_Blank from './assets/Empirename_Blank.png';
 
 
 export const empireIds = ["chimera","pegasus","phoenix","shinobi"];
@@ -28,7 +29,7 @@ export const empires = {
         name: "",
         backgroundImage: "",
         backgroundHistoryImage: "",
-        nameImage: ""
+        nameImage: img_Blank
     },
     "chimera" : {
         id: "chimera",

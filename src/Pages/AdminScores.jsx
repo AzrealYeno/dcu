@@ -1,8 +1,8 @@
 import './Admin.css';
 import { getEventsByYear, getYearsByEvent, getGames, getGamesScores, getGamesMatches } from "../dataService.js";
-import { saveScore, saveMatchScore , saveMatchTeam} from "../adminDataService.js";
+import { saveScore, saveMatchScore, saveMatchTeam } from "../adminDataService.js";
 import { useState, useEffect } from 'react';
-import { empireIds , matchIds } from '../constants.js';
+import { empireIds, matchIds } from '../constants.js';
 import { EditText } from 'react-edit-text';
 import 'react-edit-text/dist/index.css';
 import { onAuthStateChanged } from "firebase/auth";
@@ -88,9 +88,9 @@ const AdminScores = () => {
                     }
                     matches.sort((a, b) => a.id - b.id);
                     //console.log(game.name, "matches", matches);
-                    if(matches)
+                    if (matches)
 
-                    game.matches = matches;
+                        game.matches = matches;
                 } else {
                     const scores = await getGamesScores(event, year, game.id);
 
@@ -111,7 +111,7 @@ const AdminScores = () => {
                     }
                     //console.log("game.scores",game.scores);
                 }
-                
+
             }
             setGames(games);
         }
@@ -146,12 +146,27 @@ const AdminScores = () => {
         //console.log("handleSaveMatchTeam", gameId, matchId, teamNum, value);
         //console.log("game", games);
         const gameIndex = games.findIndex(game => game.id === gameId);
-       // console.log("game", games[gameIndex]);
+        // console.log("game", games[gameIndex]);
         const matchIndex = games[gameIndex].matches.findIndex(match => match.id === matchId);
         games[gameIndex].matches[matchIndex][teamNum] = value;
         saveMatchTeam(event, year, gameId, matchId, teamNum, value);
         setGames([...games]);
     }
+
+
+    const getRoundLabel = (round) => {
+        switch (round) {
+            case "round1game1":
+                return "Round 1 Game 1";
+            case "round1game2":
+                return "Round 1 Game 2";
+            case "round2game1":
+                return "Fight For Gold";
+            case "round2game2":
+                return "Fight For Bronze";
+        }
+
+    };
 
     return (
         <div className="App">
@@ -216,77 +231,84 @@ const AdminScores = () => {
                                         }
                                         {game.gametype === "tournament" && (
                                             game.matches.map(match => {
-                                                if(match.id === "champion")
-                                                {
-                                                    return ( <div key={match.id}>
-                                                        <div>{match.id}</div>
-                                                        <div className='scoreLabel'>
+                                                if (match.id !== "champion") {
+
+                                                    return (
+                                                        <div key={match.id}>
+                                                            <div>{getRoundLabel(match.id)}</div>
                                                             <div className='scoreLabel'>
-                                                            <select value={match.team1} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team1", e.target.value)}>
-                                                                <option key="empty" value={""}></option>
-                                                                {empireIds.map((empireId) => (
-                                                                    <option key={empireId} value={empireId}>{empireId}</option>
-                                                                ))}
-                                                            </select>
-                                                            
-                                                           </div>
-                                                          
-                                                           
-                                                            <br/><br/>
-                                                        </div>
-                                                    </div>);
-                                                }else{
-                                                return (
-                                                    <div key={match.id}>
-                                                        <div>{match.id}</div>
-                                                        <div className='scoreLabel'>
-                                                            <div className='scoreLabel'>
-                                                            <select value={match.team1} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team1", e.target.value)}>
-                                                                <option key="empty" value={""}></option>
-                                                                {empireIds.map((empireId) => (
-                                                                    <option key={empireId} value={empireId}>{empireId}</option>
-                                                                ))}
-                                                            </select>
-                                                            <EditText
-                                                                style={{
-                                                                    width: '50px',
-                                                                    padding: '10px',
-                                                                    border: '1px solid white',
-                                                                    borderRadius: '5px',
-                                                                    fontSize: '20px',
-                                                                }}
-                                                                type="number"
-                                                                defaultValue={(match.scoreteam1 ?? 0).toString()}
-                                                                onSave={({ value }) => handleSaveMatchScore(game.id, match.id, "scoreteam1", value)}
-                                                            ></EditText>
-                                                           </div>
-                                                           -- VS -- 
-                                                           <div className='scoreLabel'>
-                                                            <select value={match.team2} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team2", e.target.value)}>
-                                                                <option key="empty" value={""}></option>
-                                                                {empireIds.map((empireId) => (
-                                                                    <option key={empireId} value={empireId}>{empireId}</option>
-                                                                ))}
-                                                            </select>
-                                                            <EditText
-                                                                style={{
-                                                                    width: '50px',
-                                                                    padding: '10px',
-                                                                    border: '1px solid white',
-                                                                    borderRadius: '5px',
-                                                                    fontSize: '20px',
-                                                                }}
-                                                                type="number"
-                                                                defaultValue={(match.scoreteam2 ?? 0).toString()}
-                                                                onSave={({ value }) => handleSaveMatchScore(game.id, match.id, "scoreteam2", value)}
-                                                            ></EditText>
+                                                                <div className='scoreLabel'>
+                                                                    <select value={match.team1} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team1", e.target.value)}>
+                                                                        <option key="empty" value={""}></option>
+                                                                        {empireIds.map((empireId) => (
+                                                                            <option key={empireId} value={empireId}>{empireId}</option>
+                                                                        ))}
+                                                                    </select>
+                                                                    <EditText
+                                                                        style={{
+                                                                            width: '50px',
+                                                                            padding: '10px',
+                                                                            border: '1px solid white',
+                                                                            borderRadius: '5px',
+                                                                            fontSize: '20px',
+                                                                        }}
+                                                                        type="number"
+                                                                        defaultValue={(match.scoreteam1 ?? 0).toString()}
+                                                                        onSave={({ value }) => handleSaveMatchScore(game.id, match.id, "scoreteam1", value)}
+                                                                    ></EditText>
+                                                                </div>
+                                                                -- VS --
+                                                                <div className='scoreLabel'>
+                                                                    <select value={match.team2} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team2", e.target.value)}>
+                                                                        <option key="empty" value={""}></option>
+                                                                        {empireIds.map((empireId) => (
+                                                                            <option key={empireId} value={empireId}>{empireId}</option>
+                                                                        ))}
+                                                                    </select>
+                                                                    <EditText
+                                                                        style={{
+                                                                            width: '50px',
+                                                                            padding: '10px',
+                                                                            border: '1px solid white',
+                                                                            borderRadius: '5px',
+                                                                            fontSize: '20px',
+                                                                        }}
+                                                                        type="number"
+                                                                        defaultValue={(match.scoreteam2 ?? 0).toString()}
+                                                                        onSave={({ value }) => handleSaveMatchScore(game.id, match.id, "scoreteam2", value)}
+                                                                    ></EditText>
+                                                                </div>
+                                                                <br /><br />
                                                             </div>
-                                                            <br/><br/>
+
                                                         </div>
-                                                        
-                                                    </div>
-                                                );
-                                            }
+                                                    );
+                                                }
+                                            })
+                                        )}
+
+                                        {game.gametype === "tournament" && (
+                                            game.matches.map(match => {
+                                                if (match.id === "champion") {
+
+                                                    return (
+                                                        <div key={match.id}>
+                                                            <div>{match.id}</div>
+                                                            <div className='scoreLabel'>
+                                                                <div className='scoreLabel'>
+                                                                    <select value={match.team1} onChange={(e) => handleSaveMatchTeam(game.id, match.id, "team1", e.target.value)}>
+                                                                        <option key="empty" value={""}></option>
+                                                                        {empireIds.map((empireId) => (
+                                                                            <option key={empireId} value={empireId}>{empireId}</option>
+                                                                        ))}
+                                                                    </select>
+                                                                </div>
+                                                                <br /><br /><br /><br /><br /><br />
+                                                            </div>
+
+                                                        </div>
+                                                    );
+                                                }
                                             })
                                         )}
                                     </div>

@@ -62,60 +62,82 @@ const TournamentScores = () => {
     }, [config, gameid, setGame])
 
     useEffect(() => {
-            const fetchMatches = async () => {
-                if (config === null) return;
-                const unsubscribe = streamGameMatches(config.currentEvent, config.currentYear, gameid,
-                    (querySnapshot) => {
-                        const matches = querySnapshot.docs
-                            .map((docSnapshot) =>
-                                ({ ...docSnapshot.data(), id: docSnapshot.id })
-                            );
-                        for (let index = 0; index < matchIds.length; index++) {
-                            const matchId = matchIds[index];
-                            const match = matches.find(match => match.id === matchId);
-                            if (!match) {
-                                matches.push({ id: matchId, team1: "", team2: "", scoreteam1: 0, scoreteam2: 0 });
+        const fetchMatches = async () => {
+            if (config === null) return;
+            const unsubscribe = streamGameMatches(config.currentEvent, config.currentYear, gameid,
+                (querySnapshot) => {
+                    const matches = querySnapshot.docs
+                        .map((docSnapshot) =>
+                            ({ ...docSnapshot.data(), id: docSnapshot.id })
+                        );
+                    for (let index = 0; index < matchIds.length; index++) {
+                        const matchId = matchIds[index];
+                        const match = matches.find(match => match.id === matchId);
+                        if (!match) {
+                            matches.push({ id: matchId, team1: "", team2: "", scoreteam1: 0, scoreteam2: 0 });
+                        } else {
+                            if (!match.team1) {
+                                match.team1 = "";
+                                match.scoreteam1 = 0;
+                            }
+                            if (!match.team2) {
+                                match.team2 = "";
+                                match.scoreteam2 = 0;
                             }
                         }
-                        console.log('matches',matches);
-                        matches.sort((a, b) => a.id - b.id);
-    
-                        const newMatches = [];
-                        for (let index = 0; index < matches.length; index++) {
-                            const match = matches[index];
-                            newMatches[match.id] = match;
-                        }
-                        console.log('matches',newMatches);
-                        setMatches(newMatches);
-                       
-    
-                        //const rankedScores = sortRanks(newScores);
-                        //console.log('rankedScores',rankedScores);
-                        //setRanks(rankedScores);
-                        //const champion = getWinner(rankedScores);
-                        //setWinner(champion);
-                        if(newMatches["champion"].team1){
-                            var winner = {
-                                id: newMatches["champion"].team1,
-                                name: empires[newMatches["champion"].team1].name,
-                                backgroundImage: empires[newMatches["champion"].team1].backgroundImage,
-                            };
-                            setWinner(winner);
-                        }
 
-                        setLoading(false);
-    
                     }
-                );
-                return unsubscribe;
-            }
-    
-            fetchMatches();
-        }, [config, gameid, setMatches])
+                    console.log('matches', matches);
+                    matches.sort((a, b) => a.id - b.id);
+
+                    const newMatches = [];
+                    for (let index = 0; index < matches.length; index++) {
+                        const match = matches[index];
+                        newMatches[match.id] = match;
+                    }
+                    console.log('matches', newMatches);
+                    setMatches(newMatches);
+
+
+                    //const rankedScores = sortRanks(newScores);
+                    //console.log('rankedScores',rankedScores);
+                    //setRanks(rankedScores);
+                    //const champion = getWinner(rankedScores);
+                    //setWinner(champion);
+                    if (newMatches["champion"].team1) {
+                        var winner = {
+                            id: newMatches["champion"].team1,
+                            name: empires[newMatches["champion"].team1].name,
+                            backgroundImage: empires[newMatches["champion"].team1].backgroundImage,
+                        };
+                        setWinner(winner);
+                    }
+
+                    setLoading(false);
+
+                }
+            );
+            return unsubscribe;
+        }
+
+        fetchMatches();
+    }, [config, gameid, setMatches])
 
     var divStyle = {
         backgroundImage: 'url(' + winner.backgroundImage + ')',
     };
+
+    const getMatchWinner = (match) => {
+        if (match.scoreteam1 > match.scoreteam2) {
+            return "winner-top";
+        } else if (match.scoreteam1 < match.scoreteam2) {
+            return "winner-bottom";
+        } else {
+            return "";
+        }
+
+    };
+
 
     return (
 
@@ -124,109 +146,105 @@ const TournamentScores = () => {
             <div className="games_container" >
                 {config && !loading ?
                     <div className="gamescores_content" style={divStyle}>
-                        <div className='topSpacer' />
+
+                        <div className="game_name">{game.name}</div>
 
 
-                        <div class="theme theme-dark">
-                            <div class="bracket disable-image">
-                                <div class="column one">
-                                    <div class="match winner-top">
-                                        <div class="match-top team">
-                                            <span class="image">
-                                                <img className='empirename_img' src={empires[matches["round1game1"].team1].nameImage} alt={empires[matches["round1game1"].team1].name} />
+                        <div className="theme theme-dark">
+                            <div className="bracket ">
+                                <div className="column one">
+                                    <div className={"match " + getMatchWinner(matches["round1game1"])} id="col1">
+                                        <div className="match-top team">
+                                        {matches["round1game1"].team1 &&
+                                            <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round1game1"].team1].nameImage} alt={empires[matches["round1game1"].team1].name} />
+                                                </span><span className="score">{matches["round1game1"].scoreteam1 ?? 0}</span></>
+                                        }
+                                        </div>
+                                        <div className="match-bottom team">
+                                        {matches["round1game1"].team2 &&
+                                            <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round1game1"].team2].nameImage} alt={empires[matches["round1game1"].team2].name} />
+                                                </span><span className="score">{matches["round1game1"].scoreteam2 ?? 0}</span></>
+                                        }
+                                        </div>
+
+                                    </div>
+                                    <div className={"match " + getMatchWinner(matches["round1game2"])} >
+                                        <div className="match-top team">
+                                        {matches["round1game2"].team1 &&
+                                            <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round1game2"].team1].nameImage} alt={empires[matches["round1game2"].team1].name} />
+                                                </span><span className="score">{matches["round1game2"].scoreteam1 ?? 0}</span></>
+                                        }
+                                        </div>
+                                        <div className="match-bottom team">
+                                        {matches["round1game2"].team2 &&
+                                            <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round1game2"].team2].nameImage} alt={empires[matches["round1game2"].team2].name} />
+                                                </span><span className="score">{matches["round1game2"].scoreteam2 ?? 0}</span></>
+                                        }
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div className="column two">
+                                    <div className={"match " + getMatchWinner(matches["round2game1"])} >
+                                        <div className="match-top team">
+                                        {matches["round2game1"].team1 &&
+                                                <><span className="image">
+                                                <img className='empirename_img' src={empires[matches["round2game1"].team1].nameImage} alt={empires[matches["round2game1"].team1].name} />
                                             </span>
-                                            <span class="name">{empires[matches["round1game1"].team1].name}</span>
-                                            <span class="score">{matches["round1game1"].scoreteam1}</span>
+                                            <span className="score">{matches["round2game1"].scoreteam1 ?? 0}</span></>
+                                        }
                                         </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round1game1"].team2].name}</span>
-                                            <span class="score">{matches["round1game1"].scoreteam2}</span>
+                                        <div className="match-bottom team">
+                                            {matches["round2game1"].team2 &&
+                                                <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round2game1"].team2].nameImage} alt={empires[matches["round2game1"].team2].name} />
+                                                </span><span className="score">{matches["round2game1"].scoreteam2 ?? 0}</span></>
+                                            }
                                         </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
+
+
                                     </div>
-                                    <div class="match winner-bottom" id="col1">
-                                        <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round1game2"].team1].name}</span>
-                                            <span class="score">{matches["round1game2"].scoreteam1}</span>
+                                    <div className={"match " + getMatchWinner(matches["round2game2"])} >
+                                        <div className="match-top team">
+                                            {matches["round2game2"].team1 &&
+                                                <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round2game2"].team1].nameImage} alt={empires[matches["round2game2"].team1].name} />
+                                                </span><span className="score">{matches["round2game2"].scoreteam1 ?? 0}</span></>
+                                            }
                                         </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round1game2"].team2].name}</span>
-                                            <span class="score">{matches["round1game2"].scoreteam2}</span>
+                                        <div className="match-bottom team">
+                                            {matches["round2game2"].team2 &&
+                                                <><span className="image">
+                                                    <img className='empirename_img' src={empires[matches["round2game2"].team2].nameImage} alt={empires[matches["round2game2"].team2].name} />
+                                                </span><span className="score">{matches["round2game2"].scoreteam2 ?? 0}</span></>
+                                            }
                                         </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
+
                                     </div>
                                 </div>
-                                <div class="column two">
-                                    <div class="match winner-bottom" id="col2">
-                                        <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round2game1"].team1].name}</span>
-                                            <span class="score">{matches["round2game1"].scoreteam1}</span>
+                                <div className="column three" >
+                                    <div className="match winner-top">
+                                        <div className="match-top team">
+                                            {matches["champion"].team1 &&
+                                                <span className="image">
+                                                    <img className='empirename_img' src={empires[matches["champion"].team1].nameImage} alt={empires[matches["champion"].team1].name} />
+                                                </span>
+                                            }
                                         </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round2game1"].team2].name}</span>
-                                            <span class="score">{matches["round2game1"].scoreteam2}</span>
-                                        </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
-                                    </div>
-                                    <div class="match winner-bottom">
-                                        <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round2game2"].team1].name}</span>
-                                            <span class="score">{matches["round2game2"].scoreteam1}</span>
-                                        </div>
-                                        <div class="match-bottom team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["round2game2"].team2].name}</span>
-                                            <span class="score">{matches["round2game2"].scoreteam2}</span>
-                                        </div>
-                                        <div class="match-lines">
-                                            <div class="line one"></div>
-                                            <div class="line two"></div>
-                                        </div>
-                                        <div class="match-lines alt">
-                                            <div class="line one"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="column three" id="col3">
-                                    <div class="match winner-top">
-                                        <div class="match-top team">
-                                            <span class="image"></span>
-                                            <span class="name">{empires[matches["champion"].team1].name}</span>
-                                        </div>
-                                        
+
                                     </div>
 
-                                    
+
                                 </div>
                             </div>
                         </div>
 
-                        
-                        <div className='gamescores_box_footer' ></div>
+
+
 
                     </div>
 
