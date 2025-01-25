@@ -47,7 +47,7 @@ const Games = () => {
                     {
                         games?.map((game, i) => (
                             <div className="gamecard_container">
-                                <div key={i} className={"gamecard " + game.name}>
+                                <div key={i} className={"gamecard " + game.class}>
                                 <div className={game.tag}>
                                         <Link to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
                                             
