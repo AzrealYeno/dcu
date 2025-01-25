@@ -1,16 +1,16 @@
-.Volleyball {
+.volleyball {
     background-image: url(../assets/desc_volleyball_bg.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.Basketball {
+.basketball {
     background-image: url(../assets/desc_basketball_bg.png);
     background-size: contain;
     background-repeat: no-repeat;
 }
 
-.Badminton {
+.badminton {
     background-image: url(../assets/desc_badminton_bg.png);
 }
 
