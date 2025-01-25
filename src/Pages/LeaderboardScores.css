@@ -105,27 +105,40 @@
     color: black;
 }
 
-.men {
-    background-image: url(../assets/men.png);
+.tag {
+    margin-top: 47%;
+    width: 45%;
     background-size: contain;
     background-repeat: no-repeat;
-    width: 100%;
-    margin-top: 47%;
-    width: 50%;
+}
+
+.blank {
+    width: 0;
+    height: 0;
+}
+
+.men {
+    background-image: url(../assets/men.png);
+    
 }
 
 .women {
     background-image: url(../assets/women.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-top: 47%;
-    width: 45%;
 }
 
 .mixed {
     background-image: url(../assets/mixed.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    margin-top: 47%;
-    width: 45%;
 }
+
+._100m {
+    background-image: url(../assets/dash_100.png);
+}
+
+._400m {
+    background-image: url(../assets/dash_400.png);
+}
+
+.relay {
+    background-image: url(../assets/relay.png);
+}
+
