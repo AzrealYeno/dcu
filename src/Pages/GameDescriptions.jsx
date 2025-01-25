@@ -30,6 +30,7 @@ const GameDescriptions = () => {
         const fetchGames = async () => {
             if (config === null) return;
             const games = await getGames(config.currentEvent, config.currentYear);
+            games.sort((a, b) => a.name.localeCompare(b.name));
             setGames(games);
         }
 
