@@ -56,9 +56,17 @@
 }
 
 .empire_container {
-    width: 50%;
     display: flex;
     justify-content: center;
+}
+
+.four{
+    width: 25%;
+}
+
+
+.two{
+    width: 50%;
 }
 
 .background {
@@ -87,7 +95,7 @@
 .livegamescore_shinobi_background{
     background-image: url(../assets/live_shinobi.png);
 }
-.background_odd{
+.background_flip{
     transform: scaleX(-1);
 }
 
@@ -104,15 +112,23 @@
   }
   
 
+.empirename_img {
+    width: -webkit-fill-available;
+    padding: 20%;
+    position: relative;
+    z-index: 4;
+}
 
 
+/* 
+mao ni before
 .empirename_img {
     height: 140px;
     padding: 20%;
     padding-bottom: 120%;
     position: relative;
     z-index: 4;
-}
+} */
 
 .livescore {
     height: 80px;
