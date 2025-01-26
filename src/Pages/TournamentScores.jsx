@@ -146,7 +146,7 @@ const TournamentScores = () => {
                 {config && !loading ?
                     <div className="gamescores_content" style={divStyle}>
 
-                        <div className="game_name">{game.name}</div>
+                        <div className="game_name_tournament">{game.name}</div>
 
 
                         <div className="theme theme-dark">
@@ -156,14 +156,14 @@ const TournamentScores = () => {
                                         <div className="match-top team">
                                         {matches["round1game1"].team1 &&
                                             <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round1game1"].team1].nameImage} alt={empires[matches["round1game1"].team1].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round1game1"].team1].nameImage} alt={empires[matches["round1game1"].team1].name} />
                                                 </span><span className="score">{matches["round1game1"].scoreteam1 ?? 0}</span></>
                                         }
                                         </div>
                                         <div className="match-bottom team">
                                         {matches["round1game1"].team2 &&
                                             <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round1game1"].team2].nameImage} alt={empires[matches["round1game1"].team2].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round1game1"].team2].nameImage} alt={empires[matches["round1game1"].team2].name} />
                                                 </span><span className="score">{matches["round1game1"].scoreteam2 ?? 0}</span></>
                                         }
                                         </div>
@@ -173,14 +173,14 @@ const TournamentScores = () => {
                                         <div className="match-top team">
                                         {matches["round1game2"].team1 &&
                                             <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round1game2"].team1].nameImage} alt={empires[matches["round1game2"].team1].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round1game2"].team1].nameImage} alt={empires[matches["round1game2"].team1].name} />
                                                 </span><span className="score">{matches["round1game2"].scoreteam1 ?? 0}</span></>
                                         }
                                         </div>
                                         <div className="match-bottom team">
                                         {matches["round1game2"].team2 &&
                                             <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round1game2"].team2].nameImage} alt={empires[matches["round1game2"].team2].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round1game2"].team2].nameImage} alt={empires[matches["round1game2"].team2].name} />
                                                 </span><span className="score">{matches["round1game2"].scoreteam2 ?? 0}</span></>
                                         }
                                         </div>
@@ -192,7 +192,7 @@ const TournamentScores = () => {
                                         <div className="match-top team">
                                         {matches["round2game1"].team1 &&
                                                 <><span className="image">
-                                                <img className='empirename_img' src={empires[matches["round2game1"].team1].nameImage} alt={empires[matches["round2game1"].team1].name} />
+                                                <img className='tour_empirename_img' src={empires[matches["round2game1"].team1].nameImage} alt={empires[matches["round2game1"].team1].name} />
                                             </span>
                                             <span className="score">{matches["round2game1"].scoreteam1 ?? 0}</span></>
                                         }
@@ -200,7 +200,7 @@ const TournamentScores = () => {
                                         <div className="match-bottom team">
                                             {matches["round2game1"].team2 &&
                                                 <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round2game1"].team2].nameImage} alt={empires[matches["round2game1"].team2].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round2game1"].team2].nameImage} alt={empires[matches["round2game1"].team2].name} />
                                                 </span><span className="score">{matches["round2game1"].scoreteam2 ?? 0}</span></>
                                             }
                                         </div>
@@ -211,14 +211,14 @@ const TournamentScores = () => {
                                         <div className="match-top team">
                                             {matches["round2game2"].team1 &&
                                                 <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round2game2"].team1].nameImage} alt={empires[matches["round2game2"].team1].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round2game2"].team1].nameImage} alt={empires[matches["round2game2"].team1].name} />
                                                 </span><span className="score">{matches["round2game2"].scoreteam1 ?? 0}</span></>
                                             }
                                         </div>
                                         <div className="match-bottom team">
                                             {matches["round2game2"].team2 &&
                                                 <><span className="image">
-                                                    <img className='empirename_img' src={empires[matches["round2game2"].team2].nameImage} alt={empires[matches["round2game2"].team2].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["round2game2"].team2].nameImage} alt={empires[matches["round2game2"].team2].name} />
                                                 </span><span className="score">{matches["round2game2"].scoreteam2 ?? 0}</span></>
                                             }
                                         </div>
@@ -230,7 +230,7 @@ const TournamentScores = () => {
                                         <div className="match-top team">
                                             {matches["champion"].team1 &&
                                                 <span className="image">
-                                                    <img className='empirename_img' src={empires[matches["champion"].team1].nameImage} alt={empires[matches["champion"].team1].name} />
+                                                    <img className='tour_empirename_img' src={empires[matches["champion"].team1].nameImage} alt={empires[matches["champion"].team1].name} />
                                                 </span>
                                             }
                                         </div>

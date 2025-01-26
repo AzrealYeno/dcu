@@ -1,9 +1,9 @@
 .theme {
-    height: 100%;
-    width: 100%;
-    position: absolute;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  overflow-x: scroll;
   }
-
 
   .tournament {
     display: flex;
@@ -35,22 +35,24 @@
     padding: 15px; /* Increased padding */
     margin: 20px 0; /* Added vertical margin */
 }
+
+
+
 @media (max-width: 600px) {
     .team, .match {
-        width: calc(100% - 40px); /* Adjusted width for mobile */
-        margin: 10px 0; /* Margin for vertical stacking */
+        width: calc(100% - 35px); /* Adjusted width for mobile */
+        margin: 15px 0; /* Margin for vertical stacking */
     }
 }
 
   .bracket {
     padding: 40px;
     margin: 5px;
-  }
-  .bracket {
     display: flex;
     flex-direction: row;
     position: relative;
   }
+
   .column {
     display: flex;
     flex-direction: column;
@@ -59,32 +61,31 @@
     align-content: center;
     min-height: 550px;
   }
+
   .match {
     position: relative;
     display: flex;
     flex-direction: column;
-    min-width: 240px;
+    min-width: 180px;
     max-width: 340px;
-    max-height: 180px;
+    min-height: 200px;
+    max-height :220px;
     margin: 12px 24px 12px 0;
-
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     padding: 15px;
     text-align: center;
-    margin-bottom: 20px; /* Space between matches */
   }
+
   .match .match-top {
     border-radius: 2px 2px 0 0;
   }
   .match .match-bottom {
-    border-radius: 0 0 2px 2px;
+    border-radius: 2px 2px 0 0;
   }
   .match .team {
     display: flex;
     align-items: center;
-    border: 1px solid black;
+    border: 10px solid rgb(255, 255, 255);
+    border-radius: 8px;
     position: relative;
   }
   .match .team span {
@@ -105,6 +106,7 @@
     -webkit-background-clip: text;
     background-clip: text;
   }
+
   .match .team:first-child {
     margin-bottom: -1px;
   }
@@ -130,6 +132,7 @@
   .disable-seperator .team:first-child {
     margin-bottom: 0px;
   }
+
   /* Dark Theme */
   
   .theme-dark .match-lines .line {
@@ -141,6 +144,7 @@
     color: #6b798c;
   }
   .theme-dark .winner-top .match-top,
+
   .theme-dark .winner-bottom .match-bottom {
     background: #232c36;
     color: #e3e8ef;
@@ -156,8 +160,28 @@
     min-width: 10px;
   }
 
-  
-
   #col1 {
     margin-bottom: 130px;
   }
+
+  .tour_empirename_img {
+    max-width: 100%;   
+    max-height: 100%;  
+    object-fit: contain; 
+}
+
+.game_name_tournament{
+  padding-top: 3%;
+  z-index: 999;
+  position: fixed;
+  font-family: 'Press Start 2P';
+  font-weight: bold;
+  font-size: large;
+  transition: 0.2s ease color;
+  text-transform: none;
+  background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+  color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+  padding-bottom: 40px;
+}

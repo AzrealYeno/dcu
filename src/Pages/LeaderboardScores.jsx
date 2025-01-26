@@ -107,7 +107,7 @@ const LeaderboardScores = () => {
             <Navbar />
             <div className="games_container" >
                 {config ?
-                    <div className="gamescores_content" style={divStyle}>
+                    <div className="gamescores_content_with_padding" style={divStyle}>
                         <div className='topSpacer' />
                         <div className='gamescores_box_preheader' ></div>
                         <div className='gamescores_box_header' >
