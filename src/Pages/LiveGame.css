@@ -119,6 +119,31 @@
     z-index: 4;
 }
 
+.lg_empirename_img{
+    width: 300px;
+    padding-top: 20px;
+}
+
+.lg_cardheader{
+    padding-bottom: 90px;
+}
+
+
+.lg_game_name {
+    padding-top: 3%;
+    z-index: 999;
+    position: absolute;
+    font-family: 'Press Start 2P';
+    font-weight: bold;
+    font-size: 23px;
+    transition: 0.2s ease color;
+    text-transform: none;
+    background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    padding-bottom: 40px;
+}
 
 /* 
 mao ni before
@@ -159,6 +184,5 @@ mao ni before
 }
 
 .livegamecardscore{
-    width: 500px;
-    justify-content: space-between;
+    width: 400px;
 }

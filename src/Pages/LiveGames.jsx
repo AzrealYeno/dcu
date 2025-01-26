@@ -48,16 +48,16 @@ const Games = () => {
                     {
                         livegames?.map((game, i) => (
                             <div key={i} className="livegamecard">
-
+                                <div className="lg_cardheader">
                                 <Link to={`/livegame/${game.id}`}>
-                                    <h2 className='game_name'>{game.name}</h2>
+                                    <h2 className='lg_game_name'>{game.name}</h2>
                                 </Link>
+                                </div>   
                                 {game.scores.map((score, index) =>
                         (
                             <div  key={score.id} className='livegamecardscore'>
-                                    <img className='empirename_img' src={empires[score.id].nameImage} alt={score.id} />
-                                    <div className={`livescore`}>{score.score}</div> 
-                                
+                                    <img className='lg_empirename_img' src={empires[score.id].nameImage} alt={score.id} />
+                                    
                             </div>
                         ))}
                             </div>
