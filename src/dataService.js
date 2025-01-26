@@ -8,8 +8,22 @@ export const streamScores = (eventid, year, gameid, snapshot) => {
     return onSnapshot(docRef , snapshot);
 };
 
+
 export const getGamesScores = async (eventid, year, gameid) =>  {
     return getDocs(collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/scores"))
+    .then((querySnapshot)=>{               
+        return querySnapshot.docs
+            .map((doc) => ({...doc.data(), id:doc.id }))
+    });
+};
+
+export const streamGameMatches = (eventid, year, gameid, snapshot) => {
+    const docRef = collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/matches");        
+    return onSnapshot(docRef , snapshot);
+};
+
+export const getGamesMatches = async (eventid, year, gameid) =>  {
+    return getDocs(collection(db, "events/" + eventid + "/years/" + year + "/games/" +  gameid  + "/matches"))
     .then((querySnapshot)=>{               
         return querySnapshot.docs
             .map((doc) => ({...doc.data(), id:doc.id }))

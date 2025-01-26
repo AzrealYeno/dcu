@@ -29,6 +29,7 @@ const Games = () => {
         const fetchGames = async () => {
             if (config === null) return;
             const games = await getGames(config.currentEvent, config.currentYear);
+            games.sort((a, b) => a.name.localeCompare(b.name));
              setGames(games);                
          }
 
@@ -46,9 +47,10 @@ const Games = () => {
                     {
                         games?.map((game, i) => (
                             <div className="gamecard_container">
-                                <Link to={`/games/${game.id}`}>
-                                    <div key={i} className="gamecard">                                    
-                                        <h2>{game.name}</h2>            
+                                <Link to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
+                                    <div key={i} className={"gamecard " + game.class}>
+                                        <div className={"tag " + (game.tag || "blank")}></div>
+                                        <div className={"tag " + (game.tag2 || "blank")}></div>
                                     </div>
                                 </Link>
                             </div>

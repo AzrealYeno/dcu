@@ -14,6 +14,28 @@ export const saveScore = async (eventId, year, empireId, gameId, score) =>
     await setDoc(docRef, {score: intScore}, { merge: true });
 };
 
+
+export const saveMatchScore = async (eventId, year,  gameId, matchId, scoreTeamNum, score) =>
+{
+    const docRef = doc(db, "events/" + eventId + "/years/" + year + "/games/" + gameId + "/matches/" + matchId);
+    const intScore = parseInt(score);
+    if(scoreTeamNum === "scoreteam1"){
+        await setDoc(docRef, {scoreteam1: intScore}, { merge: true });
+    }else if(scoreTeamNum === "scoreteam2"){
+        await setDoc(docRef, {scoreteam2: intScore}, { merge: true });
+    }
+};
+
+export const saveMatchTeam = async (eventId, year,  gameId, matchId, teamNum, teamId) =>
+    {
+        const docRef = doc(db, "events/" + eventId + "/years/" + year + "/games/" + gameId + "/matches/" + matchId);
+        if(teamNum === "team1"){
+            await setDoc(docRef, {team1: teamId}, { merge: true });
+        }else if(teamNum === "team2"){
+            await setDoc(docRef, {team2: teamId}, { merge: true });
+        }
+    };
+
 export const saveEventDetail = async (eventId, year, eventDetail) =>
 {
     eventDetail.year = year;

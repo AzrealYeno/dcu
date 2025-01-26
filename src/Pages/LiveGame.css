@@ -5,7 +5,7 @@
     flex-wrap: wrap;
     flex-direction: column;
     background-size: cover;
-    padding-top: 10px;
+    /* padding-top: 10px; */
     position: absolute;
     overflow-x: hidden;
     align-items: center;
@@ -35,69 +35,67 @@
 }
 
 .games_score_container {
-    width: 650px;
+    width: 100%;
+    height: 100%;
     display: flex;  
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
 }
 
 .livegamescore{
     /* background-image: url(../assets/background_chimera.png);
     background-size: cover; */
-    height: 300px;
-    width: 320px;
+    /* height: 300px;
+    width: 320px; */
     align-content: space-evenly;
     position: relative;
+    width: -webkit-fill-available;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.empire_container {
+    display: flex;
+    justify-content: center;
+}
+
+.four{
+    width: 25%;
 }
 
 
-.livegamescore_phoenix_background{
-    background-image: url(../assets/background_phoenix.png);
+.two{
+    width: 50%;
+}
+
+.background {
     background-size: cover;
-    height: 300px;
-    width: 320px;
+    height: 100%;
+    width: 100%;
     align-content: space-evenly;
+    background-position: center;
     position: absolute;
     top: 0;
     left: 0;
     z-index: 1;
+}
+
+.livegamescore_phoenix_background{
+    background-image: url(../assets/live_phoenix.png);
 }
 
 .livegamescore_chimera_background{
-    background-image: url(../assets/background_chimera.png);
-    background-size: cover;
-    height: 300px;
-    width: 320px;
-    align-content: space-evenly;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    background-image: url(../assets/live_chimera.png);
 }
 
 .livegamescore_pegasus_background{
-    background-image: url(../assets/background_pegasus.png);
-    background-size: cover;
-    height: 300px;
-    width: 320px;
-    align-content: space-evenly;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    background-image: url(../assets/live_pegasus.png);
 }
 .livegamescore_shinobi_background{
-    background-image: url(../assets/background_shinobi.png);
-    background-size: cover;
-    height: 300px;
-    width: 320px;
-    align-content: space-evenly;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    background-image: url(../assets/live_shinobi.png);
 }
-.background_odd{
+.background_flip{
     transform: scaleX(-1);
 }
 
@@ -114,34 +112,50 @@
   }
   
 
-
-
 .empirename_img {
-    height: 70px;
-    padding: 2px;
+    width: -webkit-fill-available;
+    padding: 20%;
     position: relative;
     z-index: 4;
-    width: 230px;
 }
 
+
+/* 
+mao ni before
+.empirename_img {
+    height: 140px;
+    padding: 20%;
+    padding-bottom: 120%;
+    position: relative;
+    z-index: 4;
+} */
+
 .livescore {
+    height: 80px;
+    width: 80px;
+    padding: 10%;
+    display: inline-flex;
+    position: relative;
+    z-index: 4;
+    justify-content: center;
+    align-content: center;
+    flex-wrap: wrap;
+    background-color: #db6d6d;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.score {
     font-family: 'Press Start 2P';
+    font-size : 70px;
     font-weight: bold;
-    font-size: xx-large;
     transition: 0.2s ease color;
     text-transform: none;
     background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    width: min-content;
     line-height: 150%;
-    padding: 2px;
-    display: inline-flex;
-    position: relative;
-    z-index: 4;
-    
-    
 }
 
 .livegamecardscore{

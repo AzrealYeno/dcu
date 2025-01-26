@@ -1,5 +1,6 @@
 import './Games.css';
 import './GameDescriptions.css';
+import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { getGames } from '../dataService';
 import Markdown from 'react-markdown'
@@ -29,6 +30,7 @@ const GameDescriptions = () => {
         const fetchGames = async () => {
             if (config === null) return;
             const games = await getGames(config.currentEvent, config.currentYear);
+            games.sort((a, b) => a.name.localeCompare(b.name));
             setGames(games);
         }
 
@@ -41,6 +43,7 @@ const GameDescriptions = () => {
         setExpandedIndex(expandedIndex === index ? null : index);
     };
 
+
     return (
         <div className="App">
             <Navbar />
@@ -50,11 +53,15 @@ const GameDescriptions = () => {
                     <section className="x games-content" dir="ltr">
                         {
                             games?.map((game, i) => (
-                                <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : ''}`} key={i} onClick={() => expand(i)}>
-                                    <div className={"gamecard " + game.name}>
-
-                                        <h2>{game.name}</h2>
-                                        <div><Markdown>{game.info}</Markdown></div>
+                                <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : 'orig'}`} key={i} onClick={() => expand(i)}>
+                                    <div className={"gamecard " + game.class}>
+                                        <div className='name'>{game.name}</div>
+                                        <div className='info'><Markdown>{game.info}</Markdown></div>
+                                        <Link className='link' to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
+                                            <div >                                    
+                                                     Click for Score       
+                                            </div>
+                                        </Link>
                                     </div>
                                 </div>
                             ))

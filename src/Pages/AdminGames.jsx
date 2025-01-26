@@ -93,6 +93,7 @@ const AdminGames = () => {
     const fetchGames = useCallback(async () => {
         if (event === null || year === null) return;
         const games = await getGames(event, year);
+        games.sort((a, b) => a.name.localeCompare(b.name));
         setGames(games);
     }, [event, year, setGames]);
 
@@ -121,6 +122,35 @@ const AdminGames = () => {
         setGames([...games]);
     }
 
+    
+    const handleChangeGameType = (gameId, index, e) => {
+        games[index].gametype = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { gametype:  e.target.value });
+    }
+
+    const handleChangeGameTag = (gameId, index, e) => {
+        games[index].tag = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { tag:  e.target.value });
+    }
+
+    const handleChangeGameTag2 = (gameId, index, e) => {
+        games[index].tag2 = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { tag2:  e.target.value });
+    }
+
+    const handleChangeGameClass = (gameId, index, e) => {
+        games[index].class = e.target.value;
+        setGames([...games]);
+        saveGameDetail
+            (event, year, gameId, { class:  e.target.value });
+    }
+
     const handleSaveGameInfo = (gameId, index) => {
         const value = games[index].info;
         saveGameDetail
@@ -139,7 +169,7 @@ const AdminGames = () => {
     const handleClickSaveNewGame = () => {
         const gameId = uuidv4();
         saveGameDetail
-            (event, year, gameId, { name: newGameName });
+            (event, year, gameId, { name: newGameName , gametype: "leaderboard", tag:""});
         setNewGameName("");
         fetchGames();
     }
@@ -222,6 +252,62 @@ const AdminGames = () => {
                                                 }}
                                             ></EditText>
                                         </label>
+                                        <label>Game Type
+                                        
+                                        <select  value={game.gametype} onChange={(e) => handleChangeGameType(game.id,index, e)}>
+                                            <option key="leaderboard" value="leaderboard">leaderboard</option>
+                                            <option key="straight" value="tournament">tournament</option>
+                                                
+                                        </select>
+                                        </label>
+                                        <br/>
+                                        <label>Game class
+                                        
+                                        <select  value={game.class} onChange={(e) => handleChangeGameClass(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="volleyball" value="volleyball">volleyball</option>
+                                            <option key="basketball" value="basketball">basketball</option>
+                                            <option key="badminton" value="badminton">badminton</option>
+                                            <option key="botb" value="botb">botb</option>
+                                            <option key="mrandmisspisay" value="mrandmisspisay">mrandmisspisay</option>
+                                            <option key="trackandfield" value="trackandfield">trackandfield</option>
+                                            <option key="litmus" value="litmus">litmus</option>
+                                            <option key="tabletennis" value="tabletennis">tabletennis</option>
+                                            <option key="chess" value="chess">chess</option>
+                                                
+                                        </select>
+                                        </label>
+                                        <br />
+                                        <label>Game tag
+                                        
+                                        <select  value={game.tag} onChange={(e) => handleChangeGameTag(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="men" value="men">men</option>
+                                            <option key="women" value="women">women</option>
+                                            <option key="mixed" value="mixed">mixed</option>
+                                                
+                                        </select>
+                                        </label>
+                                        <br />
+                                        <label>Game tag 2
+                                        
+                                        <select  value={game.tag2} onChange={(e) => handleChangeGameTag2(game.id,index, e)}>
+                                            <option key="blank" value=""></option>
+                                            <option key="sabayang_pagbigkas" value="sabayang_pagbigkas">sabayang_pagbigkas</option>
+                                            <option key="speech" value="speech">speech</option>
+                                            <option key="hiphop" value="hiphop">hiphop</option>
+                                            <option key="band" value="band">band</option>
+                                            <option key="duet" value="duet">duet</option>
+                                            <option key="solo" value="solo">solo</option>
+                                            <option key="saludo" value="saludo">saludo</option>
+                                            <option key="ml" value="ml">ml</option>
+                                            <option key="cod" value="cod">cod</option>
+                                            <option key="_100m" value="_100m">_100m</option>
+                                            <option key="_400m" value="_400m">_400m</option>
+                                            <option key="relay" value="relay">relay</option>
+                                        </select>
+                                        </label>
+                                        <br />
                                         <label>Game Info
                                             <MDEditor value={game.info}
                                                 onChange={(value) => handleChangeGameInfo(index, value)} />

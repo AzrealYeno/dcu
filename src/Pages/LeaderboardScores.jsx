@@ -6,12 +6,12 @@ import { medal_img } from '../constants';
 import { Ename_img } from '../constants';
 import gameScores_leaderboard from "../assets/scores_Leaderboard.png";
 import bgNeutral from '../assets/background.png';
-import './GameScores.css';
+import './LeaderboardScores.css';
 import { getConfig } from '../configService';
 import loader from '../assets/loader.svg';
 import Navbar from "../Navbar";
 
-const GameScores = () => {
+const LeaderboardScores = () => {
     const [config, setConfig] = useState(null);
     useEffect(() => {
         const loadConfig = async () => {
@@ -113,6 +113,9 @@ const GameScores = () => {
                         <div className='gamescores_box_header' >
                             <div className="game_name">{game.name}</div>
                         </div>
+
+                        
+
                         {
                             ranks.map(
                                 (rank) =>
@@ -141,5 +144,5 @@ const GameScores = () => {
     );
 };
 
-export default GameScores;
+export default LeaderboardScores;
 

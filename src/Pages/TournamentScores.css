@@ -1,0 +1,163 @@
+.theme {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+  }
+
+
+  .tournament {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px; /* Space above the tournament */
+}
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px; /* Space between columns */
+    justify-content: center;
+}
+.team {
+    background-color: #e0f7fa;
+    border: 1px solid #00796b;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    height: 350px;
+    text-align: center;
+    margin-bottom: 20px; /* Space between teams */
+}
+
+.final {
+    font-weight: bold;
+    font-size: 1.2em;
+    background-color: #e7f3ff;
+    padding: 15px; /* Increased padding */
+    margin: 20px 0; /* Added vertical margin */
+}
+@media (max-width: 600px) {
+    .team, .match {
+        width: calc(100% - 40px); /* Adjusted width for mobile */
+        margin: 10px 0; /* Margin for vertical stacking */
+    }
+}
+
+  .bracket {
+    padding: 40px;
+    margin: 5px;
+  }
+  .bracket {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+  }
+  .column {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    justify-content: space-around;
+    align-content: center;
+    min-height: 550px;
+  }
+  .match {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 240px;
+    max-width: 340px;
+    max-height: 180px;
+    margin: 12px 24px 12px 0;
+
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    text-align: center;
+    margin-bottom: 20px; /* Space between matches */
+  }
+  .match .match-top {
+    border-radius: 2px 2px 0 0;
+  }
+  .match .match-bottom {
+    border-radius: 0 0 2px 2px;
+  }
+  .match .team {
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    position: relative;
+  }
+  .match .team span {
+    padding-left: 8px;
+  }
+  .match .team span:last-child {
+    padding-right: 8px;
+  }
+  .match .team .score {
+    margin-left: auto;
+    font-family: 'Press Start 2P';
+    font-weight: bold;
+    font-size: x-large;
+    transition: 0.2s ease color;
+    text-transform: none;
+    background-image: linear-gradient(orange, yellow, rgb(240, 240, 221), orange, yellow, orange);
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  .match .team:first-child {
+    margin-bottom: -1px;
+  }
+ 
+  .disable-image .image,
+  .disable-seed .seed,
+  .disable-name .name,
+  .disable-score .score {
+    display: none !important;
+  }
+  .disable-borders {
+    border-width: 0px !important;
+  }
+  .disable-borders .team {
+    border-width: 0px !important;
+  }
+  .disable-seperator .match-top {
+    border-bottom: 0px !important;
+  }
+  .disable-seperator .match-bottom {
+    border-top: 0px !important;
+  }
+  .disable-seperator .team:first-child {
+    margin-bottom: 0px;
+  }
+  /* Dark Theme */
+  
+  .theme-dark .match-lines .line {
+    background: #36404e;
+  }
+  .theme-dark .team {
+    background: #182026;
+    border-color: #232c36;
+    color: #6b798c;
+  }
+  .theme-dark .winner-top .match-top,
+  .theme-dark .winner-bottom .match-bottom {
+    background: #232c36;
+    color: #e3e8ef;
+    border-color: #36404e;
+    z-index: 1;
+  }
+  .theme-dark .winner-top .match-top .score,
+  .theme-dark .winner-bottom .match-bottom .score {
+    color: #03d9ce;
+  }
+  .theme-dark .match .seed {
+    font-size: 12px;
+    min-width: 10px;
+  }
+
+  
+
+  #col1 {
+    margin-bottom: 130px;
+  }
