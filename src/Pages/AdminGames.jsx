@@ -274,6 +274,7 @@ const AdminGames = () => {
                                             <option key="litmus" value="litmus">litmus</option>
                                             <option key="tabletennis" value="tabletennis">tabletennis</option>
                                             <option key="chess" value="chess">chess</option>
+                                            <option key="egames" value="egames">egames</option>
                                                 
                                         </select>
                                         </label>
@@ -305,6 +306,7 @@ const AdminGames = () => {
                                             <option key="_100m" value="_100m">_100m</option>
                                             <option key="_400m" value="_400m">_400m</option>
                                             <option key="relay" value="relay">relay</option>
+                                            <option key="oration" value="oration">oration</option>
                                         </select>
                                         </label>
                                         <br />
