@@ -2,13 +2,13 @@
   .home_container {
     background-image: url(../assets/background.png);
     background-size: contain;
-    height: 100vh;
+    height: 90vh;
     width: 100vw;
     display: flex;
     flex-flow: column;
     overflow-x: hidden;
     align-items: center;
-    padding-top: 10%;
+    padding-top: 10vh;
   }
 
   .title_img {
