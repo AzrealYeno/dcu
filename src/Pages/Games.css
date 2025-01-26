@@ -14,6 +14,7 @@
 }
 
 
+
 .gamecard {
     background-size: contain;
     background-repeat: no-repeat;
@@ -49,8 +50,19 @@
 .gamecard_container {
     padding-left: 5%;
     padding-right: 5%;
-    padding-top: 10%;
+    padding-top: 20%;
     padding-bottom: 5%;
+}
+
+.expanded {
+    transform: scale(1.015);
+    filter: brightness(1.3);
+    padding: 20%;
+    transition: 1s all;
+}
+
+.tags {
+    width: 300px;
 }
 
 .x {
@@ -113,14 +125,26 @@
     } 
 }
 
+::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+}
 
 
 
 .expanded .gamecard {
-    height: 100%;
-    width: 890px;
-    padding-left: 300px;
     background-repeat: no-repeat;
     overflow-x: hidden;
     overflow-y: hidden;
+    transform: scale(1.115);
+    display: block;
+}
+
+.info {
+    box-shadow: 0 7px 50px 10px #000000aa;
+    border-radius: 20px;
+    padding: 25px;
+    margin-top: 15px;
+    height: 240px;
+    overflow-y: scroll;
 }

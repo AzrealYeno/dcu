@@ -55,13 +55,21 @@ const GameDescriptions = () => {
                             games?.map((game, i) => (
                                 <div className={`gamecard_container ${expandedIndex === i ? 'expanded' : 'orig'}`} key={i} onClick={() => expand(i)}>
                                     <div className={"gamecard " + game.class}>
-                                        <div className='name'>{game.name}</div>
-                                        <div className='info'><Markdown>{game.info}</Markdown></div>
-                                        <Link className='link' to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
+                                        {/* <div class="tags">
+                                            
+                                        </div> */}
+                                        
+                                        <div className={"tag " + (game.tag || "blank")}></div>
+                                        <div className={"tag " + (game.tag2 || "blank")}></div>
+                                        <Link className='tag link' to={game.gametype === 'tournament'  ? `/matches/${game.id}`:  `/games/${game.id}`}>
                                             <div >                                    
-                                                     Click for Score       
+                                                    Score       
                                             </div>
                                         </Link>
+
+
+                                        <div className='info'><Markdown>{game.info}</Markdown></div>
+                                        
                                     </div>
                                 </div>
                             ))
