@@ -5,7 +5,7 @@
     flex-wrap: nowrap;
     flex-direction: column;
     background-size: cover;
-    padding-top: 10px;
+    padding-top: 20%;
     position: absolute;
     overflow-x: hidden;
     align-items: center;
@@ -42,7 +42,8 @@
     max-height: 500px;
     border: red solid 1px; 
     padding: 20px;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: scroll;
     color: white;
     text-align: left;
     background-color: #282c34;
