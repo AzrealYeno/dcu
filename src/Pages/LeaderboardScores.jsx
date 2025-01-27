@@ -111,7 +111,7 @@ const LeaderboardScores = () => {
                         <div className='topSpacer' />
                         <div className='gamescores_box_preheader' ></div>
                         <div className='gamescores_box_header' >
-                            <div className="game_name">{game.name}</div>
+                            <div className="game_name_leaderboard">{game.name}</div>
                         </div>
 
                         
